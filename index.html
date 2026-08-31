@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOPHRA RECS</title>
+  
+  <link rel="icon" type="image/png" href="favicon.png">
+  
+  <style>
+    /* Estilos globales de la página */
+    body {
+      background-color: #e61c1c; /* Fondo rojo de MOPHRA */
+      margin: 0;
+      padding: 40px 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    /* --- GRID RESSPONSIVE DEL ROSTER --- */
+    .roster-grid {
+      display: grid !important;
+      width: 100% !important;
+      max-width: 1500px !important;
+      margin: 0 auto !important;
+      gap: 16px !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (min-width: 600px) and (max-width: 1023px) {
+      .roster-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 20px !important;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .roster-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 24px !important;
+      }
+    }
+
+    /* --- TARJETA DE ARTISTA --- */
+    .artist-card {
+      display: flex !important;
+      flex-direction: column !important;
+      text-decoration: none !important;
+      color: inherit !important;
+      background: #121212 !important;
+      border-radius: 10px !important;
+      padding: 10px !important;
+      border: 1px solid #2a2a2a !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+      box-sizing: border-box !important;
+    }
+
+    .artist-card:focus,
+    .artist-card:focus-visible {
+      outline: none !important;
+    }
+
+    .artist-card:hover {
+      transform: translateY(-4px) !important;
+      border-color: #ffffff !important;
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15) !important;
+    }
+
+    /* --- MARCO E IMAGEN --- */
+    .artist-image-frame {
+      width: 100% !important;
+      border-radius: 6px !important;
+      border: 1.1px solid #333333 !important;
+      padding: 4px !important;
+      background: #000000 !important;
+      box-sizing: border-box !important;
+    }
+
+    .artist-image-wrapper {
+      position: relative !important;
+      width: 100% !important;
+      aspect-ratio: 1 / 1 !important;
+      overflow: hidden !important;
+      border-radius: 4px !important;
+    }
+
+    .artist-image-wrapper img {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      filter: none !important;
+      transition: opacity 0.3s ease-in-out !important;
+      will-change: opacity;
+      backface-visibility: hidden;
+    }
+
+    .img-main {
+      opacity: 1 !important;
+      z-index: 1 !important;
+    }
+
+    .img-hover {
+      opacity: 0 !important;
+      z-index: 2 !important;
+      pointer-events: none !important;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .artist-card:hover .img-hover {
+        opacity: 1 !important;
+      }
+      .artist-card:hover .img-main {
+        opacity: 0 !important;
+      }
+    }
+
+    /* --- NOMBRES DE ARTISTAS --- */
+    .artist-info {
+      padding-top: 10px !important;
+      padding-bottom: 2px !important;
+      text-align: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .artist-info .artist-name {
+      font-size: 18px !important;
+      font-weight: 700 !important;
+      line-height: 1.2 !important;
+      letter-spacing: 1px !important;
+      word-break: normal !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      text-transform: uppercase !important;
+      color: #ffffff !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      text-align: center !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="roster-grid">
+
+    <a href="/artists/atrox/" class="artist-card">
+      <div class="artist-image-frame">
+        <div class="artist-image-wrapper">
+          <img src="https://i.ibb.co/tTVxkjnP/bnnr-atrox.webp" alt="ATROX" class="img-main">
+          <img src="https://i.ibb.co/pBJQhTmQ/bnnr-atrox-over.webp" alt="ATROX Hover" class="img-hover">
+        </div>
+      </div>
+      <div class="artist-info">
+        <h3 class="artist-name">ATROX</h3>
+      </div>
+    </a>
+
+    <a href="/artists/artista02/" class="artist-card">
+      <div class="artist-image-frame">
+        <div class="artist-image-wrapper">
+          <img src="URL_IMAGEN_PRINCIPAL_2.jpg" alt="Artista 2" class="img-main">
+          <img src="URL_IMAGEN_HOVER_2.jpg" alt="Artista 2 Hover" class="img-hover">
+        </div>
+      </div>
+      <div class="artist-info">
+        <h3 class="artist-name">ARTISTA 02</h3>
+      </div>
+    </a>
+
+    </div>
+
+</body>
+</html>
