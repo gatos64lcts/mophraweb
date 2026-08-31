@@ -204,6 +204,7 @@
       margin-bottom: 26px;
       display: flex;
       flex-direction: column;
+      align-items: center; /* <-- CENTRA LAS ETIQUETAS Y LOS CAMPOS */
     }
 
     .demo-form-group label {
@@ -213,6 +214,8 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 10px;
+      text-align: center; /* <-- ASEGURA QUE EL TEXTO DE LA ETIQUETA ESTÉ CENTRADO */
+      width: 100%;
     }
 
     .demo-form-group input,
@@ -227,6 +230,7 @@
       transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
       outline: none;
       box-sizing: border-box;
+      width: 100%; /* <-- OCUPA TODO EL ANCHO PERO CENTRADO EN EL CONTENEDOR */
     }
 
     .demo-form-group input:hover,
