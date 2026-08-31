@@ -1,0 +1,94 @@
+<style>
+/* --- 📦 CARGA DE FUENTE PERSONALIZADA DESDE CLOUDINARY --- */
+@font-face {
+font-family: 'RelicusMono';
+src: url('https://res.cloudinary.com/dfhrxq0tf/raw/upload/v1784479120/Relicus-Mono_rsjgnn.ttf') format('truetype');
+font-weight: normal;
+font-style: normal;
+}
+
+/* Fondo general de la página */
+body {
+background-color: #F5260A;
+}
+
+/* Contenedor principal */
+.mophra-tw-container {
+width: 100%;
+max-width: 620px;
+margin: 0 auto 20px auto;
+text-align: center;
+padding: 0 10px;
+box-sizing: border-box;
+}
+
+/* Envoltorio centrado */
+.mophra-line-wrap {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+}
+
+/* ⌨️ Typewrite paso a paso (3 letras = 3 pasos) */
+.mophra-typewriter-eps {
+font-family: 'RelicusMono', monospace !important;
+font-size: 32px;
+line-height: 1.2;
+color: #ffffff;
+font-weight: 600;
+white-space: nowrap;
+overflow: hidden;
+display: inline-flex;
+align-items: center;
+max-width: 0;
+animation: mophraTypewriterEPs 0.25s steps(3, end) 0.3s forwards;
+}
+
+/* 🔦 Cursor block */
+.mophra-typewriter-eps::after {
+content: '▋';
+display: inline-block;
+color: #ffffff;
+font-size: 26px;
+margin-left: 4px;
+opacity: 1;
+animation: mophraBlink 0.5s step-end infinite 0.3s;
+}
+
+/* Ancho máximo para "EPs" (Móvil) */
+@keyframes mophraTypewriterEPs {
+from { max-width: 0; }
+to { max-width: 90px; }
+}
+
+@keyframes mophraBlink {
+0%, 100% { opacity: 1; }
+50% { opacity: 0; }
+}
+
+/* Responsivo Tablet */
+@media (min-width: 480px) {
+.mophra-typewriter-eps { font-size: 38px; }
+.mophra-typewriter-eps::after { font-size: 30px; }
+@keyframes mophraTypewriterEPs {
+from { max-width: 0; }
+to { max-width: 110px; }
+}
+}
+
+/* Responsivo PC (TAMAÑO AUMENTADO) */
+@media (min-width: 769px) {
+.mophra-typewriter-eps { font-size: 54px; }
+.mophra-typewriter-eps::after { font-size: 42px; }
+@keyframes mophraTypewriterEPs {
+from { max-width: 0; }
+to { max-width: 160px; } /* Ancho ajustado a 54px */
+}
+}
+</style>
+
+<div class="mophra-tw-container">
+<div class="mophra-line-wrap">
+<span class="mophra-typewriter-eps">EPs</span>
+</div>
+</div>
