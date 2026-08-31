@@ -10,6 +10,66 @@ font-style: normal;
 /* Fondo general de la página */
 body {
 background-color: #F5260A;
+margin: 0;
+font-family: 'RelicusMono', monospace;
+}
+
+/* --- 🌐 ESTILOS DEL MENÚ GLOBAL --- */
+.mophra-global-menu {
+display: flex;
+justify-content: center;
+gap: 20px;
+padding: 20px 0;
+background: rgba(0, 0, 0, 0.2);
+margin-bottom: 20px;
+}
+.mophra-global-menu a {
+color: #ffffff;
+text-decoration: none;
+font-size: 16px;
+font-weight: bold;
+text-transform: uppercase;
+transition: opacity 0.2s;
+}
+.mophra-global-menu a:hover {
+opacity: 0.7;
+}
+
+/* --- 🎨 SELECTOR DE COLOR PERSONALIZADO --- */
+.mophra-color-picker-container {
+position: fixed;
+bottom: 20px;
+right: 20px;
+z-index: 9999;
+background: rgba(0, 0, 0, 0.6);
+padding: 8px 12px;
+border-radius: 30px;
+display: flex;
+align-items: center;
+gap: 8px;
+backdrop-filter: blur(5px);
+}
+.mophra-color-picker-container label {
+color: #ffffff;
+font-size: 12px;
+font-weight: bold;
+text-transform: uppercase;
+}
+.mophra-color-picker-container input[type="color"] {
+appearance: none;
+border: none;
+width: 28px;
+height: 28px;
+border-radius: 50%;
+cursor: pointer;
+background: none;
+}
+.mophra-color-picker-container input[type="color"]::-webkit-color-swatch-wrapper {
+padding: 0;
+}
+.mophra-color-picker-container input[type="color"]::-webkit-color-swatch {
+border: 2px solid #ffffff;
+border-radius: 50%;
 }
 
 /* Contenedor principal */
@@ -82,13 +142,32 @@ to { max-width: 110px; }
 .mophra-typewriter-eps::after { font-size: 42px; }
 @keyframes mophraTypewriterEPs {
 from { max-width: 0; }
-to { max-width: 160px; } /* Ancho ajustado a 54px */
+to { max-width: 160px; }
 }
 }
 </style>
+
+<nav class="mophra-global-menu">
+<a href="/">Home</a>
+<a href="/releases">Releases</a>
+<a href="/releases/eps">EPs</a>
+</nav>
 
 <div class="mophra-tw-container">
 <div class="mophra-line-wrap">
 <span class="mophra-typewriter-eps">EPs</span>
 </div>
 </div>
+
+<div class="mophra-color-picker-container">
+<label for="mophraBgPicker">Fondo:</label>
+<input type="color" id="mophraBgPicker" value="#F5260A">
+</div>
+
+<script>
+// Script para que funcione el selector de color en tiempo real
+const colorPicker = document.getElementById('mophraBgPicker');
+colorPicker.addEventListener('input', (e) => {
+document.body.style.backgroundColor = e.target.value;
+});
+</script>
