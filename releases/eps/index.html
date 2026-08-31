@@ -5,175 +5,478 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MOPHRA | EPS</title>
   <link rel="icon" type="image/x-icon" href="../favicon.png">
-<style>
-/* --- 📦 CARGA DE FUENTE PERSONALIZADA DESDE CLOUDINARY --- */
-@font-face {
-font-family: 'RelicusMono';
-src: url('https://res.cloudinary.com/dfhrxq0tf/raw/upload/v1784479120/Relicus-Mono_rsjgnn.ttf') format('truetype');
-font-weight: normal;
-font-style: normal;
-}
+  <style>
+    @font-face {
+      font-family: 'RelicusMono';
+      src: url('https://res.cloudinary.com/dfhrxq0tf/raw/upload/v1784479120/Relicus-Mono_rsjgnn.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-/* Fondo general de la página */
-body {
-background-color: #F5260A;
-margin: 0;
-font-family: 'RelicusMono', monospace;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-/* --- ✨ RESALTADOR DE TEXTO (SELECTION) --- */
-*::selection,
-::selection {
-background-color: #fae100;
-color: #030303;
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #F5260A; /* Fondo rojo del sello */
+      color: #ffffff;
+      font-family: 'RelicusMono', monospace;
+      min-height: 100vh;
+      overflow-x: hidden !important;
+    }
 
-/* --- 🌐 ESTILOS DEL MENÚ GLOBAL --- */
-.mophra-global-container {
-position: relative;
-z-index: 9999;
-}
-.mophra-global-btn {
-background: none;
-border: none;
-cursor: pointer;
-padding: 10px;
-position: fixed;
-top: 20px;
-left: 20px;
-z-index: 10000;
-}
-.mophra-svg-element {
-width: 40px;
-height: 40px;
-transition: transform 0.3s ease;
-}
-.mophra-global-btn:hover .mophra-svg-element {
-transform: rotate(90deg);
-}
-.mophra-signs-nav {
-display: none;
-position: fixed;
-top: 70px;
-left: 20px;
-background: rgba(0, 0, 0, 0.85);
-padding: 15px;
-border-radius: 10px;
-flex-direction: column;
-gap: 10px;
-backdrop-filter: blur(5px);
-}
-.mophra-sign-item, .mophra-sub-item, .mophra-sign-link {
-color: #ffffff;
-text-decoration: none;
-font-size: 16px;
-font-weight: bold;
-transition: opacity 0.2s;
-}
-.mophra-sign-item:hover, .mophra-sub-item:hover, .mophra-sign-link:hover {
-opacity: 0.7;
-}
-.mophra-sign-header {
-display: flex;
-align-items: center;
-gap: 10px;
-}
-.mophra-submenu {
-display: flex;
-flex-direction: column;
-padding-left: 25px;
-gap: 8px;
-margin-top: 5px;
-}
-.mophra-submenu-toggle {
-background: none;
-border: none;
-cursor: pointer;
-padding: 5px;
-}
-.mophra-frolov-icon {
-display: flex;
-flex-direction: column;
-gap: 4px;
-width: 16px;
-}
-.mophra-frolov-icon span {
-display: block;
-height: 2px;
-background: #ffffff;
-width: 100%;
-}
+    /* CONTENEDOR PRINCIPAL */
+    .releases-wrapper {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 40px 20px 80px 20px;
+    }
 
-/* --- ⌨️ EFECTO TYPEWRITER --- */
-.mophra-tw-container {
-width: 100%;
-max-width: 620px;
-margin: 40px auto 20px auto;
-text-align: center;
-padding: 0 10px;
-box-sizing: border-box;
-}
+    /* ---------------------------------- */
+    /* 1. TÍTULO ENTRADA (RELEASES)       */
+    /* ---------------------------------- */
+    .title-entrance-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 60px 0;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
 
-.mophra-line-wrap {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-}
+    .animated-title-image {
+      width: 75%;
+      max-width: 360px;
+      height: auto;
+      display: block;
+      opacity: 0;
+      animation: dropIn 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+      animation-delay: 0.5s;
+    }
 
-.mophra-typewriter-eps {
-font-family: 'RelicusMono', monospace !important;
-font-size: 32px;
-line-height: 1.2;
-color: #ffffff;
-font-weight: 600;
-white-space: nowrap;
-overflow: hidden;
-display: inline-flex;
-align-items: center;
-max-width: 0;
-animation: mophraTypewriterEPs 0.25s steps(3, end) 0.3s forwards;
-}
+    @media (min-width: 769px) {
+      .animated-title-image {
+        width: 100%;
+        max-width: 720px;
+      }
+    }
 
-.mophra-typewriter-eps::after {
-content: '▋';
-display: inline-block;
-color: #ffffff;
-font-size: 26px;
-margin-left: 4px;
-opacity: 1;
-animation: mophraBlink 0.5s step-end infinite 0.3s;
-}
+    @keyframes dropIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-80px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-@keyframes mophraTypewriterEPs {
-from { max-width: 0; }
-to { max-width: 90px; }
-}
+    /* ---------------------------------- */
+    /* 2. CARRUSEL DE RELEASES            */
+    /* ---------------------------------- */
+    .mophra-carousel {
+      width: 100vw;
+      font-family: Circular, Inter, system-ui, sans-serif;
+      margin-left: calc(50% - 50vw);
+      padding: 20px 0;
+      box-sizing: border-box;
+      position: relative;
+      animation: mophraFadeInUp 1.2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+    }
 
-@keyframes mophraBlink {
-0%, 100% { opacity: 1; }
-50% { opacity: 0; }
-}
+    @keyframes mophraFadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(80px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-@media (min-width: 480px) {
-.mophra-typewriter-eps { font-size: 38px; }
-.mophra-typewriter-eps::after { font-size: 30px; }
-@keyframes mophraTypewriterEPs {
-from { max-width: 0; }
-to { max-width: 110px; }
-}
-}
+    .mophra-track {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+      gap: 40px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 50%;
+      -webkit-overflow-scrolling: touch;
+      padding: 10px 10px;
+      scroll-behavior: smooth;
+    }
 
-@media (min-width: 769px) {
-.mophra-typewriter-eps { font-size: 54px; }
-.mophra-typewriter-eps::after { font-size: 42px; }
-@keyframes mophraTypewriterEPs {
-from { max-width: 0; }
-to { max-width: 160px; }
-}
-}
-</style>
+    .mophra-track::-webkit-scrollbar {
+      display: none;
+    }
 
-<!-- MENÚ GLOBAL CON RUTAS ABSOLUTAS -->
+    .mophra-card {
+      flex: 0 0 auto;
+      width: clamp(260px, 30vw, 380px);
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+    }
+
+    .mophra-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 0 4px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.75);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .35s ease, transform .35s ease;
+      transition-delay: .08s;
+    }
+
+    .mophra-item {
+      display: block;
+      text-decoration: none;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .mophra-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .45s ease;
+    }
+
+    .mophra-title {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      color: white;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .35s ease, transform .35s ease;
+      transition-delay: .12s;
+    }
+
+    .mophra-card:hover .mophra-item img {
+      transform: scale(1.05);
+    }
+
+    .mophra-card:hover .mophra-top,
+    .mophra-card:hover .mophra-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mophra-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity .25s ease, transform .25s ease;
+      user-select: none;
+    }
+
+    .mophra-arrow img {
+      width: 38px;
+      height: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    .mophra-carousel:hover .mophra-arrow {
+      opacity: 1;
+    }
+
+    .mophra-arrow:hover {
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .mophra-arrow.left {
+      left: 20px;
+    }
+
+    .mophra-arrow.right {
+      right: 20px;
+    }
+
+    @media (min-width: 900px) {
+      .mophra-card {
+        width: clamp(380px, 42vw, 600px);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .mophra-arrow {
+        display: none;
+      }
+      .mophra-card {
+        width: 80vw;
+      }
+      .mophra-top,
+      .mophra-title {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="releases-wrapper">
+    <div class="title-entrance-container">
+      <img src="https://i.ibb.co/RkT8NchP/RELEASES.gif" alt="RELEASES" class="animated-title-image">
+    </div>
+
+    <div class="mophra-carousel">
+
+<div class="mophra-arrow left" onclick="mophraNext()">
+<img src="https://i.ibb.co/RGx1GLfv/flag-left.png">
+</div>
+
+<div class="mophra-arrow right" onclick="mophraPrev()">
+<img src="https://i.ibb.co/35YZm7yD/flag-right.png">
+</div>
+
+<div class="mophra-track">
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>May 22, 2026</span>
+</div>
+<a class="mophra-item" href="https://too.fm/mophra016-voidstar" target="_blank">
+<img src="https://i.ibb.co/Q79N3VfC/016-voidstar.webp">
+</a>
+<div class="mophra-title">
+George Lycats with ROBO_Aiko • voidSTAR
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Album</span>
+<span>May 16, 2026</span>
+</div>
+<a class="mophra-item" href="https://too.fm/baddy-my-last-sound" target="_blank">
+<img src="https://i.ibb.co/7h7Yd2g/015-my-last-sound.webp">
+</a>
+<div class="mophra-title">
+BADDy • My Last Sound
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>March 1, 2026</span>
+</div>
+<a class="mophra-item" href="https://too.fm/mophra014-bounce" target="_blank">
+<img src="https://i.ibb.co/LXvFNJS6/014-bounce.webp">
+</a>
+<div class="mophra-title">
+BADDy • Bounce
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Jan 29, 2026</span>
+</div>
+<a class="mophra-item" href="https://too.fm/acidrage" target="_blank">
+<img src="https://i.ibb.co/4RsbHyDc/013-acidrage.webp">
+</a>
+<div class="mophra-title">
+Kraitx • Acid Rage
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Jan 24, 2026</span>
+</div>
+<a class="mophra-item" href="https://too.fm/choke" target="_blank">
+<img src="https://i.ibb.co/8LQx5XkF/012-choke.webp">
+</a>
+<div class="mophra-title">
+BADDy, Sphicy • CHOKE
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Jan 1, 2026</span>
+</div>
+<a class="mophra-item" href="https://too.fm/baddy-back" target="_blank">
+<img src="https://i.ibb.co/GQGD6Xdy/011-back.jpg">
+</a>
+<div class="mophra-title">
+BADDy, LACRABLACK • BACK
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Dec 31, 2025</span>
+</div>
+<a class="mophra-item" href="https://too.fm/biohazard" target="_blank">
+<img src="https://i.ibb.co/0pwmrck8/010-biohazard.webp">
+</a>
+<div class="mophra-title">
+George Lycats, BADDy • Biohazard
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Dec 5, 2025</span>
+</div>
+<a class="mophra-item" href="https://too.fm/popping" target="_blank">
+<img src="http://i.ibb.co/jkFRMwrv/009-popping.webp">
+</a>
+<div class="mophra-title">
+George Lycats, Daxnait • popping
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Oct 21, 2025</span>
+</div>
+<a class="mophra-item" href="https://too.fm/downslop" target="_blank">
+<img src="https://i.ibb.co/C55gWkFy/008-downslop.webp">
+</a>
+<div class="mophra-title">
+Mozvy • Downslop
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Oct 13, 2025</span>
+</div>
+<a class="mophra-item" href="https://too.fm/ganstxrs" target="_blank">
+<img src="https://i.ibb.co/ghf5xgC/007-ganstxrs.webp">
+</a>
+<div class="mophra-title">
+Sxckmxnd, BADDy • Ganstxrs (feat. Danichip, Yosiiflowerx)
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Sep 15, 2025</span>
+</div>
+<a class="mophra-item" href="https://too.fm/bassline" target="_blank">
+<img src="https://i.ibb.co/r2fSMXVp/006-bassline.webp">
+</a>
+<div class="mophra-title">
+LACRABLACK • BASSLINE
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Aug 28, 2025</span>
+</div>
+<a class="mophra-item" href="https://too.fm/atrox-flow" target="_blank">
+<img src="https://i.ibb.co/BVv6pL5z/005-flow.webp">
+</a>
+<div class="mophra-title">
+Atrox • Flow
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Aug 13, 2025</span>
+</div>
+<a class="mophra-item" href="https://too.fm/shivers" target="_blank">
+<img src="https://i.ibb.co/bjSR4KBp/004-shivers.webp">
+</a>
+<div class="mophra-title">
+Mozvy • Shivers
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Aug 9, 2025</span>
+</div>
+<a class="mophra-item" href="https://too.fm/lacrablack-4u" target="_blank">
+<img src="https://i.ibb.co/S2H0tyW/003-4u.webp">
+</a>
+<div class="mophra-title">
+LACRABLACK • 4U
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>Jul 9, 2025</span>
+</div>
+<a class="mophra-item" href="https://too.fm/wanton" target="_blank">
+<img src="https://i.ibb.co/HTkshTkN/002-wanton.webp">
+</a>
+<div class="mophra-title">
+Mozvy • Wanton
+</div>
+</div>
+
+<div class="mophra-card">
+<div class="mophra-top">
+<span>Single</span>
+<span>March 29, 2025</span>
+</div>
+<a class="mophra-item" href="https://mophra.fanlink.tv/Backstage" target="_blank">
+<img src="https://i.ibb.co/NnSgTWcC/001-backstage.webp">
+</a>
+<div class="mophra-title">
+BADDy • Backstage
+</div>
+</div>
+
+</div>
+</div>
+  </main>
+
   <div class="mophra-global-container" id="mophraGlobalMenu">
     <div class="mophra-global-overlay"></div>
 
@@ -320,7 +623,6 @@ to { max-width: 160px; }
   </style>
 
   <script>
-    // Funciones de navegación del carrusel si se requieren
     function mophraNext() {
       const track = document.querySelector('.mophra-track');
       if (track) track.scrollBy({ left: -350, behavior: 'smooth' });
@@ -413,5 +715,5 @@ to { max-width: 160px; }
     })();
   </script>
 
-  </body>
+</body>
 </html>
