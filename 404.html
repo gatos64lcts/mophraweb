@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 NOT FOUND | MOPHRA RECS</title>
+  <link rel="icon" type="image/x-icon" href="/mophraweb/favicon.ico">
+  <style>
+    @font-face {
+      font-family: 'RelicusMono';
+      src: url('https://res.cloudinary.com/dfhrxq0tf/raw/upload/v1784479120/Relicus-Mono_rsjgnn.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #0c0c0c; /* Fondo oscuro o pon #e61919 si prefieres rojo */
+      color: #ffffff;
+      font-family: 'RelicusMono', monospace;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .error-container {
+      text-align: center;
+      padding: 20px;
+      max-width: 600px;
+    }
+
+    .error-code {
+      font-size: clamp(80px, 15vw, 150px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -4px;
+      margin: 0 0 20px 0;
+      color: #ffffff;
+      text-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .error-message {
+      font-size: clamp(16px, 2.5vw, 22px);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #a0a0a0;
+      margin-bottom: 30px;
+    }
+
+    .error-btn {
+      display: inline-block;
+      background: #ffffff;
+      color: #000000;
+      padding: 14px 32px;
+      font-family: 'RelicusMono', monospace;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      text-transform: uppercase;
+      border-radius: 6px;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .error-btn:hover {
+      background: #fae100;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="error-container">
+    <h1 class="error-code">404</h1>
+    <p class="error-message">Página no encontrada o ruta incorrecta.</p>
+    <a href="/mophraweb/" class="error-btn">VOLVER AL INICIO</a>
+  </div>
+
+  <div class="mophra-global-container" id="mophraGlobalMenu">
+    <div class="mophra-global-overlay"></div>
+
+    <button class="mophra-global-btn" id="mophraVectorBtn" title="Ver menú">
+      <svg id="mophraSvgLogo" viewBox="0 0 1000 1000" class="mophra-svg-element">
+        <path id="mophraVectorPath" fill="#ffffff" d="M486.86,74.1l43.7.72c315.79,23.24,500.51,374.15,332.93,647.91-158.69,259.22-531.3,272.98-709.23,26.4C-45.68,472.05,147.58,85.24,486.86,74.1ZM901.07,465.81c-8.75-115.9-71.16-224.09-164.68-291.82-181.81-131.66-436.09-88.78-565.13,93.5-40.96,57.86-66.79,127.33-72.19,198.31h239.5l90,89.98,54.06-53.99-123.49-126.35,137.92-138.24,3.93-.93,140.01,139.17-123.49,126.35,53.92,52.94,89.14-88.93h240.5ZM499.7,267.88l-107.56,108.29,108.29,107.56,107.56-108.29-108.29-107.56ZM240.07,489.81H98.07c-2.86,10.5.77,21.33,0,32h110.5l31.5-32ZM297.07,489.81h-23.5l-31.5,32h23.5l31.5-32ZM757.07,521.81l-31.5-32h-23.5l32.5,32h22.5ZM902.07,489.81h-143l31.5,32h111.5c-.77-10.67,2.86-21.5,0-32ZM187.07,577.81h85.5l71.03-71.02c.78-1.08.51-1.86,0-2.96-.39-.84-12.26-12.79-13.17-12.95l-54.38,53.41-57.28.72c-2.03.6-27.76,26.59-30.21,29.79-.77,1.01-1.93,1.26-1.49,3.01ZM813.07,577.81l-32.7-32.8-56.28-.72-55.38-53.41c-.91.16-12.78,12.11-13.17,12.95-.51,1.1-.78,1.88,0,2.96l71.03,71.02h86.5ZM710.9,843.65l-.36-115.82-210.12-209.95-210.16,209.63.3,116.29c102.67,64.08,233.16,76.11,347.01,35.03,25.59-9.24,49.76-21.75,73.32-35.18ZM131.07,632.81h144.5l98.48-98.5-12.48-12.48-78.52,78.46-119.46.54-32.52,31.98ZM868.07,632.81l-32.52-31.98-119.46-.54-78.52-78.46c-2.2,3.31-12.84,10.05-11.03,13.96l97.03,97.02h144.5ZM185.07,544.81h-85l4.88,32.42,47.41.37,32.7-32.8ZM900.07,544.81h-86l32.7,32.8,48.41-.37,4.88-32.42ZM871.07,656.81h-156.5l-106-105.98-20.43,21.34,145.93,146.14v109.5c60.22-42.95,108.18-102.77,137-171ZM266.07,827.81v-109.5l145.98-146-21.48-20.54-106,105.04h-155.5c28.8,68.24,76.78,128.03,137,171ZM129.07,600.81h-19l4.01,15,14.99-15ZM890.07,600.81h-20l15.99,16,4.01-16Z"/>
+      </svg>
+    </button>
+
+    <nav class="mophra-signs-nav">
+      <a href="/mophraweb/" class="mophra-sign-item">HOME</a>
+      <a href="/mophraweb/artists/" class="mophra-sign-item">ARTISTS</a>
+
+      <div class="mophra-sign-item mophra-dropdown-wrapper">
+        <div class="mophra-sign-header">
+          <button type="button" class="mophra-submenu-toggle" id="mophraReleasesToggle" aria-label="Toggle Releases Submenu">
+            <span class="mophra-frolov-icon">
+              <span class="line-top"></span>
+              <span class="line-mid"></span>
+              <span class="line-bot"></span>
+            </span>
+          </button>
+          <a href="/mophraweb/releases/" class="mophra-sign-link">RELEASES</a>
+        </div>
+        <div class="mophra-submenu" id="mophraReleasesSubmenu">
+          <a href="/mophraweb/releases/eps/" class="mophra-sub-item">EPs</a>
+          <a href="/mophraweb/releases/albums/" class="mophra-sub-item">Albums</a>
+          <a href="/mophraweb/releases/compilations/" class="mophra-sub-item">Compilations</a>
+        </div>
+      </div>
+
+      <a href="/mophraweb/demos/" class="mophra-sign-item">DEMOS</a>
+      <a href="/mophraweb/radio/" class="mophra-sign-item">RADIO</a>
+    </nav>
+  </div>
+
+  <style>
+    .mophra-global-container {
+      position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+      width: 100% !important; height: 100vh !important;
+      background-color: transparent !important;
+      overflow: hidden !important;
+      overflow-x: hidden !important;
+      font-family: 'RelicusMono', monospace !important; user-select: none !important; z-index: 999999 !important; pointer-events: none !important;
+    }
+
+    @keyframes entradaBoton { 0% { transform: translateY(-100px); opacity: 0; } 70% { transform: translateY(8px); opacity: 1; } 100% { transform: translateY(0); opacity: 1; } }
+    @keyframes salidaBoton { 0% { transform: translateY(0); opacity: 1; } 30% { transform: translateY(8px); opacity: 1; } 100% { transform: translateY(-100px); opacity: 0; } }
+
+    .mophra-global-btn {
+      position: fixed !important; top: 30px !important; right: 30px !important; z-index: 1000000 !important;
+      background: rgba(255, 255, 255, 0.1) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 50% !important; width: 70px !important; height: 70px !important; cursor: pointer !important;
+      display: flex !important; align-items: center !important; justify-content: center !important;
+      backdrop-filter: blur(5px) !important; pointer-events: auto !important; padding: 0 !important; opacity: 0 !important;
+      transition: background 0.3s, transform 0.3s !important;
+    }
+
+    .mophra-global-btn.animar-entrada { opacity: 1 !important; animation: entradaBoton 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important; }
+    .mophra-global-btn.animar-salida { opacity: 1 !important; animation: salidaBoton 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important; }
+    .mophra-global-btn:hover { background: rgba(255, 255, 255, 0.25) !important; transform: scale(1.05) !important; }
+
+    .mophra-svg-element { width: 62px !important; height: 62px !important; display: block !important; transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); pointer-events: none; }
+    #mophraVectorPath { transition: opacity 0.2s ease, d 0.2s ease; }
+    .mophra-global-container.menu-open .mophra-svg-element { transform: rotate(180deg); }
+    .mophra-global-container.menu-open { pointer-events: auto !important; }
+
+    .mophra-global-overlay {
+      position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important;
+      background-color: #000000 !important;
+      transform: translateX(100%) !important;
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1) !important;
+      pointer-events: none !important;
+    }
+    .mophra-global-container.menu-open .mophra-global-overlay { transform: translateX(0) !important; pointer-events: auto !important; }
+
+    .mophra-signs-nav {
+      position: absolute !important; right: 0 !important; top: 0 !important; height: 100% !important; max-height: 100vh !important;
+      display: flex !important; flex-direction: column !important; align-items: flex-end !important;
+      padding-right: 40px !important; padding-top: 130px !important; padding-bottom: 30px !important; box-sizing: border-box !important;
+      z-index: 100000 !important; pointer-events: none !important;
+      overflow-y: auto !important; overflow-x: hidden !important;
+    }
+    .mophra-global-container.menu-open .mophra-signs-nav { pointer-events: auto !important; }
+
+    .mophra-sign-item {
+      display: block !important; color: #ffffff !important; text-decoration: none !important; text-transform: uppercase !important;
+      font-weight: 900 !important; font-size: clamp(40px, 5.5vw, 80px) !important; line-height: 0.92 !important; letter-spacing: -2px !important;
+      transform: translateX(100vw) !important; transform-origin: right center !important; width: max-content !important;
+      pointer-events: none !important; visibility: hidden !important;
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), color 0.1s ease 0s, visibility 0s linear 0.4s !important;
+    }
+    .mophra-global-container.menu-open .mophra-sign-item { transform: translateX(0) !important; pointer-events: auto !important; visibility: visible !important; }
+    .mophra-global-container.menu-open .mophra-sign-item:nth-child(1) { transition-delay: 0.15s, 0s, 0.15s !important; }
+    .mophra-global-container.menu-open .mophra-sign-item:nth-child(2) { transition-delay: 0.22s, 0s, 0.22s !important; }
+    .mophra-global-container.menu-open .mophra-sign-item:nth-child(3) { transition-delay: 0.29s, 0s, 0.29s !important; }
+    .mophra-global-container.menu-open .mophra-sign-item:nth-child(4) { transition-delay: 0.36s, 0s, 0.36s !important; }
+    .mophra-global-container.menu-open .mophra-sign-item:nth-child(5) { transition-delay: 0.43s, 0s, 0.43s !important; }
+
+    a.mophra-sign-item:hover, .mophra-sign-link:hover { color: #969696 !important; }
+
+    .mophra-dropdown-wrapper { display: flex !important; flex-direction: column !important; align-items: flex-end !important; }
+    .mophra-sign-header { display: flex !important; align-items: center !important; justify-content: flex-end !important; gap: 18px !important; width: 100% !important; }
+    .mophra-sign-link { color: inherit !important; text-decoration: none !important; }
+    .mophra-submenu-toggle { background: none !important; border: none !important; cursor: pointer !important; padding: 0 !important; display: flex !important; align-items: center !important; }
+
+    .mophra-frolov-icon {
+      width: clamp(28px, 3.8vw, 44px) !important; height: clamp(20px, 3vw, 30px) !important;
+      display: flex !important; flex-direction: column !important; justify-content: space-between !important; position: relative !important;
+    }
+    .mophra-frolov-icon span {
+      display: block !important; height: clamp(3px, 0.4vw, 5px) !important; background-color: #ffffff !important; border-radius: 10px !important;
+      transition: transform 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.25s ease, width 0.3s ease, margin 0.3s ease !important;
+      transform-origin: center !important;
+    }
+    .mophra-frolov-icon .line-top { width: 40% !important; margin-right: auto !important; margin-left: 0 !important; }
+    .mophra-frolov-icon .line-mid { width: 100% !important; margin-left: auto !important; }
+    .mophra-frolov-icon .line-bot { width: 60% !important; margin-left: auto !important; }
+
+    .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-top {
+      width: 100% !important; margin-left: 0 !important;
+      transform: translateY(calc(clamp(20px, 3vw, 30px) / 2 - clamp(3px, 0.4vw, 5px) / 2)) rotate(45deg) !important;
+    }
+    .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-mid { opacity: 0 !important; transform: scaleX(0) !important; }
+    .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-bot {
+      width: 100% !important; margin-left: 0 !important;
+      transform: translateY(calc(-1 * (clamp(20px, 3vw, 30px) / 2 - clamp(3px, 0.4vw, 5px) / 2))) rotate(-45deg) !important;
+    }
+
+    .mophra-submenu {
+      display: flex !important; flex-direction: column !important; align-items: flex-end !important;
+      max-height: 0 !important; overflow: hidden !important; opacity: 0 !important;
+      transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease !important; margin-top: 0px !important;
+      padding-left: 20px !important;
+    }
+    .mophra-dropdown-wrapper.submenu-open .mophra-submenu { max-height: 300px !important; opacity: 1 !important; margin-top: 10px !important; }
+
+    .mophra-sub-item {
+      color: #a0a0a0 !important; text-decoration: none !important; text-transform: lowercase !important;
+      font-size: clamp(20px, 3vw, 36px) !important; padding: 4px 0 !important;
+      transition: color 0.2s ease, transform 0.2s ease !important; display: block !important;
+    }
+    .mophra-sub-item:hover { color: #ffffff !important; transform: translateX(-5px) !important; }
+
+    @media (max-width: 768px) {
+      .mophra-global-btn { top: 12px !important; right: 12px !important; width: 54px !important; height: 54px !important; }
+      .mophra-svg-element { width: 36px !important; height: 36px !important; }
+      .mophra-sign-item { font-size: clamp(48px, 10vw, 58px) !important; }
+      .mophra-sub-item { font-size: clamp(28px, 7vw, 34px) !important; }
+      .mophra-signs-nav { padding-right: 15px !important; padding-top: 85px !important; }
+
+      .mophra-frolov-icon { width: 26px !important; height: 20px !important; }
+      .mophra-frolov-icon span { height: 3px !important; }
+      .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-top { transform: translateY(8.5px) rotate(45deg) !important; }
+      .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-bot { transform: translateY(-8.5px) rotate(-45deg) !important; }
+    }
+  </style>
+
+  <script>
+  (function() {
+    if (!document.getElementById('mophra-global-selection-style')) {
+      const selectionStyle = document.createElement('style');
+      selectionStyle.id = 'mophra-global-selection-style';
+      selectionStyle.innerHTML = `
+        *::selection, ::selection {
+          background-color: #fae100 !important;
+          color: #030303 !important;
+        }
+      `;
+      document.head.appendChild(selectionStyle);
+    }
+
+    const PATH_LOGO = "M486.86,74.1l43.7.72c315.79,23.24,500.51,374.15,332.93,647.91-158.69,259.22-531.3,272.98-709.23,26.4C-45.68,472.05,147.58,85.24,486.86,74.1ZM901.07,465.81c-8.75-115.9-71.16-224.09-164.68-291.82-181.81-131.66-436.09-88.78-565.13,93.5-40.96,57.86-66.79,127.33-72.19,198.31h239.5l90,89.98,54.06-53.99-123.49-126.35,137.92-138.24,3.93-.93,140.01,139.17-123.49,126.35,53.92,52.94,89.14-88.93h240.5ZM499.7,267.88l-107.56,108.29,108.29,107.56,107.56-108.29-108.29-107.56ZM240.07,489.81H98.07c-2.86,10.5.77,21.33,0,32h110.5l31.5-32ZM297.07,489.81h-23.5l-31.5,32h23.5l31.5-32ZM757.07,521.81l-31.5-32h-23.5l32.5,32h22.5ZM902.07,489.81h-143l31.5,32h111.5c-.77-10.67,2.86-21.5,0-32ZM187.07,577.81h85.5l71.03-71.02c.78-1.08.51-1.86,0-2.96-.39-.84-12.26-12.79-13.17-12.95l-54.38,53.41-57.28.72c-2.03.6-27.76,26.59-30.21,29.79-.77,1.01-1.93,1.26-1.49,3.01ZM813.07,577.81l-32.7-32.8-56.28-.72-55.38-53.41c-.91.16-12.78,12.11-13.17,12.95-.51,1.1-.78,1.88,0,2.96l71.03,71.02h86.5ZM710.9,843.65l-.36-115.82-210.12-209.95-210.16,209.63.3,116.29c102.67,64.08,233.16,76.11,347.01,35.03,25.59-9.24,49.76-21.75,73.32-35.18ZM131.07,632.81h144.5l98.48-98.5-12.48-12.48-78.52,78.46-119.46.54-32.52,31.98ZM868.07,632.81l-32.52-31.98-119.46-.54-78.52-78.46c-2.2,3.31-12.84,10.05-11.03,13.96l97.03,97.02h144.5ZM185.07,544.81h-85l4.88,32.42,47.41.37,32.7-32.8ZM900.07,544.81h-86l32.7,32.8,48.41-.37,4.88-32.42ZM871.07,656.81h-156.5l-106-105.98-20.43,21.34,145.93,146.14v109.5c60.22-42.95,108.18-102.77,137-171ZM266.07,827.81v-109.5l145.98-146-21.48-20.54-106,105.04h-155.5c28.8,68.24,76.78,128.03,137,171ZM129.07,600.81h-19l4.01,15,14.99-15ZM890.07,600.81h-20l15.99,16,4.01-16Z";
+    const PATH_X = "M500,50 C251.5,50 50,251.5 50,500 C50,748.5 251.5,950 500,950 C748.5,950 950,748.5 950,500 C950,251.5 748.5,50 500,50 Z M500,120 C709.9,120 880,290.1 880,500 C880,709.9 709.9,880 500,880 C290.1,880 120,709.9 120,500 C120,290.1 290.1,120 500,120 Z M330,260 L260,330 L430,500 L260,670 L330,740 L500,570 L670,740 L740,670 L570,500 L740,330 L670,260 L500,430 Z";
+
+    function initMenu() {
+      const menu = document.getElementById('mophraGlobalMenu');
+      if (!menu) return;
+      if (document.body && menu.parentElement !== document.body) document.body.appendChild(menu);
+
+      const toggleBtn = menu.querySelector('.mophra-global-btn');
+      const vectorPath = document.getElementById('mophraVectorPath');
+      const overlay = menu.querySelector('.mophra-global-overlay');
+      const navLinks = menu.querySelectorAll('.mophra-sign-link, a.mophra-sign-item, .mophra-sub-item');
+      const relToggle = document.getElementById('mophraReleasesToggle');
+      const relWrap = relToggle ? relToggle.closest('.mophra-dropdown-wrapper') : null;
+
+      if (!toggleBtn || !vectorPath) return;
+
+      function abrirMenu() {
+        menu.classList.add('menu-open');
+        setTimeout(() => vectorPath.setAttribute('d', PATH_X), 200);
+      }
+
+      function cerrarMenu() {
+        if (!menu.classList.contains('menu-open')) return;
+        menu.classList.remove('menu-open');
+        if (relWrap) relWrap.classList.remove('submenu-open');
+        setTimeout(() => vectorPath.setAttribute('d', PATH_LOGO), 200);
+      }
+
+      if (relToggle && relWrap) {
+        relToggle.onclick = (e) => {
+          e.preventDefault(); e.stopPropagation();
+          relWrap.classList.toggle('submenu-open');
+        };
+      }
+
+      toggleBtn.onclick = (e) => {
+        e.preventDefault(); e.stopPropagation();
+        menu.classList.contains('menu-open') ? cerrarMenu() : abrirMenu();
+      };
+
+      if (overlay) overlay.onclick = (e) => { e.stopPropagation(); cerrarMenu(); };
+      navLinks.forEach(l => l.onclick = () => cerrarMenu());
+
+      let timer;
+      function animar() {
+        cerrarMenu(); clearTimeout(timer);
+        if (toggleBtn.classList.contains('animar-entrada')) {
+          toggleBtn.classList.remove('animar-entrada');
+          toggleBtn.classList.add('animar-salida');
+          timer = setTimeout(() => {
+            toggleBtn.classList.remove('animar-salida');
+            void toggleBtn.offsetWidth;
+            toggleBtn.classList.add('animar-entrada');
+          }, 450);
+        } else {
+          timer = setTimeout(() => { void toggleBtn.offsetWidth; toggleBtn.classList.add('animar-entrada'); }, 400);
+        }
+      }
+
+      window.addEventListener('popstate', animar);
+      animar();
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMenu);
+    else initMenu();
+  })();
+  </script>
+
+</body>
+</html>
