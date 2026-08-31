@@ -107,6 +107,145 @@
         </div>
     </div>
 
+    <div id="mophra-releases-section">
+        <style>
+        /* Permite la salida del disco solo en los contenedores del grid */
+        #mophra-releases-section,
+        #mophra-releases-section .releases-grid {
+        overflow: visible !important;
+        }
+
+        @keyframes spin-disc {
+        from {
+        transform: rotate(0deg);
+        }
+        to {
+        transform: rotate(360deg);
+        }
+        }
+
+        #mophra-releases-section .releases-grid {
+        display: grid !important;
+        grid-template-columns: repeat(1, 1fr) !important;
+        gap: 70px 140px !important;
+        width: 100% !important;
+        max-width: 1250px !important;
+        margin: 40px auto 80px auto !important;
+        box-sizing: border-box !important;
+        padding: 0 70px !important;
+        }
+
+        #mophra-releases-section .release-card {
+        display: flex !important;
+        flex-direction: column !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        position: relative !important;
+        overflow: visible !important;
+        }
+
+        #mophra-releases-section .cover-container {
+        position: relative !important;
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        overflow: visible !important;
+        }
+
+        #mophra-releases-section .cover-wrapper {
+        position: relative !important;
+        z-index: 5 !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+        border-radius: 0px !important;
+        background-color: #111 !important;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7) !important;
+        }
+
+        #mophra-releases-section .cover-wrapper img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
+        border-radius: 0px !important;
+        }
+
+        #mophra-releases-section .disc-media {
+        position: absolute !important;
+        top: 5% !important;
+        right: 0 !important;
+        width: 90% !important;
+        height: 90% !important;
+        z-index: 2 !important;
+        transform: translateX(0);
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        pointer-events: none !important;
+        overflow: visible !important;
+        }
+
+        #mophra-releases-section .disc-media img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        display: block !important;
+        animation: spin-disc 5s linear infinite !important;
+        }
+
+        #mophra-releases-section .release-card:hover .disc-media {
+        transform: translateX(48%) !important;
+        }
+
+        #mophra-releases-section .release-info {
+        padding-top: 14px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        z-index: 6 !important;
+        }
+
+        #mophra-releases-section .artist-name {
+        font-family: 'RelicusMono', monospace !important;
+        font-size: 16px !important;
+        line-height: 1.2 !important;
+        color: #ffffff !important;
+        text-transform: none !important;
+        letter-spacing: 0px !important;
+        opacity: 0.9 !important;
+        font-weight: 500 !important;
+        margin: 0 !important;
+        display: block !important;
+        }
+
+        @media (min-width: 600px) and (max-width: 1023px) {
+        #mophra-releases-section .releases-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 60px 100px !important;
+        }
+        }
+
+        @media (min-width: 1024px) {
+        #mophra-releases-section .releases-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        }
+        }
+        </style>
+
+        <div class="releases-grid">
+            <a href="https://open.spotify.com/intl-es/album/62o6fQp9xphaKWhR0vk0KU" class="release-card" target="_blank" rel="noopener noreferrer">
+                <div class="cover-container">
+                    <div class="cover-wrapper">
+                        <img src="https://i.ibb.co/fYmx5d7B/cd-my-last-sound.webp" alt="Portada">
+                    </div>
+                    <div class="disc-media">
+                        <img src="https://i.ibb.co/j9yzFqTH/cd-the-last-sund-over.webp" alt="CD">
+                    </div>
+                </div>
+                <div class="release-info">
+                    <span class="artist-name">BADDy - My Last Sound</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
     <div class="mophra-global-container" id="mophraGlobalMenu">
         <div class="mophra-global-overlay"></div>
 
