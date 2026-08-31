@@ -1,35 +1,37 @@
 (function() {
-    // 1. Inyectar los estilos CSS de la cortina automáticamente al cargar el documento
+    console.log("Script de cortina cargado correctamente.");
+
+    // 1. Inyectar Estilos
     const style = document.createElement('style');
     style.innerHTML = `
         .cortina-contenedor {
-            position: fixed;
-            top: -15vh;
-            left: 0;
-            width: 100vw;
-            height: 115vh;
-            background-color: #1a1a1a;
-            z-index: 9999999 !important;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            pointer-events: none;
-            transform: translateY(-100%);
+            position: fixed !important;
+            top: -15vh !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 115vh !important;
+            background-color: #1a1a1a !important;
+            z-index: 99999999 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            overflow: hidden !important;
+            pointer-events: none !important;
+            transform: translateY(-100%) !important;
         }
         .cortina-contenedor.cerrar {
-            pointer-events: auto;
-            transform: translateY(0%);
+            pointer-events: auto !important;
+            transform: translateY(0%) !important;
             transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.05) !important;
         }
         .cortina-contenedor.abrir {
-            transform: translateY(-100%);
+            transform: translateY(-100%) !important;
             transition: transform 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045) !important;
         }
         .cortina-imagen {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
         }
         body.cortina-bloqueo #main > section,
         body.cortina-bloqueo main,
@@ -41,15 +43,14 @@
     `;
     document.head.appendChild(style);
 
-    // 2. Inyectar la estructura HTML de la cortina al inicio del body
-    document.addEventListener('DOMContentLoaded', () => {
+    // 2. Inyectar HTML de inmediato al cargar el DOM
+    function inicializarCortina() {
         if (!document.getElementById('cortina-transicion')) {
-            const cortinaHTML = `
-                <div id="cortina-transicion" class="cortina-contenedor">
-                    <img src="https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp" alt="Cargando..." class="cortina-imagen">
-                </div>
-            `;
-            document.body.insertAdjacentHTML('afterbegin', cortinaHTML);
+            const div = document.createElement('div');
+            div.id = 'cortina-transicion';
+            div.className = 'cortina-contenedor';
+            div.innerHTML = `<img src="https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp" alt="Cargando..." class="cortina-imagen">`;
+            document.body.prepend(div);
         }
 
         const cortina = document.getElementById('cortina-transicion');
@@ -63,7 +64,7 @@
             
             cortina.style.transition = 'none';
             cortina.classList.remove('abrir', 'cerrar');
-            cortina.offsetHeight; 
+            void cortina.offsetHeight; 
 
             cortina.style.transition = '';
             cortina.classList.add('cerrar');
@@ -83,15 +84,21 @@
             }, 500);
         }
 
-        // Detectar cambios de hash o navegación interna
+        // Detectar cambios de página / hash
         window.addEventListener('hashchange', animarCortina);
 
-        // Opcional: anticiparse al clic en enlaces internos
+        // Detectar clics en enlaces internos
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (link && link.hash && link.hostname === window.location.hostname) {
                 animarCortina();
             }
         });
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', inicializarCortina);
+    } else {
+        inicializarCortina();
+    }
 })();
