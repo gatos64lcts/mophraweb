@@ -35,7 +35,9 @@
         }
         body.cortina-bloqueo #main > section,
         body.cortina-bloqueo main,
-        body.cortina-bloqueo .content {
+        body.cortina-bloqueo .content,
+        body.cortina-bloqueo .mophra-tw-container,
+        body.cortina-bloqueo #mophra-releases-section {
             opacity: 0 !important;
             pointer-events: none !important;
             transition: none !important;
@@ -43,7 +45,6 @@
     `;
     document.head.appendChild(style);
 
-    // 2. Inyectar HTML de inmediato al cargar el DOM
     function inicializarCortina() {
         if (!document.getElementById('cortina-transicion')) {
             const div = document.createElement('div');
@@ -56,42 +57,41 @@
         const cortina = document.getElementById('cortina-transicion');
         if (!cortina) return;
 
-        let transitando = false;
-
-        function animarCortina() {
-            if (transitando) return;
-            transitando = true;
-            
-            cortina.style.transition = 'none';
-            cortina.classList.remove('abrir', 'cerrar');
-            void cortina.offsetHeight; 
-
+        // 2. EFECTO DE APERTURA AL CARGAR LA NUEVA PÁGINA
+        // Fuerza a que la cortina empiece abajo y suba al entrar a cualquier página nueva
+        cortina.style.transition = 'none';
+        cortina.classList.add('cerrar');
+        cortina.offsetHeight; // Reflow
+        
+        setTimeout(() => {
             cortina.style.transition = '';
-            cortina.classList.add('cerrar');
-
+            cortina.classList.remove('cerrar');
+            cortina.classList.add('abrir');
             setTimeout(() => {
-                document.body.classList.add('cortina-bloqueo');
-                setTimeout(() => {
-                    document.body.classList.remove('cortina-bloqueo');
-                    cortina.classList.remove('cerrar');
-                    cortina.classList.add('abrir');
+                cortina.classList.remove('abrir');
+            }, 700);
+        }, 50);
 
-                    setTimeout(() => {
-                        cortina.classList.remove('abrir');
-                        transitando = false;
-                    }, 700);
-                }, 50);
-            }, 500);
-        }
-
-        // Detectar cambios de página / hash
-        window.addEventListener('hashchange', animarCortina);
-
-        // Detectar clics en enlaces internos
+        // 3. CAPTURAR CLICS EN ENLACES INTERNOS (Para bajar antes de cambiar de página)
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
-            if (link && link.hash && link.hostname === window.location.hostname) {
-                animarCortina();
+            if (link && link.href) {
+                const destino = link.href;
+                const esMismoDominio = destino.startsWith(window.location.origin);
+                const esAnclaExterna = link.getAttribute('href').startsWith('#');
+
+                if (esMismoDominio && !esAnclaExterna && link.target !== '_blank') {
+                    e.preventDefault(); // Detener el salto inmediato
+                    
+                    cortina.style.transition = '';
+                    cortina.classList.remove('abrir');
+                    cortina.classList.add('cerrar'); // Baja la cortina
+
+                    // Esperar a que termine de bajar (500ms) y luego cambiar de página
+                    setTimeout(() => {
+                        window.location.href = destino;
+                    }, 500);
+                }
             }
         });
     }
