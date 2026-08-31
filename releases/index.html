@@ -3,29 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOPHRA | RELEASES</title>
+    <title>MOPHRA | Releases</title>
     <style>
         /* Estilos generales de la página */
         body {
             margin: 0;
-            background-color: #0b0b0b; /* Fondo oscuro acorde al sello */
+            background-color: #F5260A;
             color: #ffffff;
             font-family: Circular, Inter, system-ui, sans-serif;
             overflow-x: hidden;
         }
 
-        /* Contenedor principal para centrar y dar aire al título */
+        /* --------------------------------------------------
+           ESTILOS DEL MENÚ GLOBAL Y BOTÓN FLOTANTE
+           -------------------------------------------------- */
+        .mophra-global-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #ff0000; /* Fondo rojo característico de tu web */
+            z-index: 99999;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 8vw;
+            box-sizing: border-box;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .mophra-global-container.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Botón flotante superior derecho */
+        .mophra-global-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            width: 55px;
+            height: 55px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .mophra-svg-element {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s ease;
+        }
+
+        .mophra-global-btn:hover .mophra-svg-element {
+            transform: rotate(90deg);
+        }
+
+        /* Navegación del menú */
+        .mophra-signs-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .mophra-sign-item, .mophra-sign-link {
+            font-size: clamp(35px, 5vw, 65px);
+            font-weight: 800;
+            text-decoration: none;
+            color: #0b0b0b;
+            letter-spacing: 0.05em;
+            line-height: 1.1;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .mophra-sign-item:hover, .mophra-sign-link:hover {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        /* Submenú de Releases dentro del menú global */
+        .mophra-dropdown-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .mophra-sign-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mophra-submenu-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .mophra-frolov-icon {
+            width: 30px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mophra-frolov-icon span {
+            display: block;
+            height: 4px;
+            width: 100%;
+            background-color: #0b0b0b;
+            border-radius: 2px;
+        }
+
+        .mophra-submenu {
+            display: none;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+            padding-right: 20px;
+        }
+
+        .mophra-submenu.active {
+            display: flex;
+        }
+
+        .mophra-sub-item {
+            font-size: clamp(20px, 3vw, 30px);
+            font-weight: 700;
+            text-decoration: none;
+            color: #0b0b0b;
+            opacity: 0.7;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .mophra-sub-item:hover {
+            opacity: 1;
+            transform: scale(1.03);
+        }
+
+        /* --------------------------------------------------
+           ESTILOS DEL TÍTULO ANIMADO
+           -------------------------------------------------- */
         .title-entrance-container {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
-            padding: 60px 0 20px 0;
+            padding: 80px 0 20px 0;
             overflow: hidden;
             box-sizing: border-box;
         }
 
-        /* 1. CONFIGURACIÓN BASE (PARA MÓVIL) */
         .animated-title-image {
             width: 75%;
             max-width: 360px;
@@ -36,7 +179,6 @@
             animation-delay: 0.5s;
         }
 
-        /* 2. CONFIGURACIÓN EXCLUSIVA PARA PC (Pantallas grandes) */
         @media (min-width: 769px) {
             .animated-title-image {
                 width: 100%;
@@ -44,7 +186,6 @@
             }
         }
 
-        /* Definición de la animación 'dropIn' */
         @keyframes dropIn {
             0% {
                 opacity: 0;
@@ -56,7 +197,9 @@
             }
         }
 
-        /* 🔥 CARRUSEL DE LANZAMIENTOS 🔥 */
+        /* --------------------------------------------------
+           ESTILOS DEL CARRUSEL DE LANZAMIENTOS
+           -------------------------------------------------- */
         .mophra-carousel {
             width: 100vw;
             margin-left: calc(50% - 50vw);
@@ -95,7 +238,6 @@
             display: none;
         }
 
-        /* CARD WRAPPER */
         .mophra-card {
             flex: 0 0 auto;
             width: clamp(260px, 30vw, 380px);
@@ -103,7 +245,6 @@
             scroll-snap-stop: always;
         }
 
-        /* TOP META */
         .mophra-top {
             display: flex;
             justify-content: space-between;
@@ -121,7 +262,6 @@
             transition-delay: .08s;
         }
 
-        /* COVER */
         .mophra-item {
             display: block;
             text-decoration: none;
@@ -131,7 +271,6 @@
             position: relative;
         }
 
-        /* IMAGE */
         .mophra-item img {
             width: 100%;
             height: 100%;
@@ -140,7 +279,6 @@
             transition: transform .45s ease;
         }
 
-        /* BOTTOM TITLE */
         .mophra-title {
             margin-top: 18px;
             text-align: center;
@@ -154,7 +292,6 @@
             transition-delay: .12s;
         }
 
-        /* HOVER */
         .mophra-card:hover .mophra-item img {
             transform: scale(1.05);
         }
@@ -165,7 +302,7 @@
             transform: translateY(0);
         }
 
-        /* ARROWS */
+        /* Flechas del carrusel */
         .mophra-arrow {
             position: absolute;
             top: 50%;
@@ -209,14 +346,12 @@
             right: 20px;
         }
 
-        /* DESKTOP */
         @media (min-width: 900px) {
             .mophra-card {
                 width: clamp(380px, 42vw, 600px);
             }
         }
 
-        /* MOBILE */
         @media (max-width: 900px) {
             .mophra-arrow {
                 display: none;
@@ -236,12 +371,45 @@
 </head>
 <body>
 
+    <div class="mophra-global-container" id="mophraGlobalMenu">
+        <nav class="mophra-signs-nav">
+          <a href="/" class="mophra-sign-item">HOME</a>
+          <a href="/artists/" class="mophra-sign-item">ARTISTS</a>
+
+          <div class="mophra-sign-item mophra-dropdown-wrapper">
+            <div class="mophra-sign-header">
+              <button type="button" class="mophra-submenu-toggle" id="mophraReleasesToggle" aria-label="Toggle Releases Submenu">
+                <span class="mophra-frolov-icon">
+                  <span class="line-top"></span>
+                  <span class="line-mid"></span>
+                  <span class="line-bot"></span>
+                </span>
+              </button>
+              <a href="/releases/" class="mophra-sign-link">RELEASES</a>
+            </div>
+            <div class="mophra-submenu" id="mophraReleasesSubmenu">
+              <a href="/releases/eps/" class="mophra-sub-item">EPs</a>
+              <a href="/releases/albums/" class="mophra-sub-item">Albums</a>
+              <a href="/releases/compilations/" class="mophra-sub-item">Compilations</a>
+            </div>
+          </div>
+
+          <a href="/demos/" class="mophra-sign-item">DEMOS</a>
+          <a href="/radio/" class="mophra-sign-item">RADIO</a>
+        </nav>
+    </div>
+
+    <button class="mophra-global-btn" id="mophraVectorBtn" title="Ver menú">
+      <svg id="mophraSvgLogo" viewBox="0 0 1000 1000" class="mophra-svg-element">
+        <path id="mophraVectorPath" fill="#ffffff" d="M486.86,74.1l43.7.72c315.79,23.24,500.51,374.15,332.93,647.91-158.69,259.22-531.3,272.98-709.23,26.4C-45.68,472.05,147.58,85.24,486.86,74.1ZM901.07,465.81c-8.75-115.9-71.16-224.09-164.68-291.82-181.81-131.66-436.09-88.78-565.13,93.5-40.96,57.86-66.79,127.33-72.19,198.31h239.5l90,89.98,54.06-53.99-123.49-126.35,137.92-138.24,3.93-.93,140.01,139.17-123.49,126.35,53.92,52.94,89.14-88.93h240.5ZM499.7,267.88l-107.56,108.29,108.29,107.56,107.56-108.29-108.29-107.56ZM240.07,489.81H98.07c-2.86,10.5.77,21.33,0,32h110.5l31.5-32ZM297.07,489.81h-23.5l-31.5,32h23.5l31.5-32ZM757.07,521.81l-31.5-32h-23.5l32.5,32h22.5ZM902.07,489.81h-143l31.5,32h111.5c-.77-10.67,2.86-21.5,0-32ZM187.07,577.81h85.5l71.03-71.02c.78-1.08.51-1.86,0-2.96-.39-.84-12.26-12.79-13.17-12.95l-54.38,53.41-57.28.72c-2.03.6-27.76,26.59-30.21,29.79-.77,1.01-1.93,1.26-1.49,3.01ZM813.07,577.81l-32.7-32.8-56.28-.72-55.38-53.41c-.91.16-12.78,12.11-13.17,12.95-.51,1.1-.78,1.88,0,2.96l71.03,71.02h86.5ZM710.9,843.65l-.36-115.82-210.12-209.95-210.16,209.63.3,116.29c102.67,64.08,233.16,76.11,347.01,35.03,25.59-9.24,49.76-21.75,73.32-35.18ZM131.07,632.81h144.5l98.48-98.5-12.48-12.48-78.52,78.46-119.46.54-32.52,31.98ZM868.07,632.81l-32.52-31.98-119.46-.54-78.52-78.46c-2.2,3.31-12.84,10.05-11.03,13.96l97.03,97.02h144.5ZM185.07,544.81h-85l4.88,32.42,47.41.37,32.7-32.8ZM900.07,544.81h-86l32.7,32.8,48.41-.37,4.88-32.42ZM871.07,656.81h-156.5l-106-105.98-20.43,21.34,145.93,146.14v109.5c60.22-42.95,108.18-102.77,137-171ZM266.07,827.81v-109.5l145.98-146-21.48-20.54-106,105.04h-155.5c28.8,68.24,76.78,128.03,137,171ZM129.07,600.81h-19l4.01,15,14.99-15ZM890.07,600.81h-20l15.99,16,4.01-16Z"/>
+      </svg>
+    </button>
+
     <div class="title-entrance-container">
         <img src="https://i.ibb.co/RkT8NchP/RELEASES.gif" alt="Título Releases" class="animated-title-image">
     </div>
 
     <div class="mophra-carousel">
-
         <div class="mophra-arrow left" onclick="mophraNext()">
             <img src="https://i.ibb.co/RGx1GLfv/flag-left.png" alt="Anterior">
         </div>
@@ -251,7 +419,6 @@
         </div>
 
         <div class="mophra-track">
-
             <div class="mophra-card">
                 <div class="mophra-top">
                     <span>Single</span>
@@ -459,11 +626,32 @@
                     BADDy • Backstage
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
+        // Lógica para abrir/cerrar el menú flotante
+        const vectorBtn = document.getElementById('mophraVectorBtn');
+        const globalMenu = document.getElementById('mophraGlobalMenu');
+
+        if (vectorBtn && globalMenu) {
+            vectorBtn.addEventListener('click', () => {
+                globalMenu.classList.toggle('active');
+            });
+        }
+
+        // Lógica para desplegar el submenú de Releases en el menú
+        const releasesToggle = document.getElementById('mophraReleasesToggle');
+        const releasesSubmenu = document.getElementById('mophraReleasesSubmenu');
+
+        if (releasesToggle && releasesSubmenu) {
+            releasesToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                releasesSubmenu.classList.toggle('active');
+            });
+        }
+
+        // Funciones del carrusel de lanzamientos
         window.mophraPrev = function () {
             const track = document.querySelector('.mophra-track');
             const card = document.querySelector('.mophra-card');
