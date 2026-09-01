@@ -75,8 +75,8 @@
       }
     }
 
-    /* ---------------------------------- */
-    /* 2. ROSTER GRID Y TARJETAS          */
+   /* ---------------------------------- */
+    /* 2. ROSTER GRID Y TARJETAS         */
     /* ---------------------------------- */
     .roster-grid {
       display: grid !important;
@@ -85,10 +85,12 @@
       margin: 0 auto !important;
       margin-bottom: 16px !important;
       gap: 16px !important;
-      grid-template-columns: repeat(2, 1fr) !important;
+      /* 1 artista a lo ancho en móvil por defecto */
+      grid-template-columns: repeat(1, 1fr) !important;
       box-sizing: border-box !important;
     }
 
+    /* A partir de pantallas medianas (tablets) sube a 2 o 3 columnas */
     @media (min-width: 600px) and (max-width: 1023px) {
       .roster-grid {
         grid-template-columns: repeat(3, 1fr) !important;
