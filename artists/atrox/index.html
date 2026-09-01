@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOPHRA | Atrox</title>
+    <!-- Favicon -->
     <link rel="icon" type="image/webp" href="https://i.ibb.co/tTVxkjnP/bnnr-atrox.webp">
+    <!-- FontAwesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -25,57 +27,111 @@
             font-family: 'RelicusMono', monospace !important;
         }
 
-        /* --- MENÚ GLOBAL (Estándar Mophra) --- */
-        .global-nav {
+        /* --- TU MENÚ GLOBAL ORIGINAL --- */
+        .mophra-global-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-            box-sizing: border-box;
-            background: rgba(11, 11, 11, 0.85);
-            backdrop-filter: blur(12px);
+            top: 20px;
+            right: 20px;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-logo {
             font-family: 'RelicusMono', monospace !important;
-            font-weight: 900;
-            font-size: 20px;
-            color: #fff;
-            text-decoration: none;
-            letter-spacing: 1px;
         }
 
-        .nav-links {
+        .mophra-global-overlay {
+            display: none;
+        }
+
+        .mophra-global-btn {
+            background: rgba(11, 11, 11, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
             display: flex;
-            gap: 25px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
-        .nav-links a {
-            font-family: 'RelicusMono', monospace !important;
-            color: rgba(255, 255, 255, 0.7);
+        .mophra-global-btn:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.05);
+        }
+
+        .mophra-svg-element {
+            width: 24px;
+            height: 24px;
+        }
+
+        .mophra-signs-nav {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: rgba(11, 11, 11, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 180px;
+            backdrop-filter: blur(12px);
+        }
+
+        .mophra-global-container:hover .mophra-signs-nav {
+            display: flex;
+        }
+
+        .mophra-sign-item, .mophra-sign-link, .mophra-sub-item {
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-size: 14px;
             font-weight: 700;
             transition: color 0.3s ease;
+            font-family: 'RelicusMono', monospace !important;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .mophra-sign-item:hover, .mophra-sign-link:hover, .mophra-sub-item:hover {
             color: #fff;
         }
 
-        /* Espaciado para que el menú fijo no tape el contenido */
-        .page-wrapper {
-            padding-top: 70px;
+        .mophra-dropdown-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mophra-sign-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mophra-submenu-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .mophra-frolov-icon span {
+            display: block;
+            width: 12px;
+            height: 2px;
+            background: #fff;
+            margin: 2px 0;
+        }
+
+        .mophra-submenu {
+            display: none;
+            flex-direction: column;
+            padding-left: 15px;
+            gap: 6px;
+            margin-top: 5px;
+        }
+
+        .mophra-dropdown-wrapper:hover .mophra-submenu {
+            display: flex;
         }
 
         /* --- 🎨 ESTILOS DE LA SECCIÓN DE ARTISTA --- */
@@ -354,7 +410,7 @@
             }
             .scroll-indicator { display: none !important; }
             .main-content { grid-template-columns: 1fr; padding: 30px 20px; }
-            .global-nav { padding: 0 20px; }
+            .mophra-global-container { top: 15px; right: 15px; }
         }
 
         @media (max-width: 900px) {
@@ -376,56 +432,83 @@
 </head>
 <body>
 
-    <nav class="global-nav">
-        <a href="/" class="nav-logo">MOPHRA</a>
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/artists" class="active">Artists</a></li>
-            <li><a href="/releases">Releases</a></li>
-        </ul>
-    </nav>
+    <!-- TU MENÚ GLOBAL EXACTO -->
+    <div class="mophra-global-container" id="mophraGlobalMenu">
+        <div class="mophra-global-overlay"></div>
 
-    <div class="page-wrapper">
-        <div class="artist-page">
-            <header class="artist-banner" style="background-image: url('https://i.ibb.co/tTVxkjnP/bnnr-atrox.webp');">
-                <h1 class="artist-name">Atrox</h1>
-                <div class="artist-meta">This artist has 1 Single</div>
-                <div class="scroll-indicator">SCROLL <span class="scroll-arrow">🡻</span></div>
-            </header>
+        <button class="mophra-global-btn" id="mophraVectorBtn" title="Ver menú">
+            <svg id="mophraSvgLogo" viewBox="0 0 1000 1000" class="mophra-svg-element">
+                <path id="mophraVectorPath" fill="#ffffff" d="M486.86,74.1l43.7.72c315.79,23.24,500.51,374.15,332.93,647.91-158.69,259.22-531.3,272.98-709.23,26.4C-45.68,472.05,147.58,85.24,486.86,74.1ZM901.07,465.81c-8.75-115.9-71.16-224.09-164.68-291.82-181.81-131.66-436.09-88.78-565.13,93.5-40.96,57.86-66.79,127.33-72.19,198.31h239.5l90,89.98,54.06-53.99-123.49-126.35,137.92-138.24,3.93-.93,140.01,139.17-123.49,126.35,53.92,52.94,89.14-88.93h240.5ZM499.7,267.88l-107.56,108.29,108.29,107.56,107.56-108.29-108.29-107.56ZM240.07,489.81H98.07c-2.86,10.5.77,21.33,0,32h110.5l31.5-32ZM297.07,489.81h-23.5l-31.5,32h23.5l31.5-32ZM757.07,521.81l-31.5-32h-23.5l32.5,32h22.5ZM902.07,489.81h-143l31.5,32h111.5c-.77-10.67,2.86-21.5,0-32ZM187.07,577.81h85.5l71.03-71.02c.78-1.08.51-1.86,0-2.96-.39-.84-12.26-12.79-13.17-12.95l-54.38,53.41-57.28.72c-2.03.6-27.76,26.59-30.21,29.79-.77,1.01-1.93,1.26-1.49,3.01ZM813.07,577.81l-32.7-32.8-56.28-.72-55.38-53.41c-.91.16-12.78,12.11-13.17,12.95-.51,1.1-.78,1.88,0,2.96l71.03,71.02h86.5ZM710.9,843.65l-.36-115.82-210.12-209.95-210.16,209.63.3,116.29c102.67,64.08,233.16,76.11,347.01,35.03,25.59-9.24,49.76-21.75,73.32-35.18ZM131.07,632.81h144.5l98.48-98.5-12.48-12.48-78.52,78.46-119.46.54-32.52,31.98ZM868.07,632.81l-32.52-31.98-119.46-.54-78.52-78.46c-2.2,3.31-12.84,10.05-11.03,13.96l97.03,97.02h144.5ZM185.07,544.81h-85l4.88,32.42,47.41.37,32.7-32.8ZM900.07,544.81h-86l32.7,32.8,48.41-.37,4.88-32.42ZM871.07,656.81h-156.5l-106-105.98-20.43,21.34,145.93,146.14v109.5c60.22-42.95,108.18-102.77,137-171ZM266.07,827.81v-109.5l145.98-146-21.48-20.54-106,105.04h-155.5c28.8,68.24,76.78,128.03,137,171ZM129.07,600.81h-19l4.01,15,14.99-15ZM890.07,600.81h-20l15.99,16,4.01-16Z"/>
+            </svg>
+        </button>
+        <nav class="mophra-signs-nav">
+            <a href="https://mophrarecs.com" class="mophra-sign-item">HOME</a>
+            <a href="#artists" class="mophra-sign-item">ARTISTS</a>
 
-            <main class="main-content">
-                <div class="left-column">
-                    <h2 class="bio-title">About</h2>
-                    <p class="bio-text">
-                        . . .
-                    </p>
-                    <div class="artist-links">
-                        <a href="https://www.instagram.com/rzdarwin.vst" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
-                        <a href="https://soundcloud.com/mophrarecs/atrox-flow" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-soundcloud"></i> SoundCloud</a>
-                        <a href="https://music.apple.com/us/album/flow/1835126618?i=1835126619" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-apple"></i> Apple Music</a>
-                    </div>
+            <div class="mophra-sign-item mophra-dropdown-wrapper">
+                <div class="mophra-sign-header">
+                    <button type="button" class="mophra-submenu-toggle" id="mophraReleasesToggle" aria-label="Toggle Releases Submenu">
+                        <span class="mophra-frolov-icon">
+                            <span class="line-top"></span>
+                            <span class="line-mid"></span>
+                            <span class="line-bot"></span>
+                        </span>
+                    </button>
+                    <a href="#releases" class="mophra-sign-link">RELEASES</a>
                 </div>
-                <div class="right-column">
-                    <div class="spotify-box">
-                        <iframe src="https://open.spotify.com/embed/track/0" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    </div>
+                <div class="mophra-submenu" id="mophraReleasesSubmenu">
+                    <a href="#eps" class="mophra-sub-item">EPs</a>
+                    <a href="#albums" class="mophra-sub-item">Albums</a>
+                    <a href="#compilations" class="mophra-sub-item">Compilations</a>
                 </div>
-            </main>
-        </div>
-
-        <div class="releases-section">
-            <h2 class="releases-title">Releases</h2>
-
-            <div class="releases-grid">
-                <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer" class="release-card">
-                    <div class="release-cover-wrapper">
-                        <img src="https://i.ibb.co/BVv6pL5z/005-flow.webp" alt="Release Cover 1" class="release-cover" />
-                    </div>
-                    <div class="release-info">
-                        <h3 class="release-name">Flow</h3>
-                    </div>
-                </a>
             </div>
+
+            <a href="#demos" class="mophra-sign-item">DEMOS</a>
+            <a href="#radio" class="mophra-sign-item">RADIO</a>
+        </nav>
+    </div>
+
+    <!-- SECCIÓN DE ARTISTA -->
+    <div class="artist-page">
+        <header class="artist-banner" style="background-image: url('https://i.ibb.co/tTVxkjnP/bnnr-atrox.webp');">
+            <h1 class="artist-name">Atrox</h1>
+            <div class="artist-meta">This artist has 1 Single</div>
+            <div class="scroll-indicator">SCROLL <span class="scroll-arrow">🡻</span></div>
+        </header>
+
+        <main class="main-content">
+            <div class="left-column">
+                <h2 class="bio-title">About</h2>
+                <p class="bio-text">
+                    . . .
+                </p>
+                <div class="artist-links">
+                    <a href="https://www.instagram.com/rzdarwin.vst" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    <a href="https://soundcloud.com/mophrarecs/atrox-flow" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-soundcloud"></i> SoundCloud</a>
+                    <a href="https://music.apple.com/us/album/flow/1835126618?i=1835126619" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-apple"></i> Apple Music</a>
+                </div>
+            </div>
+            <div class="right-column">
+                <div class="spotify-box">
+                    <iframe src="https://open.spotify.com/embed/artist/2OZ6kwJ8ogeqHsXWylMpLc?utm_source=generator&si=ea785353c0ef42e9" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- SECCIÓN DE RELEASES -->
+    <div class="releases-section">
+        <h2 class="releases-title">Releases</h2>
+
+        <div class="releases-grid">
+            <a href="https://open.spotify.com/intl-es/track/434SUwwntOmc22xNstBZnx?si=0c88e56922fa46be" target="_blank" rel="noopener noreferrer" class="release-card">
+                <div class="release-cover-wrapper">
+                    <img src="https://i.ibb.co/BVv6pL5z/005-flow.webp" alt="Release Cover 1" class="release-cover" />
+                </div>
+                <div class="release-info">
+                    <h3 class="release-name">Flow</h3>
+                </div>
+            </a>
         </div>
     </div>
 
