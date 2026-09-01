@@ -27,84 +27,93 @@
             font-family: 'RelicusMono', monospace !important;
         }
 
-        /* --- TU MENÚ GLOBAL ORIGINAL --- */
+        /* --- TU MENÚ GLOBAL ORIGINAL (CSS EXACTO) --- */
         .mophra-global-container {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99999;
             font-family: 'RelicusMono', monospace !important;
         }
 
         .mophra-global-overlay {
-            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ff0000;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
         .mophra-global-btn {
-            background: rgba(11, 11, 11, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
+            position: absolute;
+            top: 30px;
+            right: 30px;
             width: 50px;
             height: 50px;
+            background: transparent;
+            border: none;
             cursor: pointer;
+            pointer-events: auto;
+            z-index: 100001;
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .mophra-global-btn:hover {
-            border-color: rgba(255, 255, 255, 0.6);
-            transform: scale(1.05);
+            padding: 0;
         }
 
         .mophra-svg-element {
-            width: 24px;
-            height: 24px;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease;
         }
 
         .mophra-signs-nav {
-            display: none;
             position: absolute;
-            top: 60px;
-            right: 0;
-            background: rgba(11, 11, 11, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 15px;
-            flex-direction: column;
-            gap: 10px;
-            min-width: 180px;
-            backdrop-filter: blur(12px);
-        }
-
-        .mophra-global-container:hover .mophra-signs-nav {
+            top: 50%;
+            right: 80px;
+            transform: translateY(-50%);
             display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 100000;
         }
 
         .mophra-sign-item, .mophra-sign-link, .mophra-sub-item {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
-            transition: color 0.3s ease;
             font-family: 'RelicusMono', monospace !important;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: clamp(24px, 4vw, 48px);
+            font-weight: 900;
+            letter-spacing: 2px;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            white-space: nowrap;
         }
 
         .mophra-sign-item:hover, .mophra-sign-link:hover, .mophra-sub-item:hover {
-            color: #fff;
+            opacity: 0.7;
         }
 
         .mophra-dropdown-wrapper {
             display: flex;
             flex-direction: column;
+            align-items: flex-end;
         }
 
         .mophra-sign-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 15px;
         }
 
         .mophra-submenu-toggle {
@@ -112,27 +121,67 @@
             border: none;
             cursor: pointer;
             padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .mophra-frolov-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
         }
 
         .mophra-frolov-icon span {
             display: block;
-            width: 12px;
-            height: 2px;
-            background: #fff;
-            margin: 2px 0;
+            width: 100%;
+            height: 3px;
+            background-color: #ffffff;
+            transition: transform 0.3s ease;
         }
 
         .mophra-submenu {
-            display: none;
+            display: flex;
             flex-direction: column;
-            padding-left: 15px;
-            gap: 6px;
-            margin-top: 5px;
+            align-items: flex-end;
+            gap: 8px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            margin-right: 10px;
         }
 
-        .mophra-dropdown-wrapper:hover .mophra-submenu {
-            display: flex;
+        .mophra-sub-item {
+            font-size: clamp(16px, 2.5vw, 24px);
+            opacity: 0.8;
         }
+
+        /* Estados activos del menú al abrirse */
+        .mophra-global-container.active {
+            pointer-events: auto;
+        }
+
+        .mophra-global-container.active .mophra-global-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mophra-global-container.active .mophra-signs-nav {
+            pointer-events: auto;
+            opacity: 1;
+        }
+
+        .mophra-global-container.active .mophra-global-btn {
+            position: fixed;
+        }
+
+        .mophra-global-container.active .mophra-submenu.open {
+            max-height: 200px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
 
         /* --- 🎨 ESTILOS DE LA SECCIÓN DE ARTISTA --- */
         .artist-page {
@@ -410,7 +459,6 @@
             }
             .scroll-indicator { display: none !important; }
             .main-content { grid-template-columns: 1fr; padding: 30px 20px; }
-            .mophra-global-container { top: 15px; right: 15px; }
         }
 
         @media (max-width: 900px) {
@@ -432,7 +480,7 @@
 </head>
 <body>
 
-    <!-- TU MENÚ GLOBAL EXACTO -->
+    <!-- TU MENÚ GLOBAL EXACTO CON SU HTML ORIGINAL -->
     <div class="mophra-global-container" id="mophraGlobalMenu">
         <div class="mophra-global-overlay"></div>
 
@@ -512,5 +560,32 @@
         </div>
     </div>
 
+    <!-- SCRIPT PARA QUE EL MENÚ FUNCIONE CORRECTAMENTE AL HACER CLIC -->
+    <script>
+        const menuContainer = document.getElementById('mophraGlobalMenu');
+        const vectorBtn = document.getElementById('mophraVectorBtn');
+        const releasesToggle = document.getElementById('mophraReleasesToggle');
+        const releasesSubmenu = document.getElementById('mophraReleasesSubmenu');
+        const svgLogo = document.getElementById('mophraSvgLogo');
+
+        // Cambiar icono de hamburguesa a la X o viceversa mediante clases/clicks si usas JS para abrir
+        vectorBtn.addEventListener('click', () => {
+            menuContainer.classList.toggle('active');
+            if(menuContainer.classList.contains('active')) {
+                svgLogo.style.transform = 'rotate(45deg)';
+            } else {
+                svgLogo.style.transform = 'rotate(0deg)';
+                releasesSubmenu.classList.remove('open');
+            }
+        });
+
+        // Desplegar submenú de releases
+        if(releasesToggle) {
+            releasesToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                releasesSubmenu.classList.toggle('open');
+            });
+        }
+    </script>
 </body>
 </html>
