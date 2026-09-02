@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,27 +25,30 @@
             font-style: normal;
         }
 
-        /* Contenedor principal para el título grande adaptativo */
+        /* Contenedor de margen a margen (dejando solo 2px de cada lado) */
         .mophra-hero-container {
-            width: 100%;
-            max-width: 1200px;
+            width: calc(100% - 4px);
             margin: 140px auto 40px auto;
             text-align: center;
-            padding: 0 20px;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        /* Título grande adaptable al tamaño de pantalla sin efecto type */
+        /* Título gigante de margen a margen, respetando mayúsculas/minúsculas */
         .mophra-big-title {
             font-family: 'RelicusMono', monospace !important;
-            font-size: clamp(38px, 9vw, 110px);
-            line-height: 0.95;
+            font-size: clamp(28px, 11vw, 135px); /* Se adapta para abarcar casi todo el ancho */
+            line-height: 0.9;
             color: #ffffff;
             font-weight: 900;
-            text-transform: uppercase;
+            /* text-transform eliminado para respetar tus minúsculas/mayúsculas exactas */
             letter-spacing: -2px;
             margin: 0;
-            display: inline-block;
+            display: block;
+            width: 100%;
+            white-space: nowrap; /* Evita que quiebre la línea si cabe en pantalla */
+            overflow: hidden;
+            text-overflow: ellipsis; /* Previene desbordamientos bruscos si la pantalla es extremadamente chica */
         }
     </style>
 </head>
