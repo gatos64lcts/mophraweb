@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOPHRA | My Last Sound</title>
+    <title>Albums | My Last Sound</title>
     
     <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -25,30 +25,29 @@
             font-style: normal;
         }
 
-        /* Contenedor de margen a margen (dejando solo 2px de cada lado) */
+        /* Contenedor de margen a margen (dejando exactamente 2px de cada lado) */
         .mophra-hero-container {
             width: calc(100% - 4px);
-            margin: 140px auto 40px auto;
+            margin: 110px auto 20px auto;
             text-align: center;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Título gigante de margen a margen, respetando mayúsculas/minúsculas */
+        /* Título gigante hiper-agresivo de margen a margen, respetando minúsculas/mayúsculas */
         .mophra-big-title {
             font-family: 'RelicusMono', monospace !important;
-            font-size: clamp(28px, 11vw, 135px); /* Se adapta para abarcar casi todo el ancho */
-            line-height: 0.9;
+            font-size: clamp(38px, 15.5vw, 210px); /* ¡Súper grande para dominar la pantalla! */
+            line-height: 0.82;
             color: #ffffff;
             font-weight: 900;
-            /* text-transform eliminado para respetar tus minúsculas/mayúsculas exactas */
-            letter-spacing: -2px;
+            letter-spacing: -3px;
             margin: 0;
             display: block;
             width: 100%;
-            white-space: nowrap; /* Evita que quiebre la línea si cabe en pantalla */
+            white-space: nowrap; 
             overflow: hidden;
-            text-overflow: ellipsis; /* Previene desbordamientos bruscos si la pantalla es extremadamente chica */
+            text-overflow: ellipsis;
         }
     </style>
 </head>
