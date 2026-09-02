@@ -1,0 +1,358 @@
+<div class="artist-page">
+<style>
+/* --- 📦 CARGA DE FUENTE PERSONALIZADA DESDE CLOUDINARY --- */
+@font-face {
+font-family: 'RelicusMono';
+src: url('https://res.cloudinary.com/dfhrxq0tf/raw/upload/v1784479120/Relicus-Mono_rsjgnn.ttf') format('truetype');
+font-weight: normal;
+font-style: normal;
+}
+
+/* --- Estilos del Presskit con Nueva Fuente --- */
+.artist-page {
+font-family: 'RelicusMono', monospace !important;
+}
+
+.artist-banner {
+position: relative;
+width: 100%;
+height: 750px;
+padding: 0 40px 30px 40px;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+align-items: flex-start;
+box-sizing: border-box;
+background-size: cover;
+background-position: center 60%;
+background-repeat: no-repeat;
+animation: slideFromTop 1.4s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.artist-name {
+font-family: 'RelicusMono', monospace !important;
+font-weight: 900 !important;
+font-size: clamp(48px, 12vw, 130px);
+margin: 0;
+text-shadow: 0 10px 30px rgba(0,0,0,.8);
+color: #fff;
+line-height: 1.05;
+letter-spacing: -2px;
+overflow-wrap: break-word;
+word-break: break-word;
+max-width: 100%;
+}
+
+.artist-meta {
+font-family: 'RelicusMono', monospace !important;
+font-size: 19px;
+letter-spacing: 0.5px;
+margin-top: 14px;
+color: #ffffff;
+font-weight: 700;
+text-align: left;
+text-transform: none;
+}
+
+/* --- Indicador de Scroll (Escritorio) --- */
+.scroll-indicator {
+position: absolute;
+bottom: 30px;
+right: 40px;
+font-family: 'RelicusMono', monospace !important;
+font-size: 15px;
+font-weight: 700;
+color: #ffffff;
+letter-spacing: 2px;
+text-transform: uppercase;
+user-select: none;
+display: inline-flex;
+align-items: center;
+gap: 6px;
+}
+
+.scroll-arrow {
+display: inline-block;
+animation: bounce 2s infinite;
+}
+
+.main-content {
+display: grid;
+grid-template-columns: 1fr 1fr;
+padding: 60px 80px;
+gap: 40px;
+align-items: start;
+opacity: 0;
+animation: fadeUp 1s ease-out .8s forwards;
+}
+
+.bio-title {
+margin-bottom: 20px;
+color: #fff;
+font-family: 'RelicusMono', monospace !important;
+}
+.bio-title::after { content: ''; display: block; width: 40px; height: 3px; background: #fff; margin: 8px auto 0; }
+.left-column { text-align: center; }
+
+.bio-text {
+line-height: 1.6;
+color: rgba(255,255,255,0.85);
+font-size: 16px;
+max-width: 480px;
+margin: 0 auto 18px auto;
+text-align: left;
+font-family: 'RelicusMono', monospace !important;
+}
+
+.artist-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 25px; }
+
+.glass-btn {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 12px 24px;
+border-radius: 50px;
+color: #fff;
+text-decoration: none;
+background: rgba(255,255,255,.05);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255,255,255,.1);
+transition: all 0.3s ease;
+font-family: 'RelicusMono', monospace !important;
+font-weight: 500;
+font-size: 15px;
+}
+.glass-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-3px); border-color: rgba(255,255,255,0.4); }
+.spotify-box iframe { width: 100%; border: none; border-radius: 15px; }
+
+@keyframes slideFromTop { 0% { opacity: 0; transform: translateY(-120px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+
+@keyframes bounce {
+0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+40% { transform: translateY(-6px); }
+60% { transform: translateY(-3px); }
+}
+
+/* --- Ajustes Móviles --- */
+@media(max-width:1000px){
+.artist-banner {
+height: 480px;
+padding: 0 20px 20px 20px;
+}
+.artist-name {
+letter-spacing: -1.5px;
+}
+.artist-meta {
+font-size: 16px;
+margin-top: 10px;
+}
+.scroll-indicator { display: none !important; }
+.main-content { grid-template-columns: 1fr; padding: 30px 20px; }
+}
+</style>
+
+<header class="artist-banner" style="background-image: url('https://i.ibb.co/RpM0xRrN/bnnr-lacrablack.webp');">
+<h1 class="artist-name">LACRABLACK</h1>
+<div class="artist-meta">This artist has 3 Single</div>
+<div class="scroll-indicator">SCROLL <span class="scroll-arrow">🡻</span></div>
+</header>
+
+<main class="main-content">
+<div class="left-column">
+<h2 class="bio-title" style="color: #fff;">About</h2>
+
+<p class="bio-text">
+Born September 17, 2002 Jeremi Márquez (LACRABLACK) is a Venezuelan DJ and producer born in Mérida and based in Bogotá, Colombia. His music is rooted in sound exploration, where rhythm, bass weight, and texture take precedence over genre boundaries or fixed classifications.
+</p>
+
+<p class="bio-text">
+Moving through drum and bass, garage, dubstep, house, and trap, his work treats these styles not as destinations, but as mutable frameworks—tools that bend, collide, and evolve. Each track emerges from open listening and intuitive construction, allowing influences from any context to inform structure, mood, and energy.
+</p>
+
+<p class="bio-text">
+Rather than positioning himself within a single scene, LACRABLACK operates from a fluid, hybrid sonic space shaped by global electronic movements. His work as both DJ and producer is driven by continuous experimentation, sound deconstruction, and the ongoing search for a personal language—one that remains in flux and grows alongside the music itself.
+</p>
+
+<div class="artist-links">
+<a href="https://www.instagram.com/lacrablack" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
+<a href="https://soundcloud.com/lacrablack" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-soundcloud"></i> SoundCloud</a>
+<a href="https://music.apple.com/us/artist/lacrablack/1684950821" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-apple"></i> Apple Music</a>
+</div>
+</div>
+<div class="right-column">
+<div class="spotify-box">
+<iframe src="https://open.spotify.com/embed/artist/6b5xJ88p5ELrUQxAnyBMXg?utm_source=generator&si=f82025d2607f43df" width="100%" height="552" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>
+</div>
+</main>
+</div>
+
+<div class="releases-section">
+<style>
+/* --- 📦 CARGA DE FUENTE PERSONALIZADA --- */
+@font-face {
+font-family: 'RelicusMono';
+src: url('https://res.cloudinary.com/dfhrxq0tf/raw/upload/v1784479120/Relicus-Mono_rsjgnn.ttf') format('truetype');
+font-weight: normal;
+font-style: normal;
+}
+
+.releases-section {
+font-family: 'RelicusMono', monospace !important;
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 40px 20px;
+box-sizing: border-box;
+text-align: left !important;
+opacity: 0;
+animation: fadeUpReleases 1s ease-out forwards;
+}
+
+/* --- Título "Releases" --- */
+.releases-title {
+font-family: 'RelicusMono', monospace !important;
+font-weight: 900 !important;
+font-size: clamp(32px, 6vw, 64px);
+color: #ffffff;
+margin: 0 0 30px 0;
+letter-spacing: -1px;
+text-transform: none !important;
+text-align: left !important;
+}
+
+.releases-title::after {
+content: '';
+display: block;
+width: 60px;
+height: 3px;
+background: #ffffff;
+margin: 12px 0 0 0;
+}
+
+/* --- Grid de 4 Lanzamientos Horizontales --- */
+.releases-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 24px;
+margin-top: 30px;
+}
+
+/* --- Tarjeta de Lanzamiento --- */
+.release-card {
+position: relative;
+display: block;
+text-decoration: none;
+border-radius: 12px;
+overflow: hidden;
+background: rgba(255, 255, 255, 0.03);
+border: 1px solid rgba(255, 255, 255, 0.1);
+transform: none !important;
+transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* --- Contenedor e Imagen de Portada (Bloqueo de zoom en Carrd) --- */
+.release-cover-wrapper {
+position: relative;
+width: 100%;
+padding-top: 100%;
+overflow: hidden;
+}
+
+.release-cover {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+transform: none !important;
+transition: none !important;
+scale: 1 !important;
+}
+
+/* Forzar la desactivación de zoom en hover */
+.release-card:hover .release-cover,
+.release-cover:hover,
+a:hover .release-cover {
+transform: none !important;
+scale: 1 !important;
+}
+
+/* --- Info (Solo nombre del track) --- */
+.release-info {
+padding: 16px 12px;
+text-align: left;
+background: rgba(0, 0, 0, 0.4);
+backdrop-filter: blur(5px);
+}
+
+.release-name {
+font-family: 'RelicusMono', monospace !important;
+font-size: 16px;
+font-weight: 700;
+color: #ffffff;
+margin: 0;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+/* --- Animación de Entrada --- */
+@keyframes fadeUpReleases {
+0% { opacity: 0; transform: translateY(30px); }
+100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Ajustes Responsivos --- */
+@media (max-width: 900px) {
+.releases-grid {
+grid-template-columns: repeat(2, 1fr);
+gap: 16px;
+}
+}
+
+@media (max-width: 500px) {
+.releases-grid {
+grid-template-columns: repeat(2, 1fr);
+gap: 12px;
+}
+.release-name { font-size: 14px; }
+.release-info { padding: 10px 8px; }
+}
+</style>
+
+<h2 class="releases-title">Releases</h2>
+
+<div class="releases-grid">
+
+<a href="https://open.spotify.com/intl-es/album/5SXtoxJbbcXrOQECrG078f?si=VddjeADZQrCuzsMz1JWTAw" target="_blank" rel="noopener noreferrer" class="release-card">
+<div class="release-cover-wrapper">
+<img src="https://i.ibb.co/S2H0tyW/003-4u.webp" alt="Release Cover 1" class="release-cover" />
+</div>
+<div class="release-info">
+<h3 class="release-name">4U</h3>
+</div>
+</a>
+
+<a href="https://open.spotify.com/intl-es/track/6aBjIkV5nRDITgP9nA8knv?si=6fabaea0bc6249cb" target="_blank" rel="noopener noreferrer" class="release-card">
+<div class="release-cover-wrapper">
+<img src="https://i.ibb.co/r2fSMXVp/006-bassline.webp" alt="Release Cover 2" class="release-cover" />
+</div>
+<div class="release-info">
+<h3 class="release-name">BASSLINE</h3>
+</div>
+</a>
+
+<a href="https://open.spotify.com/intl-es/track/7rvw13GCZc9KsuCXt1myYD" target="_blank" rel="noopener noreferrer" class="release-card">
+<div class="release-cover-wrapper">
+<img src="https://i.ibb.co/GQGD6Xdy/011-back.jpg" alt="Release Cover 2" class="release-cover" />
+</div>
+<div class="release-info">
+<h3 class="release-name">BACK</h3>
+</div>
+</a>
+
+</div>
+</div>
