@@ -84,13 +84,16 @@
       margin-top: 40px;
     }
 
-    /* Estilo por defecto (Móvil: 1 columna) */
     .release-card {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-decoration: none;
       color: #ffffff;
+      /* Aplicamos la animación de salida desde abajo */
+      opacity: 0;
+      transform: translateY(80px);
+      animation: riseUp 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
       transition: transform 0.3s ease;
     }
 
@@ -98,10 +101,30 @@
       transform: translateY(-5px);
     }
 
+    /* Definición de la animación 'riseUp' (desde abajo hacia arriba) */
+    @keyframes riseUp {
+      0% {
+        opacity: 0;
+        transform: translateY(80px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Retrasos escalonados para que aparezcan en secuencia */
+    .release-card:nth-child(1) { animation-delay: 0.8s; }
+    .release-card:nth-child(2) { animation-delay: 0.95s; }
+    .release-card:nth-child(3) { animation-delay: 1.1s; }
+    .release-card:nth-child(4) { animation-delay: 1.25s; }
+    .release-card:nth-child(5) { animation-delay: 1.4s; }
+    .release-card:nth-child(6) { animation-delay: 1.55s; }
+
     .cover-placeholder {
       width: 100%;
       aspect-ratio: 1 / 1;
-      background-color: #e0e0e0; /* Recuadro gris claro tipo póster */
+      background-color: #e0e0e0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -148,11 +171,11 @@
 
     <div class="releases-grid">
       
-      <a href="#" class="release-card">
+      <a href="https://too.fm/mophra016-voidstar" class="release-card">
         <div class="cover-placeholder">
-          <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Sample_Album_Cover.jpg" alt="Portada Álbum 1" class="cover-image">
+          <img src="https://i.ibb.co/Q79N3VfC/016-voidstar.webp" alt="Portada Álbum 1" class="cover-image">
         </div>
-        <div class="release-title">Kanye West - Donda</div>
+        <div class="release-title">George Lycats, ROBO Aiko • voidSTAR</div>
       </a>
 
       <a href="#" class="release-card">
