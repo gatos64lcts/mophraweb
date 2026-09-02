@@ -80,7 +80,7 @@
     /* ---------------------------------- */
     .releases-grid {
       display: grid;
-      gap: 30px;
+      gap: 50px; /* Aumentado para mayor separación entre portadas */
       margin-top: 50px;
     }
 
@@ -98,6 +98,11 @@
 
     .release-card:hover {
       transform: translateY(-5px);
+    }
+
+    /* Cambio de color en el texto al hacer hover en la tarjeta */
+    .release-card:hover .release-title {
+      color: #000000; /* Puedes cambiar este color por el que prefieras (ej. negro, amarillo, etc.) */
     }
 
     @keyframes riseUp {
@@ -142,9 +147,9 @@
       margin-top: 15px;
       font-size: 16px;
       text-align: center;
-      /* Eliminado text-transform para respetar mayúsculas y minúsculas */
       width: 100%;
       word-wrap: break-word;
+      transition: color 0.3s ease; /* Suaviza el cambio de color */
     }
 
     /* TABLET (2 columnas) */
