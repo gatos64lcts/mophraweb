@@ -649,7 +649,11 @@
   </script>
 
 </body>
-  <!-- MOPHRA - CÓDIGO UNIFICADO COMPLETO -->
+<!-- ========================================== -->
+<!-- MOPHRA - BLOQUE UNIFICADO (CORTINA + NAV)  -->
+<!-- ========================================== -->
+
+<!-- 1. ENCABEZADO SUPERIOR FLOTANTE (Solo Home) -->
 <div id="mophraTopHeader" class="mophra-top-header">
     <a href="#releases" class="top-nav-img-btn">
         <img src="https://i.ibb.co/GvS4mBzZ/m-releases.png" alt="Releases">
@@ -659,10 +663,13 @@
     </a>
 </div>
 
-<!-- Aquí iría el resto de tus elementos anteriores (reproductor, botones, etc.) -->
+<!-- 2. CORTINA METÁLICA DE TRANSICIÓN -->
+<div id="cortina-transicion" class="cortina-contenedor">
+    <img src="https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp" alt="Cargando..." class="cortina-imagen">
+</div>
 
 <style>
-    /* ENCABEZADO SUPERIOR FIX / FLOTANTE */
+    /* --- ESTILOS: ENCABEZADO SUPERIOR --- */
     .mophra-top-header {
         position: fixed !important;
         top: 18px !important;
@@ -715,10 +722,55 @@
             height: clamp(55px, 14vw, 85px) !important;
         }
     }
+
+    /* --- ESTILOS: CORTINA DE TRANSICIÓN --- */
+    .cortina-contenedor {
+        position: fixed;
+        top: -15vh;
+        left: 0;
+        width: 100vw;
+        height: 115vh;
+        background-color: #1a1a1a;
+        z-index: 9999999 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        pointer-events: none;
+        transform: translateY(-100%);
+    }
+
+    .cortina-contenedor.cerrar {
+        pointer-events: auto;
+        transform: translateY(0%);
+        transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.05) !important;
+    }
+
+    .cortina-contenedor.abrir {
+        transform: translateY(-100%);
+        transition: transform 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045) !important;
+    }
+
+    .cortina-imagen {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    body.cortina-bloqueo section {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: none !important;
+    }
 </style>
 
 <script>
     (function() {
+        // A. Precargar la imagen de la cortina en segundo plano para evitar parpadeos o retrasos
+        const preloadImage = new Image();
+        preloadImage.src = "https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp";
+
+        // B. Control de visibilidad del encabezado superior según la ruta (Home vs Secciones)
         function checkSectionVisibility() {
             const header = document.getElementById('mophraTopHeader');
             if (!header) return;
@@ -732,8 +784,49 @@
             }
         }
 
-        window.addEventListener('hashchange', checkSectionVisibility);
-        window.addEventListener('load', checkSectionVisibility);
+        // C. Animación de la cortina al cambiar de hash/sección
+        const cortina = document.getElementById('cortina-transicion');
+        let transitando = false;
+
+        function animarCortina() {
+            if (!cortina || transitando) return;
+            transitando = true;
+
+            cortina.style.transition = 'none';
+            cortina.classList.remove('abrir', 'cerrar');
+            cortina.offsetHeight; // Forzar reflow
+
+            cortina.style.transition = '';
+            cortina.classList.add('cerrar');
+
+            setTimeout(() => {
+                document.body.classList.add('cortina-bloqueo');
+
+                setTimeout(() => {
+                    document.body.classList.remove('cortina-bloqueo');
+                    cortina.classList.remove('cerrar');
+                    cortina.classList.add('abrir');
+
+                    setTimeout(() => {
+                        cortina.classList.remove('abrir');
+                        transitando = false;
+                    }, 700); // Tiempo de subida
+
+                }, 50); // Pausa en oscuridad
+
+            }, 500); // Tiempo de bajada
+        }
+
+        // Eventos Globales
+        window.addEventListener('hashchange', () => {
+            checkSectionVisibility();
+            animarCortina();
+        });
+
+        window.addEventListener('load', () => {
+            checkSectionVisibility();
+        });
+
         checkSectionVisibility();
     })();
 </script>
