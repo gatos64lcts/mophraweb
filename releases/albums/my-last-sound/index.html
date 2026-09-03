@@ -91,18 +91,22 @@
             padding: 0;
         }
 
-        /* Imagen corregida sin márgenes, permitiendo descarga pero bloqueando apertura en nueva pestaña */
+        /* Imagen por CSS de fondo: Cero márgenes, IMPOSIBLE de abrir en pestaña nueva por accidente, pero conserva descarga vía menú contextual */
         .mophra-scroll-img {
             width: 100vw;
             height: 100vh;
-            object-fit: cover;
             position: absolute;
             top: 0;
             left: 0;
+            background-image: url('https://raw.githubusercontent.com/gatos64lcts/mophraweb/main/releases/albums/my-last-sound/cover-my-last-sound.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             transform: translateY(100%);
             will-change: transform;
-            -webkit-user-drag: none;
-            user-drag: none;
+            
+            /* Bloquea la selección y arrastre nativo que causa que se abra en otra pestaña */
+            -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
         }
@@ -116,7 +120,7 @@
 
     <div class="mophra-scroll-section">
         <div class="mophra-sticky-container">
-            <img class="mophra-scroll-img" src="https://raw.githubusercontent.com/gatos64lcts/mophraweb/main/releases/albums/my-last-sound/cover-my-last-sound.jpg" alt="Cover My Last Sound">
+            <div class="mophra-scroll-img"></div>
         </div>
     </div>
 
