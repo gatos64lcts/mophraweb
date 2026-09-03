@@ -650,7 +650,7 @@
 
 </body>
 <!-- ========================================================== -->
-<!-- MOPHRA - CÓDIGO UNIFICADO (CORTINA + NAV PARA RUTAS /) -->
+<!-- MOPHRA - CÓDIGO UNIFICADO (CORTINA + NAV NATURAL)          -->
 <!-- ========================================================== -->
 
 <!-- 1. ENCABEZADO SUPERIOR FLOTANTE (Solo Home / Ruta Raíz) -->
@@ -737,7 +737,8 @@
         align-items: center;
         overflow: hidden;
         pointer-events: none;
-        transform: translateY(-100%);
+        /* Al cargar la página, la cortina empieza abajo y sube automáticamente (Efecto entrada) */
+        transform: translateY(0%);
     }
 
     .cortina-contenedor.cerrar {
@@ -766,15 +767,14 @@
 
 <script>
     (function() {
-        // 1. Precargar la imagen en caché
+        // 1. Precargar imagen en caché
         const preloadImage = new Image();
         preloadImage.src = "https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp";
 
         const cortina = document.getElementById('cortina-transicion');
         const header = document.getElementById('mophraTopHeader');
-        let transitando = false;
 
-        // Comprobar si estamos en la ruta principal (Home: "/", "", o index.html)
+        // Control de visibilidad del menú superior según la ruta limpia
         function checkRouteVisibility() {
             if (!header) return;
             const path = window.location.pathname.replace(/\/$/, "").toLowerCase();
@@ -785,71 +785,38 @@
             }
         }
 
-        // Ejecutar la animación de la cortina
-        function animarCortina(callback) {
-            if (!cortina || transitando) {
-                if (callback) callback();
-                return;
-            }
-            transitando = true;
-
-            cortina.style.transition = 'none';
-            cortina.classList.remove('abrir', 'cerrar');
-            cortina.offsetHeight; // Reflow
-
-            cortina.style.transition = '';
-            cortina.classList.add('cerrar');
-
-            setTimeout(() => {
-                document.body.classList.add('cortina-bloqueo');
-
-                // Ejecutamos el cambio de ruta justo cuando la cortina cubre toda la pantalla
-                if (callback) callback();
-                checkRouteVisibility();
-
+        // Al cargar la página, hacemos que la cortina suba automáticamente (revelando el contenido real)
+        window.addEventListener('load', () => {
+            checkRouteVisibility();
+            if (cortina) {
                 setTimeout(() => {
-                    document.body.classList.remove('cortina-bloqueo');
-                    cortina.classList.remove('cerrar');
                     cortina.classList.add('abrir');
+                }, 100);
+            }
+        });
 
-                    setTimeout(() => {
-                        cortina.classList.remove('abrir');
-                        transitando = false;
-                    }, 700); // Subida
-
-                }, 50); // Pausa
-
-            }, 500); // Bajada
-        }
-
-        // 2. Interceptar clics en enlaces internos de rutas limpias (ej: href="/releases")
+        // 2. Al hacer clic en un enlace interno, bajamos la cortina y dejamos que navegue de forma natural
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
 
             const href = link.getAttribute('href');
-            // Verificamos que sea un enlace interno que empieza con / pero no externos ni anclas (#)
-            if (href && href.startsWith('/') && !href.startsWith('//') && !link.getAttribute('target')) {
+            // Si es un enlace interno válido que cambia de página
+            if (href && (href.startsWith('/') || href.startsWith('.')) && !link.getAttribute('target')) {
+                // Evitamos un milisegundo el salto para activar la animación de bajada
                 e.preventDefault();
-                animarCortina(() => {
-                    // Cambiamos la URL de forma limpia usando History API
-                    history.pushState(null, '', href);
-                    // Disparamos un evento personalizado por si tu app necesita enterarse del cambio de ruta
-                    window.dispatchEvent(new PopStateEvent('popstate'));
-                });
+                
+                if (cortina) {
+                    cortina.classList.remove('abrir');
+                    cortina.classList.add('cerrar');
+                }
+
+                // Esperamos a que baje la cortina (500ms) y luego hacemos el cambio de página real
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 500);
             }
         });
-
-        // 3. Detectar cuando el usuario usa las flechas de atrás/adelante del navegador
-        window.addEventListener('popstate', () => {
-            animarCortina();
-        });
-
-        window.addEventListener('load', () => {
-            checkRouteVisibility();
-        });
-
-        checkRouteVisibility();
     })();
 </script>
 </html>
