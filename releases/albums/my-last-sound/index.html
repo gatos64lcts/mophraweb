@@ -25,7 +25,7 @@
             font-style: normal;
         }
 
-        /* Contenedor absoluto que cubre el 100% de la pantalla */
+        /* Contenedor estricto que abarca toda la pantalla */
         .mophra-hero-container {
             width: 100vw;
             height: 100vh;
@@ -41,21 +41,29 @@
             left: 0;
         }
 
-        /* Título gigante con escalado dinámico extremo a extremo */
+        /* Título gigante con ajuste total de esquina a esquina (Ancho y Alto forzados) */
         .mophra-big-title {
             font-family: 'RelicusMono', monospace !important;
-            font-size: 13.5vw; /* Se adapta dinámicamente al ancho de la pantalla */
-            line-height: 0.85;
-            color: #f7f5f5;
+            font-size: 100px; /* Tamaño base de referencia interno */
+            line-height: 0.75;
+            color: #000000; /* O cámbialo a #ffffff si lo quieres blanco como en tu última prueba */
             font-weight: 900;
-            letter-spacing: -3px;
+            letter-spacing: -4px;
             margin: 0;
-            text-align: center;
+            text-align: justify;
+            text-align-last: justify;
             white-space: nowrap;
-            /* Estiramiento vertical agresivo para tocar el borde superior e inferior exacto */
-            transform: scaleY(3.8); 
+            
+            /* LA CLAVE: Forzamos a que el texto mida exactamente el 100% de ancho y alto de la pantalla */
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            /* Estiramiento total: Ancho completo de la ventana y alto completo de la ventana */
+            transform: scaleY(3.6); 
             transform-origin: center center;
-            display: inline-block;
         }
     </style>
 </head>
