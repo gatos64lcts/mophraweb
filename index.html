@@ -777,7 +777,7 @@
         function checkSectionVisibility() {
             if (!header) return;
             const currentHash = window.location.hash.toLowerCase();
-            if (currentHash === '' || currentHash === '#' || currentHash === '#home') {
+            if (currentHash === '' || currentHash === '/' || currentHash === 'home') {
                 header.classList.remove('is-hidden');
             } else {
                 header.classList.add('is-hidden');
@@ -827,7 +827,7 @@
             if (!link) return;
 
             const href = link.getAttribute('href');
-            if (href && href.startsWith('#') && href.length > 1) {
+            if (href && href.startsWith('/') && href.length > 1) {
                 e.preventDefault(); // Evitamos el salto brusco por defecto
                 ejecutarAnimacionCortina(href);
             }
