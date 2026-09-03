@@ -8,9 +8,9 @@
 
     <!-- 2. Script de auto-recarga global -->
     <script>
-      setInterval(async () => {
+    setInterval(async () => {
         try {
-          const response = await fetch('./version.json?_=' + Date.now());
+          const response = await fetch('../../../version.json?_=' + Date.now(), { cache: 'no-store' });
           const data = await response.json();
           const currentVersion = localStorage.getItem('mophra_version');
           
@@ -21,7 +21,7 @@
             window.location.reload();
           }
         } catch (err) {
-          // Silenciar errores de conexión temporal
+          // Captura errores si la ruta falla o el servidor bloquea la petición
         }
       }, 60000);
     </script>
