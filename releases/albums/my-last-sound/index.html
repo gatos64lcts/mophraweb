@@ -38,6 +38,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            overflow-x: hidden !important; /* Evita cualquier scroll lateral no deseado */
         }
 
         /* --- 📦 CARGA DE FUENTE PERSONALIZADA DESDE CLOUDINARY --- */
@@ -48,32 +49,43 @@
             font-style: normal;
         }
 
-       /* Contenedor principal corregido para evitar desbordes */
+        /* Contenedor adaptado con márgenes seguros para evitar cortes */
         .mophra-tw-container {
             width: 100%;
-            max-width: 100%;
-            margin: 0;
-            padding: 120px 5vw 20px 5vw; /* Margen superior seguro y padding lateral fluido */
+            max-width: 100vw;
+            margin: 120px auto 20px auto;
+            text-align: center;
+            padding: 0 15px;
             box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
         }
 
-        /* Estilo tipográfico ajustado para que escale de forma fluida sin salirse */
+        /* Título adaptado sin transformaciones que causen desbordes en móviles */
         .mophra-stretched-eps {
             font-family: 'RelicusMono', monospace !important;
-            font-size: clamp(40px, 12vw, 120px); /* Ligeramente más fluido para títulos largos como MY LAST SOUND */
-            line-height: 0.85;
+            font-size: clamp(32px, 9.5vw, 110px); /* Tamaño fluido que reduce automáticamente en pantallas chicas */
+            line-height: 0.9;
             color: #ffffff;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
             display: inline-block;
-            transform: scaleY(2.2);
+            transform: scaleY(2.0); /* Ligeramente más contenido para que no ensanche de más */
             transform-origin: center;
-            white-space: nowrap;
+            margin: 20px 0;
             max-width: 100%;
+            word-break: break-word;
+        }
+
+        /* Ajuste específico para móviles muy estrechos */
+        @media (max-width: 480px) {
+            .mophra-tw-container {
+                padding: 0 10px;
+                margin-top: 100px;
+            }
+            .mophra-stretched-eps {
+                letter-spacing: -2px;
+            }
         }
     </style>
 </head>
