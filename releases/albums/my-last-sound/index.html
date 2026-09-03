@@ -9,14 +9,12 @@
 
     <style>
        /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
-        html, body {
+       html, body {
             background-color: #F5260A !important;
             margin: 0 !important;
             padding: 0 !important;
-            box-sizing: border-box !important;
             width: 100% !important;
             overflow-x: hidden !important;
-            overflow-y: auto !important;
         }
 
         /* --- 📦 CARGA DE FUENTE PERSONALIZADA --- */
@@ -27,10 +25,11 @@
             font-style: normal;
         }
 
-        /* --- 📌 TÍTULO FIJO (STICKY) --- */
+        /* --- 📌 CONTENEDOR HERO FIJO AL FONDO --- */
         .mophra-hero-container {
-            position: sticky;
+            position: fixed; /* Cambiado de sticky a fixed para que NUNCA se mueva */
             top: 0;
+            left: 0;
             width: 100vw;
             height: 100vh;
             display: flex;
@@ -39,24 +38,50 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            z-index: 1;
+            z-index: 1; /* Se queda al fondo */
         }
 
-        /* --- TÍTULO PÓSTER: Escritorio / Laptops --- */
-        .mophra-big-title {
-            font-family: 'RelicusMono', monospace !important;
-            font-size: 11.5vw; 
-            line-height: 1;
-            color: #000000;
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin: 0;
-            text-align: center;
-            white-space: nowrap;
+        /* --- 🎬 SECCIÓN DE IMAGEN CON EFECTO SCROLL (Cubre el texto) --- */
+        .mophra-scroll-section {
+            position: relative;
             width: 100%;
-            transform: scaleY(4.4); 
-            transform-origin: center center;
-            display: inline-block;
+            height: 200vh;
+            background-color: #F5260A;
+            z-index: 3; /* Mayor que el título para taparlo al hacer scroll */
+            margin-top: 100vh; /* Empieza justo después de la primera pantalla */
+            padding: 0;
+        }
+
+        .mophra-sticky-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Imagen ajustada para eliminar cualquier línea o margen de subpíxel */
+        .mophra-scroll-img {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: url('https://raw.githubusercontent.com/gatos64lcts/mophraweb/main/releases/albums/my-last-sound/cover-my-last-sound.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: translateY(100%);
+            will-change: transform;
+            
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         /* --- 📱 OPTIMIZACIÓN DEFINITIVA PARA MÓVILES (Celulares) --- */
