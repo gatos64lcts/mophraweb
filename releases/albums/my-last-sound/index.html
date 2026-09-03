@@ -14,7 +14,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            overflow-x: hidden; /* Permitimos scroll vertical para la nueva sección */
+            overflow-x: hidden;
             overflow-y: auto !important;
         }
 
@@ -26,8 +26,10 @@
             font-style: normal;
         }
 
-        /* Contenedor central estricto de pantalla completa para el texto */
+        /* --- 📌 TÍTULO FIJO (STICKY) --- */
         .mophra-hero-container {
+            position: sticky;
+            top: 0;
             width: 100vw;
             height: 100vh;
             display: flex;
@@ -36,9 +38,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            position: relative;
-            top: 0;
-            left: 0;
+            z-index: 1; /* Se queda al fondo mientras la imagen sube */
         }
 
         /* --- TÍTULO PÓSTER: Escritorio / Laptops --- */
@@ -73,6 +73,7 @@
             width: 100%;
             height: 200vh;
             background-color: #F5260A;
+            z-index: 2; /* Pasa por encima del título al hacer scroll */
         }
 
         .mophra-sticky-container {
@@ -108,11 +109,12 @@
 </head>
 <body>
 
+    <!-- El título ahora es sticky y se queda quieto en la pantalla -->
     <div class="mophra-hero-container">
         <h1 class="mophra-big-title">My Last Sound</h1>
     </div>
 
-    <!-- 🖼️ NUEVA SECCIÓN DE IMAGEN CON SCROLL -->
+    <!-- La sección de la imagen sube por encima conforme scrolleas -->
     <div class="mophra-scroll-section">
         <div class="mophra-sticky-container">
             <img src="https://i.ibb.co/7h7Yd2g/015-my-last-sound.webp" alt="My Last Sound Album" class="mophra-scroll-img">
