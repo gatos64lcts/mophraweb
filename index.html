@@ -650,7 +650,7 @@
 
 </body>
 <!-- ========================================== -->
-<!-- MOPHRA - BLOQUE UNIFICADO (CORTINA + NAV)  -->
+<!-- MOPHRA - CÓDIGO UNIFICADO (CORTINA + NAV)  -->
 <!-- ========================================== -->
 
 <!-- 1. ENCABEZADO SUPERIOR FLOTANTE (Solo Home) -->
@@ -766,17 +766,17 @@
 
 <script>
     (function() {
-        // A. Precargar la imagen de la cortina en segundo plano para evitar parpadeos o retrasos
+        // 1. Precargar la imagen en caché para que esté fluida siempre
         const preloadImage = new Image();
         preloadImage.src = "https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp";
 
-        // B. Control de visibilidad del encabezado superior según la ruta (Home vs Secciones)
+        const cortina = document.getElementById('cortina-transicion');
+        const header = document.getElementById('mophraTopHeader');
+        let transitando = false;
+
         function checkSectionVisibility() {
-            const header = document.getElementById('mophraTopHeader');
             if (!header) return;
-
             const currentHash = window.location.hash.toLowerCase();
-
             if (currentHash === '' || currentHash === '#' || currentHash === '#home') {
                 header.classList.remove('is-hidden');
             } else {
@@ -784,23 +784,27 @@
             }
         }
 
-        // C. Animación de la cortina al cambiar de hash/sección
-        const cortina = document.getElementById('cortina-transicion');
-        let transitando = false;
-
-        function animarCortina() {
+        function ejecutarAnimacionCortina(targetHash) {
             if (!cortina || transitando) return;
             transitando = true;
 
+            // Reset rápido
             cortina.style.transition = 'none';
             cortina.classList.remove('abrir', 'cerrar');
-            cortina.offsetHeight; // Forzar reflow
+            cortina.offsetHeight; // Reflow
 
+            // Bajar cortina
             cortina.style.transition = '';
             cortina.classList.add('cerrar');
 
             setTimeout(() => {
                 document.body.classList.add('cortina-bloqueo');
+
+                // Cambiar la sección / hash a mitad de la cortina cerrada
+                if (targetHash) {
+                    window.location.hash = targetHash;
+                }
+                checkSectionVisibility();
 
                 setTimeout(() => {
                     document.body.classList.remove('cortina-bloqueo');
@@ -817,17 +821,26 @@
             }, 500); // Tiempo de bajada
         }
 
-        // Eventos Globales
+        // 2. Interceptar clics en cualquier enlace interno (que empiece con #)
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#') && href.length > 1) {
+                e.preventDefault(); // Evitamos el salto brusco por defecto
+                ejecutarAnimacionCortina(href);
+            }
+        });
+
+        // Manejar también si el usuario usa las flechas de atrás/adelante del navegador
         window.addEventListener('hashchange', () => {
             checkSectionVisibility();
-            animarCortina();
         });
 
         window.addEventListener('load', () => {
             checkSectionVisibility();
         });
-
-        checkSectionVisibility();
     })();
 </script>
 </html>
