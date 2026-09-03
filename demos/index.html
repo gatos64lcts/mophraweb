@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- 1. Etiquetas para mitigar la caché del navegador -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<!-- 2. Script de auto-recarga global -->
+<script>
+  setInterval(async () => {
+    try {
+      const response = await fetch('./version.json?_=' + Date.now());
+      const data = await response.json();
+      const currentVersion = localStorage.getItem('mophra_version');
+      
+      if (!currentVersion) {
+        localStorage.setItem('mophra_version', data.version);
+      } else if (currentVersion !== data.version) {
+        localStorage.setItem('mophra_version', data.version);
+        window.location.reload();
+      }
+    } catch (err) {
+      // Silenciar errores de conexión temporal
+    }
+  }, 60000);
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MOPHRA | DEMOS</title>
