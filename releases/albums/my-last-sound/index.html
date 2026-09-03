@@ -25,28 +25,34 @@
             font-style: normal;
         }
 
-        /* Contenedor de margen a margen optimizado */
+        /* Contenedor que limita y centra perfectamente el texto */
         .mophra-hero-container {
             width: 100%;
-            margin: 120px 0 20px 0;
+            max-width: 100vw;
+            margin: 120px auto 20px auto;
             text-align: center;
-            padding: 0 10px; /* Un pequeño respiro lateral para que no pegue exactamente al borde del monitor */
+            padding: 0 15px; /* Margen de seguridad para que no toque los bordes físicos */
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        /* Título gigante hiper-agresivo ajustado para ocupar todo el ancho visual */
+        /* Título gigante ajustado para nunca cortarse y respetar los caracteres */
         .mophra-big-title {
             font-family: 'RelicusMono', monospace !important;
-            font-size: clamp(40px, 17.5vw, 250px); /* ¡Escala masiva adaptativa al ancho de pantalla! */
-            line-height: 0.78;
-            color: #000000; /* Color negro sólido como en tu captura de referencia */
+            /* Usamos un valor seguro que escala con la pantalla pero tiene un límite superior controlado */
+            font-size: clamp(35px, 12.5vw, 180px); 
+            line-height: 0.85;
+            color: #000000; /* Negro sólido como en tu referencia */
             font-weight: 900;
-            letter-spacing: -4px;
+            letter-spacing: -2px;
             margin: 0;
-            display: block;
+            display: inline-block;
             width: 100%;
+            text-align: center;
+            /* Evitamos que se desborde forzando el reajuste al ancho del contenedor */
             white-space: nowrap; 
-            overflow: hidden;
         }
     </style>
 </head>
