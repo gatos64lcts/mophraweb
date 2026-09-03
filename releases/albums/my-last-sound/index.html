@@ -70,7 +70,7 @@
         /* --- 🎬 SECCIÓN DE IMAGEN CON EFECTO SCROLL --- */
         .mophra-scroll-section {
             position: relative;
-            width: 100vw;
+            width: 100%;
             height: 200vh;
             background-color: #F5260A;
             z-index: 2;
@@ -81,7 +81,7 @@
         .mophra-sticky-container {
             position: sticky;
             top: 0;
-            width: 100vw;
+            width: 100%;
             height: 100vh;
             overflow: hidden;
             display: flex;
@@ -91,13 +91,12 @@
             padding: 0;
         }
 
-        /* Imagen por CSS de fondo: Cero márgenes, IMPOSIBLE de abrir en pestaña nueva por accidente, pero conserva descarga vía menú contextual */
         .mophra-scroll-img {
-            width: 100vw;
-            height: 100vh;
+            width: 100.2vw; /* Un leve desbordamiento imperceptible que tapa cualquier línea de subpíxel */
+            height: 100.2vh;
             position: absolute;
-            top: 0;
-            left: 0;
+            top: -0.1vh;
+            left: -0.1vw;
             background-image: url('https://raw.githubusercontent.com/gatos64lcts/mophraweb/main/releases/albums/my-last-sound/cover-my-last-sound.jpg');
             background-size: cover;
             background-position: center;
@@ -105,12 +104,10 @@
             transform: translateY(100%);
             will-change: transform;
             
-            /* Bloquea la selección y arrastre nativo que causa que se abra en otra pestaña */
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
-        }
-    </style>
+        }    </style>
 </head>
 <body>
 
