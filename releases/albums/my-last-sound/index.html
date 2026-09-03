@@ -14,7 +14,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            overflow-x: hidden;
+            overflow: hidden; /* Evita cualquier scroll innecesario */
         }
 
         /* --- 📦 CARGA DE FUENTE PERSONALIZADA DESDE CLOUDINARY --- */
@@ -25,34 +25,36 @@
             font-style: normal;
         }
 
-        /* Contenedor que limita y centra perfectamente el texto */
+        /* Contenedor que ocupa toda la pantalla para estirar el texto en altura */
         .mophra-hero-container {
-            width: 100%;
-            max-width: 100vw;
-            margin: 120px auto 20px auto;
-            text-align: center;
-            padding: 0 15px; /* Margen de seguridad para que no toque los bordes físicos */
-            box-sizing: border-box;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0 20px;
+            box-sizing: border-box;
             overflow: hidden;
         }
 
-        /* Título gigante ajustado para nunca cortarse y respetar los caracteres */
+        /* Título gigante estirado para abarcar el alto del viewport */
         .mophra-big-title {
             font-family: 'RelicusMono', monospace !important;
-            /* Usamos un valor seguro que escala con la pantalla pero tiene un límite superior controlado */
-            font-size: clamp(35px, 12.5vw, 180px); 
-            line-height: 0.85;
-            color: #000000; /* Negro sólido como en tu referencia */
+            /* Se ajusta en base al ancho y alto para estirarse al máximo sin cortarse */
+            font-size: clamp(40px, 17vw, 32vh); 
+            line-height: 1;
+            color: #000000;
             font-weight: 900;
-            letter-spacing: -2px;
+            letter-spacing: -3px;
             margin: 0;
-            display: inline-block;
-            width: 100%;
             text-align: center;
-            /* Evitamos que se desborde forzando el reajuste al ancho del contenedor */
-            white-space: nowrap; 
+            white-space: nowrap;
+            width: 100%;
+            /* Propiedad clave para estirar digitalmente la tipografía si deseas forzar la altura vertical */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
@@ -104,7 +106,6 @@
             width: 100% !important; height: 100vh !important;
             background-color: transparent !important;
             overflow: hidden !important;
-            overflow-x: hidden !important;
             font-family: 'RelicusMono', monospace !important; user-select: none !important; z-index: 999999 !important; pointer-events: none !important;
         }
 
