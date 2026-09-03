@@ -649,16 +649,16 @@
   </script>
 
 </body>
-<!-- ========================================== -->
-<!-- MOPHRA - CÓDIGO UNIFICADO (CORTINA + NAV)  -->
-<!-- ========================================== -->
+<!-- ========================================================== -->
+<!-- MOPHRA - CÓDIGO UNIFICADO (CORTINA + NAV PARA RUTAS /) -->
+<!-- ========================================================== -->
 
-<!-- 1. ENCABEZADO SUPERIOR FLOTANTE (Solo Home) -->
+<!-- 1. ENCABEZADO SUPERIOR FLOTANTE (Solo Home / Ruta Raíz) -->
 <div id="mophraTopHeader" class="mophra-top-header">
-    <a href="#releases" class="top-nav-img-btn">
+    <a href="/releases" class="top-nav-img-btn">
         <img src="https://i.ibb.co/GvS4mBzZ/m-releases.png" alt="Releases">
     </a>
-    <a href="#artists" class="top-nav-img-btn">
+    <a href="/artists" class="top-nav-img-btn">
         <img src="https://i.ibb.co/BV5830Jn/m-artists.png" alt="Artists">
     </a>
 </div>
@@ -766,7 +766,7 @@
 
 <script>
     (function() {
-        // 1. Precargar la imagen en caché para que esté fluida siempre
+        // 1. Precargar la imagen en caché
         const preloadImage = new Image();
         preloadImage.src = "https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp";
 
@@ -774,37 +774,38 @@
         const header = document.getElementById('mophraTopHeader');
         let transitando = false;
 
-        function checkSectionVisibility() {
+        // Comprobar si estamos en la ruta principal (Home: "/", "", o index.html)
+        function checkRouteVisibility() {
             if (!header) return;
-            const currentHash = window.location.hash.toLowerCase();
-            if (currentHash === '' || currentHash === '/' || currentHash === 'home') {
+            const path = window.location.pathname.replace(/\/$/, "").toLowerCase();
+            if (path === '' || path === '/index.html' || path === '/') {
                 header.classList.remove('is-hidden');
             } else {
                 header.classList.add('is-hidden');
             }
         }
 
-        function ejecutarAnimacionCortina(targetHash) {
-            if (!cortina || transitando) return;
+        // Ejecutar la animación de la cortina
+        function animarCortina(callback) {
+            if (!cortina || transitando) {
+                if (callback) callback();
+                return;
+            }
             transitando = true;
 
-            // Reset rápido
             cortina.style.transition = 'none';
             cortina.classList.remove('abrir', 'cerrar');
             cortina.offsetHeight; // Reflow
 
-            // Bajar cortina
             cortina.style.transition = '';
             cortina.classList.add('cerrar');
 
             setTimeout(() => {
                 document.body.classList.add('cortina-bloqueo');
 
-                // Cambiar la sección / hash a mitad de la cortina cerrada
-                if (targetHash) {
-                    window.location.hash = targetHash;
-                }
-                checkSectionVisibility();
+                // Ejecutamos el cambio de ruta justo cuando la cortina cubre toda la pantalla
+                if (callback) callback();
+                checkRouteVisibility();
 
                 setTimeout(() => {
                     document.body.classList.remove('cortina-bloqueo');
@@ -814,33 +815,41 @@
                     setTimeout(() => {
                         cortina.classList.remove('abrir');
                         transitando = false;
-                    }, 700); // Tiempo de subida
+                    }, 700); // Subida
 
-                }, 50); // Pausa en oscuridad
+                }, 50); // Pausa
 
-            }, 500); // Tiempo de bajada
+            }, 500); // Bajada
         }
 
-        // 2. Interceptar clics en cualquier enlace interno (que empiece con #)
+        // 2. Interceptar clics en enlaces internos de rutas limpias (ej: href="/releases")
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
 
             const href = link.getAttribute('href');
-            if (href && href.startsWith('/') && href.length > 1) {
-                e.preventDefault(); // Evitamos el salto brusco por defecto
-                ejecutarAnimacionCortina(href);
+            // Verificamos que sea un enlace interno que empieza con / pero no externos ni anclas (#)
+            if (href && href.startsWith('/') && !href.startsWith('//') && !link.getAttribute('target')) {
+                e.preventDefault();
+                animarCortina(() => {
+                    // Cambiamos la URL de forma limpia usando History API
+                    history.pushState(null, '', href);
+                    // Disparamos un evento personalizado por si tu app necesita enterarse del cambio de ruta
+                    window.dispatchEvent(new PopStateEvent('popstate'));
+                });
             }
         });
 
-        // Manejar también si el usuario usa las flechas de atrás/adelante del navegador
-        window.addEventListener('hashchange', () => {
-            checkSectionVisibility();
+        // 3. Detectar cuando el usuario usa las flechas de atrás/adelante del navegador
+        window.addEventListener('popstate', () => {
+            animarCortina();
         });
 
         window.addEventListener('load', () => {
-            checkSectionVisibility();
+            checkRouteVisibility();
         });
+
+        checkRouteVisibility();
     })();
 </script>
 </html>
