@@ -804,4 +804,104 @@
   
 
 </body>
+  <!-- 2. CORTINA METÁLICA DE TRANSICIÓN -->
+<div id="cortina-transicion" class="cortina-contenedor">
+    <img src="https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp" alt="Cargando..." class="cortina-imagen">
+</div>
+      /* --- ESTILOS: CORTINA DE TRANSICIÓN --- */
+    .cortina-contenedor {
+        position: fixed;
+        top: -15vh;
+        left: 0;
+        width: 100vw;
+        height: 115vh;
+        background-color: #1a1a1a;
+        z-index: 9999999 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        pointer-events: none;
+        /* Al cargar la página, la cortina empieza abajo y sube automáticamente (Efecto entrada) */
+        transform: translateY(0%);
+    }
+
+    .cortina-contenedor.cerrar {
+        pointer-events: auto;
+        transform: translateY(0%);
+        transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.05) !important;
+    }
+
+    .cortina-contenedor.abrir {
+        transform: translateY(-100%);
+        transition: transform 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045) !important;
+    }
+
+    .cortina-imagen {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    body.cortina-bloqueo section {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: none !important;
+    }
+</style>
+
+<script>
+    (function() {
+        // 1. Precargar imagen en caché
+        const preloadImage = new Image();
+        preloadImage.src = "https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp";
+
+        const cortina = document.getElementById('cortina-transicion');
+        const header = document.getElementById('mophraTopHeader');
+
+        // Control de visibilidad del menú superior según la ruta limpia
+        function checkRouteVisibility() {
+            if (!header) return;
+            const path = window.location.pathname.replace(/\/$/, "").toLowerCase();
+            if (path === '' || path === '/index.html' || path === '/') {
+                header.classList.remove('is-hidden');
+            } else {
+                header.classList.add('is-hidden');
+            }
+        }
+
+        // Al cargar la página, hacemos que la cortina suba automáticamente (revelando el contenido real)
+        window.addEventListener('load', () => {
+            checkRouteVisibility();
+            if (cortina) {
+                setTimeout(() => {
+                    cortina.classList.add('abrir');
+                }, 100);
+            }
+        });
+
+        // 2. Al hacer clic en un enlace interno, bajamos la cortina y dejamos que navegue de forma natural
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            // Si es un enlace interno válido que cambia de página
+            if (href && (href.startsWith('/') || href.startsWith('.')) && !link.getAttribute('target')) {
+                // Evitamos un milisegundo el salto para activar la animación de bajada
+                e.preventDefault();
+                
+                if (cortina) {
+                    cortina.classList.remove('abrir');
+                    cortina.classList.add('cerrar');
+                }
+
+                // Esperamos a que baje la cortina (500ms) y luego hacemos el cambio de página real
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 500);
+            }
+        });
+    })();
+</script>
 </html>
