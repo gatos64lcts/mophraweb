@@ -31,14 +31,14 @@
     
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <style>
+   <style>
         /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
         body {
             background-color: #F5260A !important;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            overflow-x: hidden !important; /* Evita cualquier scroll lateral no deseado */
+            overflow-x: hidden !important;
         }
 
         /* --- 📦 CARGA DE FUENTE PERSONALIZADA DESDE CLOUDINARY --- */
@@ -60,25 +60,24 @@
             overflow: hidden;
         }
 
-        /* Título adaptado sin transformaciones que causen desbordes en móviles */
+        /* Título modificado para respetar minúsculas y mayúsculas */
         .mophra-stretched-eps {
             font-family: 'RelicusMono', monospace !important;
-            font-size: clamp(32px, 9.5vw, 110px); /* Tamaño fluido que reduce automáticamente en pantallas chicas */
+            font-size: clamp(32px, 9.5vw, 110px);
             line-height: 0.9;
             color: #ffffff;
-            font-weight: 900;
-            text-transform: uppercase;
+            font-weight: 950;
+            text-transform: none !important; /* <-- CAMBIADO: Ahora respeta cómo escribas el texto */
             letter-spacing: -1px;
             display: inline-block;
-            transform: scaleY(2.0); /* Ligeramente más contenido para que no ensanche de más */
+            transform: scaleY(3.0);
             transform-origin: center;
             margin: 20px 0;
             max-width: 100%;
             word-break: break-word;
         }
 
-        /* Ajuste específico para móviles muy estrechos */
-        @media (max-width: 480px) {
+        @media (max-width: 490px) {
             .mophra-tw-container {
                 padding: 0 10px;
                 margin-top: 100px;
