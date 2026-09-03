@@ -48,31 +48,32 @@
             font-style: normal;
         }
 
-        /* Contenedor principal adaptado para respetar los márgenes laterales */
+       /* Contenedor principal corregido para evitar desbordes */
         .mophra-tw-container {
             width: 100%;
-            max-width: 620px;
-            margin: 100px auto 20px auto;
-            text-align: center;
-            padding: 0 20px;
+            max-width: 100%;
+            margin: 0;
+            padding: 120px 5vw 20px 5vw; /* Margen superior seguro y padding lateral fluido */
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Estilo tipográfico condensado y alargado verticalmente estilo Y2K/Industrial */
+        /* Estilo tipográfico ajustado para que escale de forma fluida sin salirse */
         .mophra-stretched-eps {
             font-family: 'RelicusMono', monospace !important;
-            font-size: clamp(60px, 18vw, 130px);
+            font-size: clamp(40px, 12vw, 120px); /* Ligeramente más fluido para títulos largos como MY LAST SOUND */
             line-height: 0.85;
             color: #ffffff;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -2px;
             display: inline-block;
-            /* Estiramiento vertical mediante transform */
             transform: scaleY(2.2);
             transform-origin: center;
-            margin: 40px 0;
             white-space: nowrap;
+            max-width: 100%;
         }
     </style>
 </head>
