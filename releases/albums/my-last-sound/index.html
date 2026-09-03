@@ -17,7 +17,15 @@
             overflow: hidden; /* Cero scroll */
         }
 
-        /* Contenedor estricto que cubre toda la pantalla de extremo a extremo */
+        /* --- 📦 CARGA DE FUENTE PERSONALIZADA --- */
+        @font-face {
+            font-family: 'RelicusMono';
+            src: url('https://res.cloudinary.com/dfhrxq0tf/raw/upload/v1784479120/Relicus-Mono_rsjgnn.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Contenedor central estricto de pantalla completa */
         .mophra-hero-container {
             width: 100vw;
             height: 100vh;
@@ -33,24 +41,29 @@
             left: 0;
         }
 
-        /* El SVG se acopla matemáticamente al 100% de la ventana sin salirse */
-        .mophra-poster-svg {
-            width: 100vw;
-            height: 100vh;
-            display: block;
+        /* TÍTULO PÓSTER PERFECTO: Altura e infraestructura de borde a borde sin desbordes laterales */
+        .mophra-big-title {
+            font-family: 'RelicusMono', monospace !important;
+            font-size: 19vw; /* Ancho controlado para que no rompa los márgenes */
+            line-height: 0.7;
+            color: #000000;
+            font-weight: 900;
+            letter-spacing: -4px;
+            margin: 0;
+            text-align: center;
+            white-space: nowrap;
+            
+            /* Estiramiento vertical masivo para cubrir de arriba a abajo exactamente */
+            transform: scaleY(4.2); 
+            transform-origin: center center;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
 
     <div class="mophra-hero-container">
-        <svg class="mophra-poster-svg" viewBox="0 0 1000 350" preserveAspectRatio="none">
-            <text x="50%" y="78%" dominant-baseline="middle" text-anchor="middle" 
-                  fill="#000000" font-weight="900" 
-                  style="font-family: 'RelicusMono', monospace; letter-spacing: -3px;">
-                My Last Sound
-            </text>
-        </svg>
+        <h1 class="mophra-big-title">My Last Sound</h1>
     </div>
 
     <div class="mophra-global-container" id="mophraGlobalMenu">
