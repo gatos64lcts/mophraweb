@@ -41,22 +41,29 @@
             left: 0;
         }
 
-        /* TÍTULO PÓSTER PERFECTO: Altura e infraestructura de borde a borde sin desbordes laterales */
+        /* TÍTULO PÓSTER: Ancho fijo natural con márgenes limpios y estiramiento vertical a pantalla completa */
         .mophra-big-title {
             font-family: 'RelicusMono', monospace !important;
-            font-size: 19vw; /* Ancho controlado para que no rompa los márgenes */
-            line-height: 0.7;
+            font-size: 13rem; /* Tamaño base fijo en ancho para cuidar los márgenes */
+            line-height: 1;
             color: #000000;
             font-weight: 900;
-            letter-spacing: -4px;
+            letter-spacing: -3px;
             margin: 0;
             text-align: center;
             white-space: nowrap;
             
-            /* Estiramiento vertical masivo para cubrir de arriba a abajo exactamente */
-            transform: scaleY(4.2); 
+            /* Estira únicamente la altura (eje Y) para tocar el borde superior e inferior */
+            transform: scaleY(3.2); 
             transform-origin: center center;
             display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .mophra-big-title {
+                font-size: 5.5rem;
+                transform: scaleY(4.5);
+            }
         }
     </style>
 </head>
