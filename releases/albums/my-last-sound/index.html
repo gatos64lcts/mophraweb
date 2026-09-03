@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     
     <link rel="icon" type="image/png" href="/favicon.png">
 
-   <style>
+    <style>
         /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
         body {
             background-color: #F5260A !important;
@@ -25,7 +25,7 @@
             font-style: normal;
         }
 
-        /* Contenedor estricto que abarca toda la pantalla */
+        /* Contenedor que ocupa toda la pantalla de forma estricta */
         .mophra-hero-container {
             width: 100vw;
             height: 100vh;
@@ -41,29 +41,23 @@
             left: 0;
         }
 
-        /* Título gigante con ajuste total de esquina a esquina (Ancho y Alto forzados) */
+        /* TÍTULO PÓSTER GIGANTE DE EXTREMO A EXTREMO */
         .mophra-big-title {
             font-family: 'RelicusMono', monospace !important;
-            font-size: 100px; /* Tamaño base de referencia interno */
-            line-height: 0.75;
-            color: #000000; /* O cámbialo a #ffffff si lo quieres blanco como en tu última prueba */
+            font-size: 26.5vw; /* Escala masiva basada en el ancho de pantalla */
+            line-height: 0.72;
+            color: #000000; /* Cámbialo a #ffffff si lo quieres blanco */
             font-weight: 900;
-            letter-spacing: -4px;
+            letter-spacing: -6px;
             margin: 0;
-            text-align: justify;
-            text-align-last: justify;
+            text-align: center;
             white-space: nowrap;
             
-            /* LA CLAVE: Forzamos a que el texto mida exactamente el 100% de ancho y alto de la pantalla */
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-            /* Estiramiento total: Ancho completo de la ventana y alto completo de la ventana */
-            transform: scaleY(3.6); 
+            /* LA MAGIA DEL PÓSTER: Estira tanto a lo ancho como a lo alto de forma milimétrica */
+            transform: scale(1.0, 3.1); 
             transform-origin: center center;
+            display: inline-block;
+            width: 100%;
         }
     </style>
 </head>
