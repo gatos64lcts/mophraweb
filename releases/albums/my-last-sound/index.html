@@ -70,10 +70,12 @@
         /* --- 🎬 SECCIÓN DE IMAGEN CON EFECTO SCROLL --- */
         .mophra-scroll-section {
             position: relative;
-            width: 100%;
+            width: 100vw;
             height: 200vh;
             background-color: #F5260A;
             z-index: 2;
+            margin: 0;
+            padding: 0;
         }
 
         .mophra-sticky-container {
@@ -85,22 +87,24 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Convertida en capa de fondo para evitar márgenes y bloquear el "Abrir imagen en pestaña nueva" */
+        /* Imagen corregida sin márgenes, permitiendo descarga pero bloqueando apertura en nueva pestaña */
         .mophra-scroll-img {
             width: 100vw;
             height: 100vh;
+            object-fit: cover;
             position: absolute;
             top: 0;
             left: 0;
-            background-image: url('https://raw.githubusercontent.com/gatos64lcts/mophraweb/main/releases/albums/my-last-sound/cover-my-last-sound.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             transform: translateY(100%);
             will-change: transform;
-            pointer-events: none; /* Bloquea clics, selección y menú contextual */
+            -webkit-user-drag: none;
+            user-drag: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
     </style>
 </head>
@@ -112,8 +116,7 @@
 
     <div class="mophra-scroll-section">
         <div class="mophra-sticky-container">
-            <!-- Cambiado a un div con background para eliminar por completo los bordes y proteger la imagen -->
-            <div class="mophra-scroll-img"></div>
+            <img class="mophra-scroll-img" src="https://raw.githubusercontent.com/gatos64lcts/mophraweb/main/releases/albums/my-last-sound/cover-my-last-sound.jpg" alt="Cover My Last Sound">
         </div>
     </div>
 
