@@ -649,10 +649,6 @@
   </script>
 
 </body>
-<!-- ========================================================== -->
-<!-- MOPHRA - CÓDIGO UNIFICADO (CORTINA + NAV NATURAL)          -->
-<!-- ========================================================== -->
-
 <!-- 1. ENCABEZADO SUPERIOR FLOTANTE (Solo Home / Ruta Raíz) -->
 <div id="mophraTopHeader" class="mophra-top-header">
     <a href="/releases" class="top-nav-img-btn">
@@ -708,21 +704,6 @@
         filter: none !important;
     }
 
-    .top-nav-img-btn:hover,
-    .top-nav-img-btn:active {
-        transform: none !important;
-    }
-
-    @media (max-width: 768px) {
-        .mophra-top-header {
-            top: 18px !important;
-            gap: 25px !important;
-        }
-        .top-nav-img-btn img {
-            height: clamp(55px, 14vw, 85px) !important;
-        }
-    }
-
     /* --- ESTILOS: CORTINA DE TRANSICIÓN --- */
     .cortina-contenedor {
         position: fixed;
@@ -737,7 +718,6 @@
         align-items: center;
         overflow: hidden;
         pointer-events: none;
-        /* Al cargar la página, la cortina empieza abajo y sube automáticamente (Efecto entrada) */
         transform: translateY(0%);
     }
 
@@ -757,24 +737,16 @@
         height: 100%;
         object-fit: cover;
     }
-
-    body.cortina-bloqueo section {
-        opacity: 0 !important;
-        pointer-events: none !important;
-        transition: none !important;
-    }
 </style>
 
 <script>
     (function() {
-        // 1. Precargar imagen en caché
         const preloadImage = new Image();
         preloadImage.src = "https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp";
 
         const cortina = document.getElementById('cortina-transicion');
         const header = document.getElementById('mophraTopHeader');
 
-        // Control de visibilidad del menú superior según la ruta limpia
         function checkRouteVisibility() {
             if (!header) return;
             const path = window.location.pathname.replace(/\/$/, "").toLowerCase();
@@ -785,25 +757,37 @@
             }
         }
 
-        // Al cargar la página, hacemos que la cortina suba automáticamente (revelando el contenido real)
+        function abrirCortina() {
+            if (cortina) {
+                cortina.classList.remove('cerrar');
+                cortina.classList.add('abrir');
+            }
+        }
+
+        // 1. Ejecutar al cargar la página de forma normal
         window.addEventListener('load', () => {
             checkRouteVisibility();
-            if (cortina) {
-                setTimeout(() => {
+            setTimeout(abrirCortina, 100);
+        });
+
+        // 2. CORRECCIÓN PARA FLECHAS DE RETORNO (BFCache / Persistencia del navegador)
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                if (cortina) {
+                    cortina.classList.remove('cerrar');
                     cortina.classList.add('abrir');
-                }, 100);
+                }
+                checkRouteVisibility();
             }
         });
 
-        // 2. Al hacer clic en un enlace interno, bajamos la cortina y dejamos que navegue de forma natural
+        // 3. Control de clics en enlaces internos con animación de bajada de cortina
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
 
             const href = link.getAttribute('href');
-            // Si es un enlace interno válido que cambia de página
-            if (href && (href.startsWith('/') || href.startsWith('.')) && !link.getAttribute('target')) {
-                // Evitamos un milisegundo el salto para activar la animación de bajada
+            if (href && (href.startsWith('/') || href.startsWith('.')) && !link.getAttribute('target') && !link.hasAttribute('download')) {
                 e.preventDefault();
                 
                 if (cortina) {
@@ -811,7 +795,6 @@
                     cortina.classList.add('cerrar');
                 }
 
-                // Esperamos a que baje la cortina (500ms) y luego hacemos el cambio de página real
                 setTimeout(() => {
                     window.location.href = href;
                 }, 500);
