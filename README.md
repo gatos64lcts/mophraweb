@@ -1,3 +1,3 @@
 MOPHRA
-Label/Collective
+Label/Collective.
 Making sounds, making moments.
