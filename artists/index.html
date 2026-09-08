@@ -169,6 +169,7 @@
       aspect-ratio: 1 / 1 !important;
       overflow: hidden !important;
       border-radius: 4px !important;
+      background: #000000 !important;
     }
 
     .artist-image-wrapper img {
@@ -176,34 +177,19 @@
       height: 100% !important;
       object-fit: cover !important;
       display: block !important;
-      transition: filter 0.3s ease-in-out !important;
+      transition: filter 0.25s ease-in-out, opacity 0.25s ease-in-out !important;
     }
 
-    /* Capa de tinte rojo translúcido limpio con overlay */
-    .artist-image-wrapper::after {
-      content: '' !important;
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      background-color: #F5260A !important; 
-      opacity: 0 !important;
-      mix-blend-mode: overlay !important;
-      transition: opacity 0.3s ease-in-out !important;
-      pointer-events: none !important;
-      z-index: 2 !important;
-    }
-
-    /* Efecto al pasar el cursor */
+    /* Efecto directo de oscurecimiento total al hacer hover o toque */
     @media (hover: hover) and (pointer: fine) {
-      .artist-card:hover .artist-image-wrapper::after {
-        opacity: 0.8 !important; 
-      }
-      
       .artist-card:hover .artist-image-wrapper img {
-        filter: contrast(1.1) !important;
+        filter: brightness(0) !important;
       }
+    }
+
+    /* Para pantallas táctiles / móviles si deseas que al presionar oscurezca */
+    .artist-card:active .artist-image-wrapper img {
+      filter: brightness(0) !important;
     }
 
     .artist-info {
@@ -219,17 +205,12 @@
       font-weight: 700 !important;
       line-height: 1.2 !important;
       letter-spacing: 1px !important;
-      word-break: normal !important;
-      white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
       text-transform: uppercase !important;
       color: #ffffff !important;
       margin: 0 !important;
       padding: 0 !important;
       text-align: center !important;
     }
-  </style>
 </head>
 <body>
 
