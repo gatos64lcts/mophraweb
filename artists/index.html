@@ -165,7 +165,7 @@
       box-sizing: border-box !important;
     }
 
-    .artist-image-wrapper {
+   .artist-image-wrapper {
       position: relative !important;
       width: 100% !important;
       aspect-ratio: 1 / 1 !important;
@@ -179,21 +179,30 @@
       height: 100% !important;
       object-fit: cover !important;
       display: block !important;
-      transition: filter 0.25s ease-in-out, opacity 0.25s ease-in-out !important;
+      transition: transform 0.3s ease-in-out !important;
     }
 
-    /* Efecto directo de oscurecimiento total al hacer hover o toque */
+    /* Capa de tinte translúcido que aparece al hacer hover */
+    .artist-image-wrapper::after {
+      content: '' !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background-color: rgba(251, 43, 12, 0.54) !important; 
+      opacity: 0 !important;
+      transition: opacity 0.3s ease-in-out !important;
+      pointer-events: none !important;
+      z-index: 2 !important;
+    }
+
+    /* Activación del efecto al pasar el cursor */
     @media (hover: hover) and (pointer: fine) {
-      .artist-card:hover .artist-image-wrapper img {
-        filter: brightness(0) !important;
+      .artist-card:hover .artist-image-wrapper::after {
+        opacity: 1 !important; 
       }
     }
-
-    /* Para pantallas táctiles / móviles si deseas que al presionar oscurezca */
-    .artist-card:active .artist-image-wrapper img {
-      filter: brightness(0) !important;
-    }
-
     .artist-info {
       padding-top: 10px !important;
       padding-bottom: 2px !important;
