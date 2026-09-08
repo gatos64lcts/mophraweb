@@ -174,7 +174,7 @@
       background: #000000 !important;
     }
 
-    .artist-image-wrapper img {
+   .artist-image-wrapper img {
       width: 100% !important;
       height: 100% !important;
       object-fit: cover !important;
@@ -182,7 +182,7 @@
       transition: filter 0.3s ease-in-out !important;
     }
 
-    /* Tinte celofán balanceado que no apaga los negros profundos */
+    /* Capa de tinte celofán con multiply */
     .artist-image-wrapper::after {
       content: '' !important;
       position: absolute !important;
@@ -192,19 +192,20 @@
       height: 100% !important;
       background-color: #F5260A !important; 
       opacity: 0 !important;
-      mix-blend-mode: overlay !important; /* <--- Cambiado a overlay para fotos oscuras */
+      mix-blend-mode: multiply !important;
       transition: opacity 0.3s ease-in-out !important;
       pointer-events: none !important;
       z-index: 2 !important;
     }
 
+    /* Activación del efecto con contraste y brillo original */
     @media (hover: hover) and (pointer: fine) {
       .artist-card:hover .artist-image-wrapper::after {
-        opacity: 0.75 !important; /* Un toque más suave para que respire la foto */
+        opacity: 0.85 !important; 
       }
       
       .artist-card:hover .artist-image-wrapper img {
-        filter: brightness(1.05) contrast(1.1) !important; /* Aclara levemente la foto al pasar el cursor para compensar */
+        filter: contrast(1.15) brightness(0.95) !important;
       }
     }
     .artist-info {
