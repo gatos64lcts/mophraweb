@@ -156,16 +156,16 @@
       box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15) !important;
     }
 
-    .artist-image-frame {
+   .artist-image-frame {
       width: 100% !important;
       border-radius: 6px !important;
       border: 1.1px solid #333333 !important;
       padding: 4px !important;
-      background: #1a1a1a !important; /* Cambiado de negro absoluto a gris oscuro para que el filtro respire */
+      background: #000000 !important;
       box-sizing: border-box !important;
     }
 
-  .artist-image-wrapper {
+    .artist-image-wrapper {
       position: relative !important;
       width: 100% !important;
       aspect-ratio: 1 / 1 !important;
@@ -178,12 +178,10 @@
       height: 100% !important;
       object-fit: cover !important;
       display: block !important;
-      /* Estado normal */
-      filter: contrast(1) brightness(1) saturate(1) !important;
-      transition: filter 0.3s ease-in-out !important;
+      transition: filter 0.3s ease-in-out, opacity 0.3s ease-in-out !important;
     }
 
-    /* Capa de tinte rojo con fusión correcta (overlay) */
+    /* Capa de tinte rojo translúcido */
     .artist-image-wrapper::after {
       content: '' !important;
       position: absolute !important;
@@ -193,22 +191,22 @@
       height: 100% !important;
       background-color: #F5260A !important; 
       opacity: 0 !important;
-      mix-blend-mode: overlay !important; /* 'overlay' o 'color' tiñen la foto sin oscurecerla de negro */
+      mix-blend-mode: overlay !important;
       transition: opacity 0.3s ease-in-out !important;
       pointer-events: none !important;
+      z-index: 2 !important;
     }
 
-  /* Efecto al pasar el cursor (Hover) */
+    /* Efecto al pasar el cursor (Hover limpio sin apagar la foto) */
     @media (hover: hover) and (pointer: fine) {
       .artist-card:hover .artist-image-wrapper::after {
-        opacity: 0.85 !important; /* Intensidad del rojo sobre la foto */
+        opacity: 0.75 !important; /* Ajusta la intensidad del rojo aquí (0 a 1) */
       }
       
       .artist-card:hover .artist-image-wrapper img {
-        filter: contrast(1.15) brightness(0.95) saturate(1.2) !important;
+        filter: contrast(1.1) !important;
       }
     }
-
     .img-main {
       opacity: 1 !important;
       z-index: 1 !important;
