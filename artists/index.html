@@ -161,11 +161,11 @@
       border-radius: 6px !important;
       border: 1.1px solid #333333 !important;
       padding: 4px !important;
-      background: #000000 !important;
+      background: #1a1a1a !important; /* Cambiado de negro absoluto a gris oscuro para que el filtro respire */
       box-sizing: border-box !important;
     }
 
-   .artist-image-wrapper {
+  .artist-image-wrapper {
       position: relative !important;
       width: 100% !important;
       aspect-ratio: 1 / 1 !important;
@@ -178,10 +178,12 @@
       height: 100% !important;
       object-fit: cover !important;
       display: block !important;
+      /* Estado normal */
+      filter: contrast(1) brightness(1) saturate(1) !important;
       transition: filter 0.3s ease-in-out !important;
     }
 
-    /* Capa de tinte rojo que aparece suavemente sobre la imagen */
+    /* Capa de tinte rojo con fusión correcta (overlay) */
     .artist-image-wrapper::after {
       content: '' !important;
       position: absolute !important;
@@ -189,22 +191,21 @@
       left: 0 !important;
       width: 100% !important;
       height: 100% !important;
-      background-color: #F5260A !important; /* Tu rojo corporativo */
+      background-color: #F5260A !important; 
       opacity: 0 !important;
-      mix-blend-mode: multiply !important; /* Fusiona el rojo conservando los detalles oscuros de la foto */
+      mix-blend-mode: overlay !important; /* 'overlay' o 'color' tiñen la foto sin oscurecerla de negro */
       transition: opacity 0.3s ease-in-out !important;
       pointer-events: none !important;
     }
 
-    /* Efecto al pasar el cursor */
+  /* Efecto al pasar el cursor (Hover) */
     @media (hover: hover) and (pointer: fine) {
       .artist-card:hover .artist-image-wrapper::after {
-        opacity: 0.35 !important; /* Ajusta este valor (0 a 1) para que se vea más o menos intenso el rojo */
+        opacity: 0.85 !important; /* Intensidad del rojo sobre la foto */
       }
       
-      /* Opcional: un leve contraste a la foto original al hacer hover */
       .artist-card:hover .artist-image-wrapper img {
-        filter: contrast(1.1) !important;
+        filter: contrast(1.15) brightness(0.95) saturate(1.2) !important;
       }
     }
 
@@ -284,7 +285,7 @@
     </div>
   </a>
 
-       <a href="/artists/baddy" class="artist-card">
+       <a href="/artists/f3ver" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-f3ver.webp" alt="F3VER" class="img-main">
@@ -296,7 +297,7 @@
         </div>
       </a>
 
-      <a href="/artists/baddy" class="artist-card">
+      <a href="/artists/jetrixlife" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-jetrixlife.webp" alt="JetriXLife" class="img-main">
@@ -308,7 +309,7 @@
         </div>
       </a>
 
-       <a href="/artists/baddy" class="artist-card">
+       <a href="/artists/kraitx" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-kraitx.webp" alt="Kraitx" class="img-main">
@@ -319,7 +320,7 @@
         </div>
       </a>
 
-       <a href="/artists/baddy" class="artist-card">
+       <a href="/artists/lacrablack" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-lacrablack.webp" alt="LACRABLACK" class="img-main">
@@ -331,7 +332,7 @@
         </div>
       </a>
 
-       <a href="/artists/baddy" class="artist-card">
+       <a href="/artists/macodax" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-macodax.webp" alt="MaCodax" class="img-main">
@@ -343,7 +344,7 @@
         </div>
       </a>
 
-       <a href="/artists/baddy" class="artist-card">
+       <a href="/artists/mawsick" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-mawsick.webp" alt="Mawsick" class="img-main">
@@ -355,7 +356,7 @@
         </div>
       </a>
 
-      <a href="/artists/baddy" class="artist-card">
+      <a href="/artists/mozvy" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-mozvy.webp" alt="Mozvy" class="img-main">
@@ -366,7 +367,7 @@
         </div>
       </a>
 
-      <a href="/artists/baddy" class="artist-card">
+      <a href="/artists/opiumbags" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-opiumbags!.webp" alt="ÖpiumBags!" class="img-main">
@@ -377,7 +378,7 @@
         </div>
       </a>
       
-      <a href="/artists/baddy" class="artist-card">
+      <a href="/artists/umartzz" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-umartzz.webp" alt="UMartzz" class="img-main">
@@ -388,7 +389,7 @@
         </div>
       </a>
 
-       <a href="/artists/baddy" class="artist-card">
+       <a href="/artists/van-castlell" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-vancastlell.webp" alt="Van Castlell" class="img-main">
@@ -399,7 +400,7 @@
         </div>
       </a>
 
-       <a href="/artists/baddy" class="artist-card">
+       <a href="/artists/xzagon" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-xzagon.webp" alt="XzagoN" class="img-main">
@@ -410,7 +411,7 @@
         </div>
       </a>
 
-        <a href="/artists/baddy" class="artist-card">
+        <a href="/artists/yinix" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
         <img src="../../img/bnnr-yixin.webp" alt="YINIX" class="img-main">
