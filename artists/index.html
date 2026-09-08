@@ -73,7 +73,7 @@
 
     .animated-title-image {
       width: 75%;
-      max-width: 368px;
+      max-width: 368px; /* Aumentado 8px para móvil (de 360px a 368px) */
       height: auto;
       display: block;
       opacity: 0;
@@ -84,7 +84,7 @@
     @media (min-width: 769px) {
       .animated-title-image {
         width: 100%;
-        max-width: 720px;
+        max-width: 720px; /* Escritorio se queda igual */
       }
     }
 
@@ -109,10 +109,12 @@
       margin: 0 auto !important;
       margin-bottom: 16px !important;
       gap: 16px !important;
+      /* 1 artista a lo ancho en móvil por defecto */
       grid-template-columns: repeat(1, 1fr) !important;
       box-sizing: border-box !important;
     }
 
+    /* A partir de pantallas medianas (tablets) sube a 2 o 3 columnas */
     @media (min-width: 600px) and (max-width: 1023px) {
       .roster-grid {
         grid-template-columns: repeat(3, 1fr) !important;
@@ -154,7 +156,7 @@
       box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15) !important;
     }
 
-    .artist-image-frame {
+   .artist-image-frame {
       width: 100% !important;
       border-radius: 6px !important;
       border: 1.1px solid #333333 !important;
@@ -205,12 +207,17 @@
       font-weight: 700 !important;
       line-height: 1.2 !important;
       letter-spacing: 1px !important;
+      word-break: normal !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
       text-transform: uppercase !important;
       color: #ffffff !important;
       margin: 0 !important;
       padding: 0 !important;
       text-align: center !important;
     }
+  </style>
 </head>
 <body>
 
@@ -220,11 +227,12 @@
     </div>
 
     <div class="roster-grid">
-      <a href="/artists/atrox" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-atrox.webp" alt="ATROX">
-          </div>
+  <a href="/artists/atrox" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-atrox.webp" alt="ATROX" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">ATROX</h3>
@@ -232,21 +240,22 @@
       </a>
 
       <a href="/artists/baddy" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-baddy.webp" alt="BADDy">
-          </div>
-        </div>
-        <div class="artist-info">
-          <h3 class="artist-name">BADDy</h3>
-        </div>
-      </a>
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-baddy.webp" alt="BADDy" class="img-main">
+      </div>
+    </div>
+    <div class="artist-info">
+      <h3 class="artist-name">BADDy</h3>
+    </div>
+  </a>
 
-      <a href="/artists/f3ver" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-f3ver.webp" alt="F3VER">
-          </div>
+       <a href="/artists/f3ver" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-f3ver.webp" alt="F3VER" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">F3VER</h3>
@@ -254,54 +263,58 @@
       </a>
 
       <a href="/artists/jetrixlife" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-jetrixlife.webp" alt="JetriXLife">
-          </div>
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-jetrixlife.webp" alt="JetriXLife" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">JetriXLife</h3>
         </div>
       </a>
 
-      <a href="/artists/kraitx" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-kraitx.webp" alt="Kraitx">
-          </div>
+       <a href="/artists/kraitx" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-kraitx.webp" alt="Kraitx" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">KRAITX</h3>
         </div>
       </a>
 
-      <a href="/artists/lacrablack" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-lacrablack.webp" alt="LACRABLACK">
-          </div>
+       <a href="/artists/lacrablack" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-lacrablack.webp" alt="LACRABLACK" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">LACRABLACK</h3>
         </div>
       </a>
 
-      <a href="/artists/macodax" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-macodax.webp" alt="MaCodax">
-          </div>
+       <a href="/artists/macodax" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-macodax.webp" alt="MaCodax" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">MaCodax</h3>
         </div>
       </a>
 
-      <a href="/artists/mawsick" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-mawsick.webp" alt="Mawsick">
-          </div>
+       <a href="/artists/mawsick" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-mawsick.webp" alt="Mawsick" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">Mawsick</h3>
@@ -309,10 +322,10 @@
       </a>
 
       <a href="/artists/mozvy" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-mozvy.webp" alt="Mozvy">
-          </div>
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-mozvy.webp" alt="Mozvy" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">Mozvy</h3>
@@ -320,10 +333,10 @@
       </a>
 
       <a href="/artists/opiumbags" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-opiumbags!.webp" alt="ÖpiumBags!">
-          </div>
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-opiumbags!.webp" alt="ÖpiumBags!" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">ÖpiumBags!</h3>
@@ -331,43 +344,43 @@
       </a>
       
       <a href="/artists/umartzz" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-umartzz.webp" alt="UMartzz">
-          </div>
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-umartzz.webp" alt="UMartzz" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">UMartzz</h3>
         </div>
       </a>
 
-      <a href="/artists/van-castlell" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-vancastlell.webp" alt="Van Castlell">
-          </div>
+       <a href="/artists/van-castlell" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-vancastlell.webp" alt="Van Castlell" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">Van Castlell</h3>
         </div>
       </a>
 
-      <a href="/artists/xzagon" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-xzagon.webp" alt="XzagoN">
-          </div>
+       <a href="/artists/xzagon" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-xzagon.webp" alt="XzagoN" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">XzagoN</h3>
         </div>
       </a>
 
-      <a href="/artists/yinix" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="../../img/bnnr-yixin.webp" alt="YINIX">
-          </div>
+        <a href="/artists/yinix" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-yixin.webp" alt="YINIX" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">YINIX</h3>
@@ -620,7 +633,7 @@
   </script>
   
 </body>
-   <!-- PRECARGA OPTIMIZADA DE LA CORTINA -->
+   <!-- PRECARGA OPTIMIZADA DE LA CORTINA (Evita descargas repetidas) -->
 <link rel="preload" href="https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp" as="image">
 
 <!-- CORTINA METÁLICA DE TRANSICIÓN -->
@@ -674,10 +687,12 @@
             }
         }
 
+        // 1. Abrir la cortina al entrar a la página (usa caché del navegador)
         window.addEventListener('load', () => {
             setTimeout(abrirCortina, 100);
         });
 
+        // 2. Soporte para el botón de retroceso (BFCache)
         window.addEventListener('pageshow', (event) => {
             if (event.persisted && cortina) {
                 cortina.classList.remove('cerrar');
@@ -685,6 +700,7 @@
             }
         });
 
+        // 3. Interceptar clics para cerrar la cortina antes de cambiar de página
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
