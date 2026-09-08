@@ -179,10 +179,10 @@
       height: 100% !important;
       object-fit: cover !important;
       display: block !important;
-      transition: transform 0.3s ease-in-out !important;
+      transition: filter 0.3s ease-in-out !important;
     }
 
-    /* Capa de tinte translúcido que aparece al hacer hover */
+    /* Efecto celofán / tinte real con mezcla de fusión */
     .artist-image-wrapper::after {
       content: '' !important;
       position: absolute !important;
@@ -190,17 +190,22 @@
       left: 0 !important;
       width: 100% !important;
       height: 100% !important;
-      background-color: rgba(251, 43, 12, 0.54) !important; 
+      background-color: #F5260A !important; /* El rojo exacto del fondo de tu web */
       opacity: 0 !important;
+      mix-blend-mode: multiply !important; /* <--- Esto hace que se funda como tinta/celofán sobre la foto */
       transition: opacity 0.3s ease-in-out !important;
       pointer-events: none !important;
       z-index: 2 !important;
     }
 
-    /* Activación del efecto al pasar el cursor */
+    /* Activación del efecto con brillo y contraste para realzar las texturas */
     @media (hover: hover) and (pointer: fine) {
       .artist-card:hover .artist-image-wrapper::after {
-        opacity: 1 !important; 
+        opacity: 0.85 !important; /* Ajusta la intensidad del celofán (0.7 a 0.9) */
+      }
+      
+      .artist-card:hover .artist-image-wrapper img {
+        filter: contrast(1.15) brightness(0.95) !important; /* Hace que la foto debajo gane pegada y realismo */
       }
     }
     .artist-info {
