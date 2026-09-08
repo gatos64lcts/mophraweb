@@ -165,13 +165,12 @@
       box-sizing: border-box !important;
     }
 
-    .artist-image-wrapper {
+   .artist-image-wrapper {
       position: relative !important;
       width: 100% !important;
       aspect-ratio: 1 / 1 !important;
       overflow: hidden !important;
       border-radius: 4px !important;
-      background-color: #F5260A !important; /* Color de fondo base por si contrasta con el filtro */
     }
 
     .artist-image-wrapper img {
@@ -179,16 +178,33 @@
       height: 100% !important;
       object-fit: cover !important;
       display: block !important;
-      /* Filtro inicial normal o con un toque si lo deseas */
-      filter: none !important;
-      transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out !important;
+      transition: filter 0.3s ease-in-out !important;
     }
 
-    /* Efecto al pasar el cursor (Hover) usando filtros CSS puros */
+    /* Capa de tinte rojo que aparece suavemente sobre la imagen */
+    .artist-image-wrapper::after {
+      content: '' !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background-color: #F5260A !important; /* Tu rojo corporativo */
+      opacity: 0 !important;
+      mix-blend-mode: multiply !important; /* Fusiona el rojo conservando los detalles oscuros de la foto */
+      transition: opacity 0.3s ease-in-out !important;
+      pointer-events: none !important;
+    }
+
+    /* Efecto al pasar el cursor */
     @media (hover: hover) and (pointer: fine) {
+      .artist-card:hover .artist-image-wrapper::after {
+        opacity: 0.65 !important; /* Ajusta este valor (0 a 1) para que se vea más o menos intenso el rojo */
+      }
+      
+      /* Opcional: un leve contraste a la foto original al hacer hover */
       .artist-card:hover .artist-image-wrapper img {
-        /* Convierte la imagen a blanco y negro contrastado y le aplica un tinte rojizo/sepia brillante */
-        filter: grayscale(100%) brightness(1.2) sepia(100%) hue-rotate(-50deg) saturate(500%) !important;
+        filter: contrast(1.1) !important;
       }
     }
 
@@ -260,7 +276,7 @@
       <a href="/artists/baddy" class="artist-card">
     <div class="artist-image-frame">
       <div class="artist-image-wrapper">
-        <img src="https://i.ibb.co/mr37PJ1M/bnnr-baddy.webp" alt="BADDy" class="img-main">
+        <img src="../../img/bnnr-baddy.webp" alt="BADDy" class="img-main">
       </div>
     </div>
     <div class="artist-info">
@@ -268,113 +284,143 @@
     </div>
   </a>
 
-       <a href="/artists/f3ver" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="https://i.ibb.co/35wcpLkS/bnnr-f3ver.webp" alt="JetriXLife" class="img-main">
-            <img src="https://i.ibb.co/S4SfhJJm/bnnr-f3ver-over.webp" alt="JetriXLife Hover" class="img-hover">
-          </div>
+       <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-f3ver.webp" alt="F3VER" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">F3VER</h3>
         </div>
       </a>
 
-      <a href="/artists/jetrixlife" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="https://i.ibb.co/0pFpYxvK/bnnr-jetrixlife.webp" alt="JetriXLife" class="img-main">
-            <img src="https://i.ibb.co/0pyPs5fN/bnnr-jetrix-over.webp" alt="JetriXLife Hover" class="img-hover">
-          </div>
+      <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-jetrixlife.webp" alt="JetriXLife" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">JetriXLife</h3>
         </div>
       </a>
 
-      <a href="/artists/kraitx" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="https://i.ibb.co/93YqrfjM/bnnr-kraitx.webp" alt="KRAITX" class="img-main">
-            <img src="https://i.ibb.co/zhNg9d60/bnnr-kraitx-over.webp" alt="KRAITX Hover" class="img-hover">
-          </div>
+       <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-kraitx.webp" alt="Kraitx" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">KRAITX</h3>
         </div>
       </a>
 
-      <a href="/artists/lacrablack" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="https://i.ibb.co/ffZP46b/bnnr-lacrablack.webp" alt="LACRABLACK" class="img-main">
-            <img src="https://i.ibb.co/7Nx7zD54/bnnr-lacrablack-over.webp" alt="LACRABLACK Hover" class="img-hover">
-          </div>
+       <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-lacrablack.webp" alt="LACRABLACK" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">LACRABLACK</h3>
         </div>
       </a>
 
-      <a href="/artists/macodax" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="https://i.ibb.co/hF6DN0n6/bnnr-macodax.webp" alt="MaCodax" class="img-main">
-            <img src="https://i.ibb.co/j9cQtV7p/bnnr-macodax-over.webp" alt="MaCodax Hover" class="img-hover">
-          </div>
+       <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-macodax.webp" alt="MaCodax" class="img-main">
+      </div>
+      
         </div>
         <div class="artist-info">
           <h3 class="artist-name">MaCodax</h3>
         </div>
       </a>
 
-      <a href="/artists/mozvy" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="https://i.ibb.co/rrTWCPm/bnnr-mozvy.webp" alt="Mozvy" class="img-main">
-            <img src="https://i.ibb.co/0Vzhx0FZ/bnnr-mozvy-over.webp" alt="Mozvy Hover" class="img-hover">
-          </div>
+       <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-mawsick.webp" alt="Mawsick" class="img-main">
+      </div>
+      
+        </div>
+        <div class="artist-info">
+          <h3 class="artist-name">Mawsick</h3>
+        </div>
+      </a>
+
+      <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-mozvy.webp" alt="Mozvy" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">Mozvy</h3>
         </div>
       </a>
 
-      <a href="/artists/opiumbags" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="https://i.ibb.co/4gKWfJ1f/bnnr-opiumbags.webp" alt="Mozvy" class="img-main">
-            <img src="https://i.ibb.co/RkB8vnvf/bnnr-opiumbags-over.webp" alt="Mozvy Hover" class="img-hover">
-          </div>
+      <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-opiumbags!.webp" alt="ÖpiumBags!" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">ÖpiumBags!</h3>
         </div>
       </a>
       
-      <a href="/artists/van-castlell" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="https://i.ibb.co/4ZHcsgGQ/bnnr-vancastlell.webp" alt="Van Castlell" class="img-main">
-            <img src="https://i.ibb.co/8gQ3M6JF/bnnr-vancastlell-over.webp" alt="Van Castlell Hover" class="img-hover">
-          </div>
+      <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-umartzz.webp" alt="UMartzz" class="img-main">
+      </div>
+        </div>
+        <div class="artist-info">
+          <h3 class="artist-name">UMartzz</h3>
+        </div>
+      </a>
+
+       <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-vancastlell.webp" alt="Van Castlell" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">Van Castlell</h3>
         </div>
       </a>
 
-      <a href="/artists/xzagon" class="artist-card">
-        <div class="artist-image-frame">
-          <div class="artist-image-wrapper">
-            <img src="https://i.ibb.co/CpnJpjrB/bnnr-xzagon.webp" alt="Van Castlell" class="img-main">
-            <img src="https://i.ibb.co/QZThJtp/bnnr-xzagon-over.webp" alt="Van Castlell Hover" class="img-hover">
-          </div>
+       <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-xzagon.webp" alt="XzagoN" class="img-main">
+      </div>
         </div>
         <div class="artist-info">
           <h3 class="artist-name">XzagoN</h3>
         </div>
       </a>
+
+        <a href="/artists/baddy" class="artist-card">
+    <div class="artist-image-frame">
+      <div class="artist-image-wrapper">
+        <img src="../../img/bnnr-yixin.webp" alt="YINIX" class="img-main">
+      </div>
+        </div>
+        <div class="artist-info">
+          <h3 class="artist-name">YINIX</h3>
+        </div>
+      </a>
+      
     </div>
   </main>
 
