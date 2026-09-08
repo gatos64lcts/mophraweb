@@ -182,7 +182,7 @@
       transition: filter 0.3s ease-in-out !important;
     }
 
-    /* Efecto celofán / tinte real con mezcla de fusión */
+    /* Tinte celofán balanceado que no apaga los negros profundos */
     .artist-image-wrapper::after {
       content: '' !important;
       position: absolute !important;
@@ -190,22 +190,21 @@
       left: 0 !important;
       width: 100% !important;
       height: 100% !important;
-      background-color: #F5260A !important; /* El rojo exacto del fondo de tu web */
+      background-color: #F5260A !important; 
       opacity: 0 !important;
-      mix-blend-mode: multiply !important; /* <--- Esto hace que se funda como tinta/celofán sobre la foto */
+      mix-blend-mode: overlay !important; /* <--- Cambiado a overlay para fotos oscuras */
       transition: opacity 0.3s ease-in-out !important;
       pointer-events: none !important;
       z-index: 2 !important;
     }
 
-    /* Activación del efecto con brillo y contraste para realzar las texturas */
     @media (hover: hover) and (pointer: fine) {
       .artist-card:hover .artist-image-wrapper::after {
-        opacity: 0.85 !important; /* Ajusta la intensidad del celofán (0.7 a 0.9) */
+        opacity: 0.75 !important; /* Un toque más suave para que respire la foto */
       }
       
       .artist-card:hover .artist-image-wrapper img {
-        filter: contrast(1.15) brightness(0.95) !important; /* Hace que la foto debajo gane pegada y realismo */
+        filter: brightness(1.05) contrast(1.1) !important; /* Aclara levemente la foto al pasar el cursor para compensar */
       }
     }
     .artist-info {
