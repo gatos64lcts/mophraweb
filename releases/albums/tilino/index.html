@@ -38,6 +38,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            overflow-x: hidden;
         }
 
         /* --- 📦 CARGA DE FUENTE PERSONALIZADA DESDE CLOUDINARY --- */
@@ -48,46 +49,38 @@
             font-style: normal;
         }
 
-        /* Contenedor principal */
+        /* Contenedor principal de margen a margen */
         .mophra-tw-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 100px auto 20px auto;
+            width: 100vw;
+            margin: 90px 0 20px 0;
             text-align: center;
-            padding: 0 10px;
+            padding: 0 15px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Envoltorio centrado */
+        /* Envoltorio adaptativo */
         .mophra-line-wrap {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: block;
             width: 100%;
         }
 
-        /* 🔤 Título estilizado (Similar a la referencia condensada) */
+        /* 🔤 Título extendido de margen a margen y estirado a lo alto */
         .mophra-title-mls {
             font-family: 'RelicusMono', monospace !important;
-            font-size: 38px;
-            line-height: 1.1;
+            font-size: 14vw; /* Se ajusta de forma fluida de margen a margen según el ancho de pantalla */
+            line-height: 0.9;
             color: #ffffff;
             font-weight: 900;
-            text-transform: none; /* Preserva el estilo exacto de mayúsculas/minúsculas */
-            letter-spacing: -1px;
-            transform: scaleY(1.8); /* Efecto estirado verticalmente similar al de referencia */
-            display: inline-block;
-            margin: 20px 0;
-        }
-
-        /* Responsivo Tablet */
-        @media (min-width: 480px) {
-            .mophra-title-mls { font-size: 52px; }
-        }
-
-        /* Responsivo PC */
-        @media (min-width: 769px) {
-            .mophra-title-mls { font-size: 76px; }
+            text-transform: none; /* Preserva las mayúsculas y minúsculas exactas */
+            letter-spacing: -2px;
+            display: block;
+            width: 100%;
+            transform: scaleY(3.2); /* Estirado vertical extremo de margen a margen en altura */
+            transform-origin: center;
+            white-space: nowrap;
         }
     </style>
 </head>
