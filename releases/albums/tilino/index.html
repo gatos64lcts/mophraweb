@@ -34,7 +34,7 @@
     <style>
          @font-face {
       font-family: 'RelicusMono';
-      src: url('../resources/relicus-mono.ttf') format('truetype');
+      src: url('../../resources/relicus-mono.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
     }
@@ -47,19 +47,19 @@
             overflow-x: hidden;
         }
 
-        /* --- 🖼️ SECCIÓN DE SCROLL CON EFECTO PARALLAX --- */
+        /* --- 🖼️ SECCIÓN DE SCROLL CON CAPAS --- */
         .mophra-scroll-section {
             position: relative;
             width: 100vw;
-            height: 180vh;
+            height: 250vh; /* Altura generosa para dar juego al scroll */
             margin: 0;
             box-sizing: border-box;
         }
 
-        /* Título fijo en la parte superior durante el scroll */
+        /* Título vectorial fijo en la parte superior (Capa de atrás: z-index: 1) */
         .mophra-sticky-title {
             position: sticky;
-            top: 90px;
+            top: 15vh; /* Ajusta la altura donde se quedará fijo el título */
             width: 100vw;
             text-align: center;
             padding: 0 15px;
@@ -67,7 +67,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 2;
+            z-index: 1; 
         }
 
         /* Envoltorio adaptativo para el SVG vectorial */
@@ -84,14 +84,17 @@
             display: block;
         }
 
-        /* Contenedor de la imagen que emerge desde abajo */
+        /* Contenedor de la imagen que emerge desde abajo cubriendo las letras (Capa de adelante: z-index: 2) */
         .mophra-emerging-image-container {
-            position: relative;
+            position: absolute;
+            bottom: 0;
+            left: 0;
             width: 100vw;
             height: 100vh;
-            margin-top: -20vh;
-            z-index: 1;
+            z-index: 2; /* Se sitúa por encima del título */
             overflow: hidden;
+            transform: translateY(100%); /* Comienza completamente oculta abajo */
+            will-change: transform;
         }
 
         .mophra-emerging-image-container img {
@@ -104,11 +107,10 @@
 </head>
 <body>
 
-    <div class="mophra-scroll-section">
+    <div class="mophra-scroll-section" id="mophraScrollSection">
         <!-- El título vectorial que se queda fijo al hacer scroll -->
         <div class="mophra-sticky-title">
             <div class="mophra-line-wrap">
-                <!-- Título integrado con tus coordenadas vectoriales exactas -->
                 <svg class="mophra-title-mls-svg" viewBox="0 0 1950 1000" preserveAspectRatio="none">
                   <g>
                     <path fill="#ffffff" d="M15.84,39.92h77.26l28.77,466.01,29.31-466.01h71.93v882.21h-56.48V351.77l-36.23,570.35h-23.98l-36.77-570.35v570.35H15.84V39.92Z"/>
@@ -127,11 +129,37 @@
             </div>
         </div>
 
-        <!-- La imagen que sube desde abajo al hacer scroll -->
-        <div class="mophra-emerging-image-container">
+        <!-- La imagen que sube desde abajo y tapa las letras -->
+        <div class="mophra-emerging-image-container" id="mophraEmergingImage">
             <img src="../../../cds/bnnr-my-last-sound.webp" alt="Emerging Visual">
         </div>
     </div>
+
+    <!-- Script sencillo para animar la subida de la imagen con el scroll -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const section = document.getElementById('mophraScrollSection');
+            const imgContainer = document.getElementById('mophraEmergingImage');
+            
+            if (!section || !imgContainer) return;
+
+            const rect = section.getBoundingClientRect();
+            const sectionHeight = section.offsetHeight - window.innerHeight;
+            const scrollToggled = -rect.top;
+
+            if (scrollToggled >= 0 && scrollToggled <= sectionHeight) {
+                // Calcula el progreso del scroll de 0 a 1 dentro de esta sección
+                const progress = scrollToggled / sectionHeight;
+                // Mueve la imagen desde 100% (abajo fuera de pantalla) hasta 0% (su posición final cubriendo todo)
+                const translateY = 100 - (progress * 100);
+                imgContainer.style.transform = `translateY(${translateY}%)`;
+            } else if (scrollToggled < 0) {
+                imgContainer.style.transform = 'translateY(100%)';
+            } else {
+                imgContainer.style.transform = 'translateY(0%)';
+            }
+        });
+    </script>
 
     <div class="mophra-global-container" id="mophraGlobalMenu">
         <div class="mophra-global-overlay"></div>
@@ -374,12 +402,12 @@
     })();
     </script>
 
-    <!-- PRECARGA OPTIMIZADA DE LA CORTINA (Evita descargas repetidas) -->
+    <!-- PRECARGA OPTIMIZADA DE LA CORTINA -->
     <link rel="preload" href="https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp" as="image">
 
     <!-- CORTINA METÁLICA DE TRANSICIÓN -->
     <div id="cortina-transicion" class="cortina-contenedor">
-        <img src="https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp" alt="Cargando..." class="cortina-imagen">
+        <img src="../../resources/cortina.webp" alt="Cargando..." class="cortina-imagen">
     </div>
 
     <style>
