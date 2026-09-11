@@ -27,7 +27,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albums | My Last Sound</title>
+    <title>MOPHRA | My Last Sound</title>
     
     <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -97,25 +97,21 @@
             .mophra-rotating-image-wrap { width: 720px; height: 720px; }
         }
 
-        /* --- 📝 TÍTULO PRINCIPAL (Viaja con el scroll y sale desde abajo) --- */
+        /* --- 📝 TÍTULO PRINCIPAL (Sale literal desde abajo sin fade) --- */
         .mophra-bottom-title-container {
             position: absolute;
-            top: 60vh; /* Ubicado más abajo para que aparezca conforme haces scroll */
+            top: 60vh; 
             left: 50px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
             z-index: 3; /* Por encima del disco */
             pointer-events: none;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(80px);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.3s ease;
+            transform: translateY(120vh); /* Empieza completamente abajo fuera de vista */
+            will-change: transform;
         }
 
         .mophra-bottom-title-container.visible {
-            opacity: 1;
-            visibility: visible;
             pointer-events: auto;
             transform: translateY(0px);
         }
@@ -133,26 +129,22 @@
             box-shadow: none !important;
         }
 
-        /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (Viaja con el scroll) --- */
+        /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (Sin fondo, sin imagen y sube desde abajo) --- */
         .mophra-details-section {
             position: absolute;
-            top: 130vh; /* Posicionado más abajo para activarse en el segundo tramo del scroll */
+            top: 130vh; 
             left: 0;
             width: 100%;
             box-sizing: border-box;
             padding: 60px 50px;
             z-index: 3; /* Por encima del disco */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(100px);
+            transform: translateY(120vh); /* Empieza completamente abajo fuera de vista */
             pointer-events: none;
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, visibility 0.35s ease;
-            background: linear-gradient(to top, rgba(245, 38, 10, 0.98) 80%, rgba(245, 38, 10, 0));
+            background: none !important; /* Sin fondo sólido ni degradado */
+            will-change: transform;
         }
 
         .mophra-details-section.visible {
-            opacity: 1;
-            visibility: visible;
             pointer-events: auto;
             transform: translateY(0px);
         }
@@ -205,15 +197,6 @@
             align-items: flex-start;
         }
 
-        .mophra-info-image {
-            width: 100%;
-            max-width: 320px;
-            height: auto;
-            border-radius: 4px;
-            display: block;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
         .mophra-stream-btn {
             font-family: 'RelicusMono', monospace !important;
             background-color: #ffffff;
@@ -244,7 +227,6 @@
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            .mophra-info-image { max-width: 200px; }
         }
     </style>
 </head>
@@ -257,12 +239,12 @@
         </div>
     </div>
 
-    <!-- Título Principal (Hace Scroll) -->
+    <!-- Título Principal (Hace Scroll y sale desde abajo) -->
     <div class="mophra-bottom-title-container" id="bottomTitle">
         <div class="mophra-bottom-title">My Last Sound LP</div>
     </div>
 
-    <!-- Tracklist y Detalles (Hacen Scroll) -->
+    <!-- Tracklist y Detalles (Hacen Scroll y salen desde abajo, sin imagen ni fondo) -->
     <div class="mophra-details-section" id="detailsSection">
         <div class="mophra-details-grid">
             
@@ -279,7 +261,6 @@
             </div>
 
             <div class="mophra-media-col">
-                <img src="../../../cds/cd-the-last-sund-over.webp" alt="Release Detail View" class="mophra-info-image">
                 <a href="#" class="mophra-stream-btn" target="_blank">stream / dl</a>
             </div>
 
@@ -451,7 +432,7 @@
             const detailsSection = document.getElementById('detailsSection');
             const scrollY = window.scrollY;
             
-            // Activa la aparición del título desde abajo según el scroll
+            // Sube el título desde abajo conforme haces scroll
             if (bottomTitle) {
                 if (scrollY > 50) {
                     bottomTitle.classList.add('visible');
@@ -460,7 +441,7 @@
                 }
             }
 
-            // Activa la aparición del tracklist desde abajo según el scroll
+            // Sube el tracklist desde abajo conforme haces scroll
             if (detailsSection) {
                 if (scrollY > 200) {
                     detailsSection.classList.add('visible');
