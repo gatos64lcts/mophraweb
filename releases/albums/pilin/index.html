@@ -47,7 +47,7 @@
             padding: 0;
             box-sizing: border-box;
             overflow-x: hidden;
-            height: 200vh; /* Altura extendida para permitir scroll visual si lo deseas */
+            height: 350vh; /* Altura extendida para permitir múltiples niveles de scroll */
         }
 
         /* --- 💿 CONTENEDOR Y ANIMACIÓN DE GIRO 360 EN LOOP PARA LA IMAGEN --- */
@@ -57,7 +57,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            position: fixed; /* Cambiado a fixed para que la imagen jamás se mueva al hacer scroll */
+            position: fixed; /* Fijo para que la imagen principal jamás se mueva al inicio */
             top: 0;
             left: 0;
             z-index: 1;
@@ -111,11 +111,11 @@
             }
         }
 
-        /* --- 📝 TEXTO FLOTANTE INFERIOR QUE APARECE DESDE ABAJO --- */
+        /* --- 📝 TÍTULO FLOTANTE INFERIOR PRINCIPAL --- */
         .mophra-bottom-title-container {
             position: fixed;
-            bottom: -100px; /* Inicialmente oculto abajo */
-            left: 50px; /* Alineado hacia la izquierda con un pequeño margen */
+            bottom: -100px;
+            left: 50px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -124,23 +124,135 @@
             transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Activa la aparición al hacer scroll */
         .mophra-bottom-title-container.visible {
-            bottom: 40px; /* Distancia desde la parte inferior de la pantalla */
+            bottom: 40px;
         }
 
         .mophra-bottom-title {
             font-family: 'RelicusMono', monospace !important;
             color: #ffffff;
-            font-size: clamp(86px, 10vw, 102px); /* Mucho más grande e imponente */
+            font-size: clamp(50px, 8vw, 90px);
             font-weight: 900;
-            text-transform: none !important; /* Respeta minúsculas y mayúsculas */
+            text-transform: none !important;
             letter-spacing: -2px;
-            background: none !important; /* Sin fondo */
-            padding: 0 !important; /* Sin relleno extra */
-            border: none !important; /* Sin bordes */
-            box-shadow: none !important; /* Sin sombras */
+            background: none !important;
+            padding: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
             backdrop-filter: none !important;
+        }
+
+        /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (APARECE CON MÁS SCROLL) --- */
+        .mophra-details-section {
+            position: absolute;
+            top: 110vh; /* Empieza más abajo del primer pantallazo */
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 60px 50px;
+            z-index: 3;
+            opacity: 0;
+            transform: translateY(50px);
+            pointer-events: none;
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .mophra-details-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .mophra-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        /* Lado Izquierdo: Tracklist */
+        .mophra-tracklist-col {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mophra-tracklist-heading {
+            font-family: 'RelicusMono', monospace !important;
+            color: #ffffff;
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 900;
+            text-transform: none !important;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .mophra-track-item {
+            font-family: 'RelicusMono', monospace !important;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: clamp(16px, 1.8vw, 22px);
+            font-weight: 700;
+            text-transform: none !important;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .mophra-track-item:hover {
+            color: #ffffff;
+            transform: translateX(8px);
+        }
+
+        /* Lado Derecho: Imagen y Botón Stream/DL */
+        .mophra-media-col {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .mophra-info-image {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .mophra-stream-btn {
+            font-family: 'RelicusMono', monospace !important;
+            background-color: #ffffff;
+            color: #F5260A;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 900;
+            text-decoration: none;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            transition: background 0.3s, transform 0.3s;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .mophra-stream-btn:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: scale(1.03);
+        }
+
+        /* Responsivo para móviles */
+        @media (max-width: 900px) {
+            .mophra-details-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .mophra-details-section {
+                padding: 40px 20px;
+            }
         }
     </style>
 </head>
@@ -153,9 +265,35 @@
         </div>
     </div>
 
-    <!-- Texto inferior que emerge al scrollear -->
+    <!-- Título inferior principal que emerge al primer scroll -->
     <div class="mophra-bottom-title-container" id="bottomTitle">
         <div class="mophra-bottom-title">My Last Sound LP</div>
+    </div>
+
+    <!-- Nueva sección inferior con Tracklist (izq) e Imagen + Botón (der) -->
+    <div class="mophra-details-section" id="detailsSection">
+        <div class="mophra-details-grid">
+            
+            <!-- Columna Izquierda: Tracklist -->
+            <div class="mophra-tracklist-col">
+                <div class="mophra-tracklist-heading">tracklist</div>
+                <div class="mophra-track-item">01. BACK with/LACRABLACK)</div>
+                <div class="mophra-track-item">02. Can't stop</div>
+                <div class="mophra-track-item">03. Hussle</div>
+                <div class="mophra-track-item">04. Never Die</div>
+                <div class="mophra-track-item">05. Keep It Going</div>
+                <div class="mophra-track-item">06. CHOKE with/Sphicy</div>
+                <div class="mophra-track-item">07. Bounce</div>
+                <div class="mophra-track-item">08. MORDHA with/George Lycats</div>
+            </div>
+
+            <!-- Columna Derecha: Imagen complementaria y Botón Stream/DL -->
+            <div class="mophra-media-col">
+                <img src="../../../cds/cd-the-last-sund-over.webp" alt="Release Detail View" class="mophra-info-image">
+                <a href="#" class="mophra-stream-btn" target="_blank">stream / dl</a>
+            </div>
+
+        </div>
     </div>
 
     <div class="mophra-global-container" id="mophraGlobalMenu">
@@ -318,16 +456,26 @@
 
     <script>
     (function() {
-        // Script para activar la aparición del texto inferior al hacer scroll
+        // Script para controlar la aparición del título y de la sección de detalles mediante scroll
         window.addEventListener('scroll', () => {
             const bottomTitle = document.getElementById('bottomTitle');
-            if (!bottomTitle) return;
+            const detailsSection = document.getElementById('detailsSection');
             
-            // Si el usuario hace scroll más de 20 píxeles hacia abajo, aparece el texto
-            if (window.scrollY > 20) {
-                bottomTitle.classList.add('visible');
-            } else {
-                bottomTitle.classList.remove('visible');
+            if (bottomTitle) {
+                if (window.scrollY > 20) {
+                    bottomTitle.classList.add('visible');
+                } else {
+                    bottomTitle.classList.remove('visible');
+                }
+            }
+
+            if (detailsSection) {
+                // Si scroleas más de 300 píxeles, aparece la sección de tracklist e imagen de detalles
+                if (window.scrollY > 300) {
+                    detailsSection.classList.add('visible');
+                } else {
+                    detailsSection.classList.remove('visible');
+                }
             }
         });
 
