@@ -275,16 +275,16 @@
             width: max-content;
         }
 
-       /* Se activa el rebote con pausa en los extremos */
+        /* Usamos 'alternate' para que rebote de regreso de forma suave y continua */
         .track-marquee-wrapper.is-overflowing .track-marquee-inner {
-            animation: mophraBounceMarquee 6s ease-in-out infinite;
+            animation: mophraBounceMarquee 5s ease-in-out infinite alternate;
         }
 
         @keyframes mophraBounceMarquee {
-            0%, 15% {
+            0%, 25% {
                 transform: translateX(0);
             }
-            85%, 100% {
+            75%, 100% {
                 transform: translateX(var(--bounce-distance, 0px));
             }
         }
@@ -902,9 +902,9 @@
                 const distance = containerWidth - textWidth;
                 inner.style.setProperty('--bounce-distance', distance + 'px');
                 
-                // Velocidad dinámica: más rápido en espacios cortos para que no se arrastre lento en móviles
+                // Duración ajustada para que sea fluida y con buen ritmo en celulares
                 const distanceAbs = Math.abs(distance);
-                const duration = Math.max(4, distanceAbs * 0.04) + 2; // 2 segundos extra para las pausas
+                const duration = Math.max(3.5, distanceAbs * 0.03); 
                 inner.style.animationDuration = duration + 's';
             } else {
                 wrapper.classList.remove('is-overflowing');
