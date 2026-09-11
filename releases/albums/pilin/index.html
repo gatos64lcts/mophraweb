@@ -275,16 +275,16 @@
             width: max-content;
         }
 
-        /* Usamos 'alternate' para que rebote de regreso de forma suave y continua */
+        /* Usamos 'alternate' para el rebote continuo */
         .track-marquee-wrapper.is-overflowing .track-marquee-inner {
-            animation: mophraBounceMarquee 5s ease-in-out infinite alternate;
+            animation: mophraBounceMarquee ease-in-out infinite alternate;
         }
 
         @keyframes mophraBounceMarquee {
-            0%, 25% {
+            0%, 15% {
                 transform: translateX(0);
             }
-            75%, 100% {
+            85%, 100% {
                 transform: translateX(var(--bounce-distance, 0px));
             }
         }
@@ -902,10 +902,14 @@
                 const distance = containerWidth - textWidth;
                 inner.style.setProperty('--bounce-distance', distance + 'px');
                 
-                // Duración ajustada para que sea fluida y con buen ritmo en celulares
-                const distanceAbs = Math.abs(distance);
-                const duration = Math.max(3.5, distanceAbs * 0.03); 
-                inner.style.animationDuration = duration + 's';
+                // Tiempo que tarda el texto en desplazarse de un lado a otro (ej. 3 segundos de viaje)
+                const travelTime = Math.max(2.5, Math.abs(distance) * 0.025);
+                
+                // Si el 15% del tiempo total representa la pausa, calculamos el total sumando los 2 segundos exactos de pausa
+                // Fórmula: Duración del viaje + 2 segundos de pausa en cada extremo
+                const totalDuration = travelTime + 2.0; 
+                
+                inner.style.animationDuration = totalDuration + 's';
             } else {
                 wrapper.classList.remove('is-overflowing');
                 inner.style.removeProperty('--bounce-distance');
