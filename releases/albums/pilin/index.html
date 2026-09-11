@@ -34,7 +34,7 @@
     <style>
       @font-face {
     font-family: 'RelicusMono';
-    src: url('../../resources/relicus-mono.ttf') format('woff2'),
+    src: url('../../../resources/relicus-mono.ttf') format('woff2'),
          url('../../resources/relicus-mono.ttf') format('woff');
     font-weight: normal;
     font-style: normal;
@@ -66,8 +66,8 @@
         }
 
         .mophra-rotating-image-wrap {
-            width: 380px;
-            height: 380px;
+            width: 480px; /* Cambia este valor para móvil */
+            height: 480px;
             border-radius: 50%;
             overflow: hidden;
             display: flex;
@@ -76,13 +76,21 @@
             animation: mophraRotate360 10s linear infinite;
         }
 
-        .mophra-rotating-image-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+        /* Responsivo Tablet */
+        @media (min-width: 480px) {
+            .mophra-rotating-image-wrap {
+                width: 520px; /* Cambia este valor para tablet */
+                height: 520px;
+            }
         }
 
+        /* Responsivo PC */
+        @media (min-width: 769px) {
+            .mophra-rotating-image-wrap {
+                width: 620px; /* Cambia este valor para PC */
+                height: 620px;
+            }
+        }
         @keyframes mophraRotate360 {
             from {
                 transform: rotate(0deg);
