@@ -136,7 +136,7 @@
             line-height: 1;
         }
 
-        /* --- 🖼️ CONTENEDOR DE LA IMAGEN INTERMEDIA (Ajustada 4px más pequeña) --- */
+        /* --- 🖼️ CONTENEDOR DE LA IMAGEN INTERMEDIA --- */
         .mophra-middle-image-container {
             width: 100%;
             display: flex;
@@ -146,7 +146,7 @@
 
         .mophra-middle-image-container img {
             width: 100%;
-            max-width: 396px; /* Reducida 4px respecto a los 400px anteriores */
+            max-width: 396px;
             height: auto;
             border-radius: 2px;
             object-fit: contain;
@@ -166,7 +166,7 @@
             justify-content: flex-start;
             align-items: flex-start;
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
         }
 
         .mophra-details-grid {
@@ -196,22 +196,83 @@
             text-align: left;
         }
 
+        /* --- 🎛️ NUEVOS ESTILOS PARA TRACK ITEMS Y REPRODUCTOR --- */
         .mophra-track-item {
             font-family: 'RelicusMono', monospace !important;
             color: rgba(255, 255, 255, 0.85);
             font-size: clamp(14px, 1.5vw, 19px);
             font-weight: 700;
             text-transform: none !important;
-            padding: 4px 0;
+            padding: 8px 0;
             width: 100%;
-            text-align: left;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 15px !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             transition: color 0.2s ease, transform 0.2s ease;
         }
 
         .mophra-track-item:hover {
             color: #ffffff;
-            transform: translateX(8px);
+            transform: translateX(6px);
+        }
+
+        .mophra-track-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .mophra-play-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            transition: all 0.2s ease;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .mophra-play-btn:hover {
+            background: #ffffff;
+            color: #0d0d0d;
+            border-color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .mophra-track-name {
+            flex-grow: 1;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mophra-progress-container {
+            width: 110px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .mophra-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #ffffff;
+            transition: width 0.1s linear;
         }
 
         /* --- 🔘 BOTÓN STREAM / DL --- */
@@ -256,6 +317,9 @@
             .mophra-bottom-title {
                 font-size: clamp(60px, 12vw, 200px) !important;
             }
+            .mophra-progress-container {
+                width: 70px;
+            }
         }
     </style>
 </head>
@@ -276,7 +340,7 @@
             <div class="mophra-bottom-title">My Last Sound CD</div>
         </div>
 
-        <!-- Nueva Imagen Colocada entre el Título y el Tracklist -->
+        <!-- Imagen Intermedia -->
         <div class="mophra-middle-image-container">
             <img src="../../../resources/baddy.webp" alt="Release Details Visual">
         </div>
@@ -288,14 +352,102 @@
                 <div class="mophra-details-grid">
                     <div class="mophra-tracklist-col">
                         <div class="mophra-tracklist-heading">tracklist</div>
-                        <div class="mophra-track-item">01. BACK with/LACRABLACK)</div>
-                        <div class="mophra-track-item">02. Can't stop</div>
-                        <div class="mophra-track-item">03. Hussle</div>
-                        <div class="mophra-track-item">04. Never Die</div>
-                        <div class="mophra-track-item">05. Keep It Going</div>
-                        <div class="mophra-track-item">06. CHOKE with/Sphicy</div>
-                        <div class="mophra-track-item">07. Bounce</div>
-                        <div class="mophra-track-item">08. MORDHA with/George Lycats</div>
+                        
+                        <!-- Pista 01 -->
+                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra001.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">01.</span>
+                            </div>
+                            <span class="mophra-track-name">BACK with/LACRABLACK</span>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 02 -->
+                        <div class="mophra-track-item" data-src="../../../audio/track2.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">02.</span>
+                            </div>
+                            <span class="mophra-track-name">Can't stop</span>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 03 -->
+                        <div class="mophra-track-item" data-src="../../../audio/track3.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">03.</span>
+                            </div>
+                            <span class="mophra-track-name">Hussle</span>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 04 -->
+                        <div class="mophra-track-item" data-src="../../../audio/track4.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">04.</span>
+                            </div>
+                            <span class="mophra-track-name">Never Die</span>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 05 -->
+                        <div class="mophra-track-item" data-src="../../../audio/track5.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">05.</span>
+                            </div>
+                            <span class="mophra-track-name">Keep It Going</span>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 06 -->
+                        <div class="mophra-track-item" data-src="../../../audio/track6.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">06.</span>
+                            </div>
+                            <span class="mophra-track-name">CHOKE with/Sphicy</span>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 07 -->
+                        <div class="mophra-track-item" data-src="../../../audio/track7.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">07.</span>
+                            </div>
+                            <span class="mophra-track-name">Bounce</span>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 08 -->
+                        <div class="mophra-track-item" data-src="../../../audio/track8.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">08.</span>
+                            </div>
+                            <span class="mophra-track-name">MORDHA with/George Lycats</span>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mophra-media-col">
@@ -308,6 +460,7 @@
 
     </div>
 
+    <!-- Menú Global -->
     <div class="mophra-global-container" id="mophraGlobalMenu">
         <div class="mophra-global-overlay"></div>
 
@@ -631,5 +784,72 @@
                 }
             });
         })();
+
+        /* --- 🎵 SCRIPT DE REPRODUCTOR DE AUDIO GLOBAL (REGLA DE UNA SOLA PISTA) --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const trackItems = document.querySelectorAll('.mophra-track-item');
+            let currentAudio = null;
+            let currentPlayBtn = null;
+            let currentProgressBar = null;
+            let progressInterval = null;
+
+            trackItems.forEach(item => {
+                const audioSrc = item.getAttribute('data-src');
+                const playBtn = item.querySelector('.mophra-play-btn');
+                const progressBar = item.querySelector('.mophra-progress-bar');
+                const progressContainer = item.querySelector('.mophra-progress-container');
+
+                if (!audioSrc) return;
+
+                const audio = new Audio(audioSrc);
+
+                playBtn.addEventListener('click', () => {
+                    // Si hay otro audio sonando, se pausa y se resetea por completo
+                    if (currentAudio && currentAudio !== audio) {
+                        currentAudio.pause();
+                        currentAudio.currentTime = 0;
+                        if (currentPlayBtn) currentPlayBtn.textContent = '▶';
+                        if (currentProgressBar) currentProgressBar.style.width = '0%';
+                        clearInterval(progressInterval);
+                    }
+
+                    if (audio.paused) {
+                        audio.play().then(() => {
+                            playBtn.textContent = '❚❚';
+                            currentAudio = audio;
+                            currentPlayBtn = playBtn;
+                            currentProgressBar = progressBar;
+
+                            clearInterval(progressInterval);
+                            progressInterval = setInterval(() => {
+                                if (audio.duration) {
+                                    const percentage = (audio.currentTime / audio.duration) * 100;
+                                    progressBar.style.width = percentage + '%';
+                                }
+                            }, 100);
+                        }).catch(err => console.log("Error al reproducir audio:", err));
+                    } else {
+                        audio.pause();
+                        playBtn.textContent = '▶';
+                        clearInterval(progressInterval);
+                    }
+                });
+
+                audio.addEventListener('ended', () => {
+                    playBtn.textContent = '▶';
+                    progressBar.style.width = '0%';
+                    clearInterval(progressInterval);
+                });
+
+                // Control manual de la barra de progreso al hacer clic
+                progressContainer.addEventListener('click', (e) => {
+                    if (!audio.duration) return;
+                    const rect = progressContainer.getBoundingClientRect();
+                    const clickPosition = (e.clientX - rect.left) / rect.width;
+                    audio.currentTime = clickPosition * audio.duration;
+                    progressBar.style.width = (clickPosition * 100) + '%';
+                });
+            });
+        });
     </script>
 </html>
