@@ -115,34 +115,32 @@
         .mophra-bottom-title-container {
             position: fixed;
             bottom: -100px; /* Inicialmente oculto abajo */
-            left: 0;
-            width: 100%;
+            left: 50px; /* Alineado hacia la izquierda con un pequeño margen */
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             z-index: 2;
             pointer-events: none;
             transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Clase que activa la aparición del texto al hacer scroll */
+        /* Activa la aparición al hacer scroll */
         .mophra-bottom-title-container.visible {
-            bottom: 40px; /* Posición final cuando scroleas */
+            bottom: 40px; /* Distancia desde la parte inferior de la pantalla */
         }
 
         .mophra-bottom-title {
             font-family: 'RelicusMono', monospace !important;
             color: #ffffff;
-            font-size: clamp(24px, 4vw, 48px);
+            font-size: clamp(36px, 6vw, 72px); /* Mucho más grande e imponente */
             font-weight: 900;
-            text-transform: none !important; /* Mantiene exactamente tal cual escribas el texto (minúsculas y mayúsculas) */
-            letter-spacing: -1px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px 25px;
-            border-radius: 50px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-transform: none !important; /* Respeta minúsculas y mayúsculas */
+            letter-spacing: -2px;
+            background: none !important; /* Sin fondo */
+            padding: 0 !important; /* Sin relleno extra */
+            border: none !important; /* Sin bordes */
+            box-shadow: none !important; /* Sin sombras */
+            backdrop-filter: none !important;
         }
     </style>
 </head>
