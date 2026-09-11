@@ -256,7 +256,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            min-width: 0; /* Vital para permitir que flexbox reduzca el contenedor correctamente */
+            min-width: 0;
         }
 
         .track-marquee-wrapper {
@@ -270,11 +270,16 @@
             min-width: 0;
         }
 
-        .track-marquee-text {
+        .track-marquee-inner {
             display: inline-block;
             white-space: nowrap;
+        }
+
+        /* Solo se activa la animación si el texto excede el contenedor */
+        .track-marquee-wrapper.is-overflowing .track-marquee-inner {
+            display: inline-block;
             padding-left: 100%;
-            animation: mophraMarqueeAuto 9s linear infinite;
+            animation: mophraMarqueeAuto 8s linear infinite;
         }
 
         @keyframes mophraMarqueeAuto {
@@ -285,7 +290,7 @@
                 transform: translateX(-100%);
             }
         }
-
+        
         .mophra-progress-container {
             width: 110px;
             height: 6px;
@@ -383,13 +388,15 @@
                         <div class="mophra-tracklist-heading">tracklist</div>
                         
                         <!-- Pista 01 (Con marquesina automática integrada y corregida) -->
-                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra001.mp3">
+                       <div class="mophra-track-item" data-src="../../../audiotracks/mophra001.mp3">
                             <div class="mophra-track-left">
                                 <button class="mophra-play-btn" aria-label="Play">▶</button>
                                 <span class="mophra-track-num">01.</span>
                             </div>
                             <div class="mophra-track-name track-marquee-wrapper">
-                                <span class="track-marquee-text">BACK with/LACRABLACK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BACK with/LACRABLACK</span>
+                                <div class="track-marquee-inner">
+                                    <span>BACK with/LACRABLACK</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>BACK with/LACRABLACK</span>
+                                </div>
                             </div>
                             <div class="mophra-progress-container">
                                 <div class="mophra-progress-bar"></div>
@@ -882,5 +889,24 @@
                 });
             });
         });
+        document.addEventListener('DOMContentLoaded', () => {
+        const wrappers = document.querySelectorAll('.track-marquee-wrapper');
+        
+        wrappers.forEach(wrapper => {
+            const inner = wrapper.querySelector('.track-marquee-inner');
+            if (!inner) return;
+            
+            // Comparamos el ancho real del texto con el ancho visible del contenedor
+            const textWidth = inner.scrollWidth;
+            const containerWidth = wrapper.clientWidth;
+            
+            // Si el texto es más ancho que el espacio, activamos la marquesina estilo Spotify
+            if (textWidth > containerWidth) {
+                wrapper.classList.add('is-overflowing');
+            } else {
+                wrapper.classList.remove('is-overflowing');
+            }
+        });
+    });
     </script>
 </html>
