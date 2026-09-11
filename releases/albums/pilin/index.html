@@ -48,10 +48,9 @@
             padding: 0;
             box-sizing: border-box;
             overflow-x: hidden;
-            height: 300vh; /* Espacio para permitir el scroll natural del texto */
         }
 
-        /* --- 💿 DISCO FIJO AL CENTRO (No se mueve con el scroll) --- */
+        /* --- 💿 DISCO FIJO AL CENTRO (De fondo) --- */
         .mophra-fixed-disc-container {
             position: fixed;
             top: 0;
@@ -61,7 +60,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1; /* Detrás del texto */
+            z-index: 1; /* Detrás del contenido */
             pointer-events: none; /* Permite hacer scroll a través del disco */
             box-sizing: border-box;
         }
@@ -97,24 +96,26 @@
             .mophra-rotating-image-wrap { width: 720px; height: 720px; }
         }
 
-        /* --- 📝 TÍTULO PRINCIPAL (Sale literal desde abajo sin fade y controlado por scroll) --- */
+        /* --- 📜 CONTENEDOR PRINCIPAL DE CONTENIDO (Scroll natural de abajo a arriba) --- */
+        .mophra-content-flow {
+            position: relative;
+            z-index: 3; /* Por encima del disco fijo */
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Empuja el contenido inicial hacia la parte baja de la pantalla */
+            box-sizing: border-box;
+            padding: 0 50px 80px 50px;
+        }
+
+        /* --- 📝 TÍTULO PRINCIPAL --- */
         .mophra-bottom-title-container {
-            position: absolute;
-            top: 55vh; 
-            left: 50px;
+            width: 100%;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            z-index: 3; /* Por encima del disco */
-            pointer-events: none;
-            transform: translateY(80vh); /* Empieza completamente abajo fuera de vista */
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform;
-        }
-
-        .mophra-bottom-title-container.visible {
-            pointer-events: auto;
-            transform: translateY(0px);
+            margin-bottom: 20px; /* Espacio mínimo y controlado hacia el tracklist */
         }
 
         .mophra-bottom-title {
@@ -128,43 +129,31 @@
             padding: 0 !important;
             border: none !important;
             box-shadow: none !important;
+            line-height: 1;
         }
 
-        /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (Sin fondo, sin imagen y sube desde abajo) --- */
+        /* --- 🎵 SECCIÓN DE TRACKLIST Y BOTÓN (Alineados estrictamente a la izquierda) --- */
         .mophra-details-section {
-            position: absolute;
-            top: 120vh; 
-            left: 0;
             width: 100%;
-            box-sizing: border-box;
-            padding: 60px 50px;
-            z-index: 3; /* Por encima del disco */
-            transform: translateY(80vh); /* Empieza completamente abajo fuera de vista */
-            pointer-events: none;
-            background: none !important; /* Sin fondo sólido ni degradado */
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform;
-        }
-
-        .mophra-details-section.visible {
-            pointer-events: auto;
-            transform: translateY(0px);
+            display: flex;
+            justify-content: flex-start;
         }
 
         .mophra-details-grid {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 25px;
+            width: 100%;
             max-width: 700px;
-            margin: 0 auto;
-            align-items: flex-start;
+            align-items: flex-start; /* Todo alineado a la izquierda */
         }
 
         .mophra-tracklist-col {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
+            align-items: flex-start;
         }
 
         .mophra-tracklist-heading {
@@ -175,6 +164,7 @@
             text-transform: none !important;
             margin-bottom: 5px;
             letter-spacing: -1px;
+            text-align: left;
         }
 
         .mophra-track-item {
@@ -183,7 +173,9 @@
             font-size: clamp(14px, 1.5vw, 19px);
             font-weight: 700;
             text-transform: none !important;
-            padding: 5px 0;
+            padding: 4px 0;
+            width: 100%;
+            text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             transition: color 0.2s ease, transform 0.2s ease;
         }
@@ -193,14 +185,13 @@
             transform: translateX(8px);
         }
 
-        /* --- 🔘 BOTÓN STREAM / DL (Movido abajo del tracklist) --- */
+        /* --- 🔘 BOTÓN STREAM / DL (Justo abajo del tracklist, alineado a la izquierda) --- */
         .mophra-media-col {
             display: flex;
             flex-direction: column;
-            gap: 20px;
             align-items: flex-start;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .mophra-stream-btn {
@@ -226,9 +217,7 @@
         }
 
         @media (max-width: 900px) {
-            body { height: 350vh; }
-            .mophra-bottom-title-container { top: 50vh; left: 20px; }
-            .mophra-details-section { top: 110vh; padding: 20px; }
+            .mophra-content-flow { padding: 0 20px 50px 20px; }
         }
     </style>
 </head>
@@ -241,32 +230,37 @@
         </div>
     </div>
 
-    <!-- Título Principal (Hace Scroll y sube desde abajo de la pantalla) -->
-    <div class="mophra-bottom-title-container" id="bottomTitle">
-        <div class="mophra-bottom-title">My Last Sound LP</div>
-    </div>
-
-    <!-- Tracklist y Detalles (Hacen Scroll, suben desde abajo, sin imagen, sin fondo y con el botón al final) -->
-    <div class="mophra-details-section" id="detailsSection">
-        <div class="mophra-details-grid">
-            
-            <div class="mophra-tracklist-col">
-                <div class="mophra-tracklist-heading">tracklist</div>
-                <div class="mophra-track-item">01. BACK with/LACRABLACK)</div>
-                <div class="mophra-track-item">02. Can't stop</div>
-                <div class="mophra-track-item">03. Hussle</div>
-                <div class="mophra-track-item">04. Never Die</div>
-                <div class="mophra-track-item">05. Keep It Going</div>
-                <div class="mophra-track-item">06. CHOKE with/Sphicy</div>
-                <div class="mophra-track-item">07. Bounce</div>
-                <div class="mophra-track-item">08. MORDHA with/George Lycats</div>
-            </div>
-
-            <div class="mophra-media-col">
-                <a href="#" class="mophra-stream-btn" target="_blank">stream / dl</a>
-            </div>
-
+    <!-- Flujo Normal de Contenido (Aparece abajo de la pantalla y hace scroll hacia arriba de forma natural) -->
+    <div class="mophra-content-flow">
+        
+        <!-- Título Principal -->
+        <div class="mophra-bottom-title-container" id="bottomTitle">
+            <div class="mophra-bottom-title">My Last Sound LP</div>
         </div>
+
+        <!-- Tracklist, Detalles y Botón (Izquierda, sin espacios excesivos) -->
+        <div class="mophra-details-section" id="detailsSection">
+            <div class="mophra-details-grid">
+                
+                <div class="mophra-tracklist-col">
+                    <div class="mophra-tracklist-heading">tracklist</div>
+                    <div class="mophra-track-item">01. BACK with/LACRABLACK)</div>
+                    <div class="mophra-track-item">02. Can't stop</div>
+                    <div class="mophra-track-item">03. Hussle</div>
+                    <div class="mophra-track-item">04. Never Die</div>
+                    <div class="mophra-track-item">05. Keep It Going</div>
+                    <div class="mophra-track-item">06. CHOKE with/Sphicy</div>
+                    <div class="mophra-track-item">07. Bounce</div>
+                    <div class="mophra-track-item">08. MORDHA with/George Lycats</div>
+                </div>
+
+                <div class="mophra-media-col">
+                    <a href="#" class="mophra-stream-btn" target="_blank">stream / dl</a>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <div class="mophra-global-container" id="mophraGlobalMenu">
@@ -429,30 +423,6 @@
 
     <script>
     (function() {
-        window.addEventListener('scroll', () => {
-            const bottomTitle = document.getElementById('bottomTitle');
-            const detailsSection = document.getElementById('detailsSection');
-            const scrollY = window.scrollY;
-            
-            // Sube el título fluidamente desde abajo con el scroll
-            if (bottomTitle) {
-                if (scrollY > 30) {
-                    bottomTitle.classList.add('visible');
-                } else {
-                    bottomTitle.classList.remove('visible');
-                }
-            }
-
-            // Sube el tracklist fluidamente desde abajo con el scroll
-            if (detailsSection) {
-                if (scrollY > 150) {
-                    detailsSection.classList.add('visible');
-                } else {
-                    detailsSection.classList.remove('visible');
-                }
-            }
-        });
-
         if (!document.getElementById('mophra-global-selection-style')) {
             const selectionStyle = document.createElement('style');
             selectionStyle.id = 'mophra-global-selection-style';
