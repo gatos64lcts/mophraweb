@@ -196,7 +196,7 @@
             text-align: left;
         }
 
-        /* --- 🎛️ ESTILOS PARA TRACK ITEMS Y MARQUESINA AUTOMÁTICA --- */
+        /* --- 🎛️ ESTILOS PARA TRACK ITEMS Y MARQUESINA AUTOMÁTICA CORREGIDOS --- */
         .mophra-track-item {
             font-family: 'RelicusMono', monospace !important;
             color: rgba(255, 255, 255, 0.85);
@@ -205,6 +205,7 @@
             text-transform: none !important;
             padding: 8px 0;
             width: 100%;
+            max-width: 550px; /* Ancho máximo controlado para evitar estiramientos excesivos en PC */
             display: flex !important;
             align-items: center !important;
             justify-content: space-between !important;
@@ -255,6 +256,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            min-width: 0; /* Vital para permitir que flexbox reduzca el contenedor correctamente */
         }
 
         .track-marquee-wrapper {
@@ -264,6 +266,8 @@
             display: block;
             position: relative;
             box-sizing: border-box;
+            flex-grow: 1;
+            min-width: 0;
         }
 
         .track-marquee-text {
@@ -378,7 +382,7 @@
                     <div class="mophra-tracklist-col">
                         <div class="mophra-tracklist-heading">tracklist</div>
                         
-                        <!-- Pista 01 (Con marquesina automática integrada) -->
+                        <!-- Pista 01 (Con marquesina automática integrada y corregida) -->
                         <div class="mophra-track-item" data-src="../../../audiotracks/mophra001.mp3">
                             <div class="mophra-track-left">
                                 <button class="mophra-play-btn" aria-label="Play">▶</button>
