@@ -888,22 +888,24 @@
                 });
             });
         });
-        document.addEventListener('DOMContentLoaded', () => {
+       document.addEventListener('DOMContentLoaded', () => {
         const wrappers = document.querySelectorAll('.track-marquee-wrapper');
         
         wrappers.forEach(wrapper => {
             const inner = wrapper.querySelector('.track-marquee-inner');
             if (!inner) return;
             
-            // Comparamos el ancho real del texto con el ancho visible del contenedor
             const textWidth = inner.scrollWidth;
             const containerWidth = wrapper.clientWidth;
             
-            // Si el texto es más ancho que el espacio, activamos la marquesina estilo Spotify
             if (textWidth > containerWidth) {
                 wrapper.classList.add('is-overflowing');
+                // Calcula exactamente los pixeles que sobran para hacer el rebote perfecto
+                const distance = containerWidth - textWidth;
+                inner.style.setProperty('--bounce-distance', distance + 'px');
             } else {
                 wrapper.classList.remove('is-overflowing');
+                inner.style.removeProperty('--bounce-distance');
             }
         });
     });
