@@ -27,7 +27,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOPHRA | My Last Sound</title>
+    <title>Albums | My Last Sound</title>
     
     <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -97,17 +97,18 @@
             .mophra-rotating-image-wrap { width: 720px; height: 720px; }
         }
 
-        /* --- 📝 TÍTULO PRINCIPAL (Sale literal desde abajo sin fade) --- */
+        /* --- 📝 TÍTULO PRINCIPAL (Sale literal desde abajo sin fade y controlado por scroll) --- */
         .mophra-bottom-title-container {
             position: absolute;
-            top: 60vh; 
+            top: 55vh; 
             left: 50px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
             z-index: 3; /* Por encima del disco */
             pointer-events: none;
-            transform: translateY(120vh); /* Empieza completamente abajo fuera de vista */
+            transform: translateY(80vh); /* Empieza completamente abajo fuera de vista */
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
         }
 
@@ -132,15 +133,16 @@
         /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (Sin fondo, sin imagen y sube desde abajo) --- */
         .mophra-details-section {
             position: absolute;
-            top: 130vh; 
+            top: 120vh; 
             left: 0;
             width: 100%;
             box-sizing: border-box;
             padding: 60px 50px;
             z-index: 3; /* Por encima del disco */
-            transform: translateY(120vh); /* Empieza completamente abajo fuera de vista */
+            transform: translateY(80vh); /* Empieza completamente abajo fuera de vista */
             pointer-events: none;
             background: none !important; /* Sin fondo sólido ni degradado */
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
         }
 
@@ -150,18 +152,19 @@
         }
 
         .mophra-details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1400px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 700px;
             margin: 0 auto;
-            align-items: start;
+            align-items: flex-start;
         }
 
         .mophra-tracklist-col {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            width: 100%;
         }
 
         .mophra-tracklist-heading {
@@ -190,11 +193,14 @@
             transform: translateX(8px);
         }
 
+        /* --- 🔘 BOTÓN STREAM / DL (Movido abajo del tracklist) --- */
         .mophra-media-col {
             display: flex;
             flex-direction: column;
             gap: 20px;
             align-items: flex-start;
+            width: 100%;
+            margin-top: 10px;
         }
 
         .mophra-stream-btn {
@@ -221,12 +227,8 @@
 
         @media (max-width: 900px) {
             body { height: 350vh; }
-            .mophra-bottom-title-container { top: 55vh; left: 20px; }
-            .mophra-details-section { top: 120vh; padding: 20px; }
-            .mophra-details-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+            .mophra-bottom-title-container { top: 50vh; left: 20px; }
+            .mophra-details-section { top: 110vh; padding: 20px; }
         }
     </style>
 </head>
@@ -239,12 +241,12 @@
         </div>
     </div>
 
-    <!-- Título Principal (Hace Scroll y sale desde abajo) -->
+    <!-- Título Principal (Hace Scroll y sube desde abajo de la pantalla) -->
     <div class="mophra-bottom-title-container" id="bottomTitle">
         <div class="mophra-bottom-title">My Last Sound LP</div>
     </div>
 
-    <!-- Tracklist y Detalles (Hacen Scroll y salen desde abajo, sin imagen ni fondo) -->
+    <!-- Tracklist y Detalles (Hacen Scroll, suben desde abajo, sin imagen, sin fondo y con el botón al final) -->
     <div class="mophra-details-section" id="detailsSection">
         <div class="mophra-details-grid">
             
@@ -432,18 +434,18 @@
             const detailsSection = document.getElementById('detailsSection');
             const scrollY = window.scrollY;
             
-            // Sube el título desde abajo conforme haces scroll
+            // Sube el título fluidamente desde abajo con el scroll
             if (bottomTitle) {
-                if (scrollY > 50) {
+                if (scrollY > 30) {
                     bottomTitle.classList.add('visible');
                 } else {
                     bottomTitle.classList.remove('visible');
                 }
             }
 
-            // Sube el tracklist desde abajo conforme haces scroll
+            // Sube el tracklist fluidamente desde abajo con el scroll
             if (detailsSection) {
-                if (scrollY > 200) {
+                if (scrollY > 150) {
                     detailsSection.classList.add('visible');
                 } else {
                     detailsSection.classList.remove('visible');
