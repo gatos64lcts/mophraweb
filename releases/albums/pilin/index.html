@@ -48,24 +48,22 @@
             padding: 0;
             box-sizing: border-box;
             overflow-x: hidden;
-            height: 350vh;
+            height: 300vh; /* Espacio para permitir el scroll natural del texto */
         }
 
-        /* --- 💿 CONTENEDOR Y ANIMACIÓN DE GIRO 360 EN LOOP PARA LA IMAGEN --- */
-        .mophra-center-container {
-            width: 100%;
+        /* --- 💿 DISCO FIJO AL CENTRO (No se mueve con el scroll) --- */
+        .mophra-fixed-disc-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 2; /* Por encima del fondo pero controlado */
-            pointer-events: none;
+            z-index: 1; /* Detrás del texto */
+            pointer-events: none; /* Permite hacer scroll a través del disco */
             box-sizing: border-box;
-            padding: 20px;
-            overflow: visible;
         }
 
         .mophra-rotating-image-wrap {
@@ -99,32 +97,33 @@
             .mophra-rotating-image-wrap { width: 720px; height: 720px; }
         }
 
-        /* --- 📝 TÍTULO PRINCIPAL --- */
+        /* --- 📝 TÍTULO PRINCIPAL (Viaja con el scroll y sale desde abajo) --- */
         .mophra-bottom-title-container {
             position: absolute;
-            top: 75vh;
+            top: 60vh; /* Ubicado más abajo para que aparezca conforme haces scroll */
             left: 50px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            z-index: 1;
+            z-index: 3; /* Por encima del disco */
             pointer-events: none;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(40px);
-            transition: transform 0.1s ease-out, opacity 0.3s ease, visibility 0.3s ease;
+            transform: translateY(80px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .mophra-bottom-title-container.visible {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
+            transform: translateY(0px);
         }
 
         .mophra-bottom-title {
             font-family: 'RelicusMono', monospace !important;
             color: #ffffff;
-            font-size: clamp(70px, 10vw, 99px);
+            font-size: clamp(40px, 7vw, 85px);
             font-weight: 900;
             text-transform: none !important;
             letter-spacing: -2px;
@@ -132,36 +131,36 @@
             padding: 0 !important;
             border: none !important;
             box-shadow: none !important;
-            backdrop-filter: none !important;
         }
 
-        /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST --- */
+        /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (Viaja con el scroll) --- */
         .mophra-details-section {
             position: absolute;
-            top: 92vh;
+            top: 130vh; /* Posicionado más abajo para activarse en el segundo tramo del scroll */
             left: 0;
             width: 100%;
             box-sizing: border-box;
             padding: 60px 50px;
-            z-index: 1;
+            z-index: 3; /* Por encima del disco */
             opacity: 0;
             visibility: hidden;
-            transform: translateY(80px);
+            transform: translateY(100px);
             pointer-events: none;
-            transition: transform 0.1s ease-out, opacity 0.3s ease, visibility 0.3s ease;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, visibility 0.35s ease;
+            background: linear-gradient(to top, rgba(245, 38, 10, 0.98) 80%, rgba(245, 38, 10, 0));
         }
 
         .mophra-details-section.visible {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
-            z-index: 3;
+            transform: translateY(0px);
         }
 
         .mophra-details-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 40px;
             max-width: 1400px;
             margin: 0 auto;
             align-items: start;
@@ -170,26 +169,26 @@
         .mophra-tracklist-col {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
         }
 
         .mophra-tracklist-heading {
             font-family: 'RelicusMono', monospace !important;
             color: #ffffff;
-            font-size: clamp(28px, 4vw, 42px);
+            font-size: clamp(24px, 3.5vw, 36px);
             font-weight: 900;
             text-transform: none !important;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             letter-spacing: -1px;
         }
 
         .mophra-track-item {
             font-family: 'RelicusMono', monospace !important;
             color: rgba(255, 255, 255, 0.85);
-            font-size: clamp(15px, 1.8vw, 22px);
+            font-size: clamp(14px, 1.5vw, 19px);
             font-weight: 700;
             text-transform: none !important;
-            padding: 8px 0;
+            padding: 5px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             transition: color 0.2s ease, transform 0.2s ease;
         }
@@ -202,13 +201,13 @@
         .mophra-media-col {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
             align-items: flex-start;
         }
 
         .mophra-info-image {
             width: 100%;
-            max-width: 420px;
+            max-width: 320px;
             height: auto;
             border-radius: 4px;
             display: block;
@@ -219,8 +218,8 @@
             font-family: 'RelicusMono', monospace !important;
             background-color: #ffffff;
             color: #F5260A;
-            padding: 16px 32px;
-            font-size: 18px;
+            padding: 14px 28px;
+            font-size: 16px;
             font-weight: 900;
             text-decoration: none;
             border-radius: 4px;
@@ -238,28 +237,32 @@
         }
 
         @media (max-width: 900px) {
-            body { height: 420vh; }
-            .mophra-bottom-title-container { left: 20px; top: 70vh; }
-            .mophra-details-section { top: 82vh; padding: 30px 20px; }
+            body { height: 350vh; }
+            .mophra-bottom-title-container { top: 55vh; left: 20px; }
+            .mophra-details-section { top: 120vh; padding: 20px; }
             .mophra-details-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 20px;
             }
+            .mophra-info-image { max-width: 200px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="mophra-center-container">
+    <!-- Disco Fijo al Centro -->
+    <div class="mophra-fixed-disc-container">
         <div class="mophra-rotating-image-wrap">
             <img src="../../../cds/cd-the-last-sund-over.webp" alt="MOPHRA Release Art">
         </div>
     </div>
 
+    <!-- Título Principal (Hace Scroll) -->
     <div class="mophra-bottom-title-container" id="bottomTitle">
         <div class="mophra-bottom-title">My Last Sound LP</div>
     </div>
 
+    <!-- Tracklist y Detalles (Hacen Scroll) -->
     <div class="mophra-details-section" id="detailsSection">
         <div class="mophra-details-grid">
             
@@ -448,21 +451,19 @@
             const detailsSection = document.getElementById('detailsSection');
             const scrollY = window.scrollY;
             
+            // Activa la aparición del título desde abajo según el scroll
             if (bottomTitle) {
-                if (scrollY > 20) {
+                if (scrollY > 50) {
                     bottomTitle.classList.add('visible');
-                    let titleOffset = Math.max(0, 40 - (scrollY * 0.4));
-                    bottomTitle.style.transform = `translateY(${titleOffset}px)`;
                 } else {
                     bottomTitle.classList.remove('visible');
                 }
             }
 
+            // Activa la aparición del tracklist desde abajo según el scroll
             if (detailsSection) {
-                if (scrollY > 80) {
+                if (scrollY > 200) {
                     detailsSection.classList.add('visible');
-                    let detailsOffset = Math.max(0, 100 - (scrollY * 0.35));
-                    detailsSection.style.transform = `translateY(${detailsOffset}px)`;
                 } else {
                     detailsSection.classList.remove('visible');
                 }
