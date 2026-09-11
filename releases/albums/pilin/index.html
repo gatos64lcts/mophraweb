@@ -111,21 +111,25 @@
             }
         }
 
-        /* --- 📝 TÍTULO FLOTANTE INFERIOR PRINCIPAL --- */
+        /* --- 📝 TÍTULO PRINCIPAL QUE APARECE Y LUEGO SUBE UNIFICADO --- */
         .mophra-bottom-title-container {
-            position: fixed;
-            bottom: -100px;
+            position: absolute;
+            top: 85vh; /* Se sitúa justo al finalizar o rozar la primera pantalla */
             left: 50px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            z-index: 2;
+            z-index: 3;
             pointer-events: none;
-            transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .mophra-bottom-title-container.visible {
-            bottom: 40px;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
 
         .mophra-bottom-title {
@@ -142,10 +146,10 @@
             backdrop-filter: none !important;
         }
 
-        /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (APARECE CON MÁS SCROLL) --- */
+        /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (UNIFICADA) --- */
         .mophra-details-section {
             position: absolute;
-            top: 110vh; /* Empieza más abajo del primer pantallazo */
+            top: 105vh; /* Empieza justo debajo del título para mantener la estructura unificada */
             left: 0;
             width: 100%;
             box-sizing: border-box;
@@ -265,12 +269,12 @@
         </div>
     </div>
 
-    <!-- Título inferior principal que emerge al primer scroll -->
+    <!-- Título principal que aparece al hacer scroll y sube junto con la lista -->
     <div class="mophra-bottom-title-container" id="bottomTitle">
         <div class="mophra-bottom-title">My Last Sound LP</div>
     </div>
 
-    <!-- Nueva sección inferior con Tracklist (izq) e Imagen + Botón (der) -->
+    <!-- Sección inferior con Tracklist (izq) e Imagen + Botón (der) -->
     <div class="mophra-details-section" id="detailsSection">
         <div class="mophra-details-grid">
             
@@ -456,13 +460,14 @@
 
     <script>
     (function() {
-        // Script para controlar la aparición del título y de la sección de detalles mediante scroll
+        // Script para controlar la aparición y desplazamiento unificado del título y los detalles
         window.addEventListener('scroll', () => {
             const bottomTitle = document.getElementById('bottomTitle');
             const detailsSection = document.getElementById('detailsSection');
+            const scrollY = window.scrollY;
             
             if (bottomTitle) {
-                if (window.scrollY > 20) {
+                if (scrollY > 20) {
                     bottomTitle.classList.add('visible');
                 } else {
                     bottomTitle.classList.remove('visible');
@@ -470,8 +475,8 @@
             }
 
             if (detailsSection) {
-                // Si scroleas más de 300 píxeles, aparece la sección de tracklist e imagen de detalles
-                if (window.scrollY > 300) {
+                // Al scrolear más de 300 píxeles aparece la sección de tracklist e imagen de detalles
+                if (scrollY > 300) {
                     detailsSection.classList.add('visible');
                 } else {
                     detailsSection.classList.remove('visible');
