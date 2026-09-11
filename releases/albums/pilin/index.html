@@ -270,24 +270,23 @@
         }
 
         .track-marquee-inner {
-            display: inline-flex;
+            display: inline-block;
             white-space: nowrap;
             width: max-content;
-            /* Forzamos a que ruede exactamente la mitad de su ancho de forma imperceptible */
-            animation: mophraMarqueeAuto 10s linear infinite;
         }
 
-        /* Solo se activa la animación si el texto excede el contenedor */
-        .track-marquee-wrapper:not(.is-overflowing) .track-marquee-inner {
-            animation: none !important;
+        /* Se activa el rebote (ping-pong) solo si el texto es más ancho que el contenedor */
+        .track-marquee-wrapper.is-overflowing .track-marquee-inner {
+            animation: mophraBounceMarquee 8s ease-in-out infinite alternate;
         }
 
-        @keyframes mophraMarqueeAuto {
+        @keyframes mophraBounceMarquee {
             0% {
                 transform: translateX(0);
             }
             100% {
-                transform: translateX(-50%);
+                /* Se desplaza hacia la izquierda lo que sobra de espacio exacto */
+                transform: translateX(var(--bounce-distance, 0px));
             }
         }
         
@@ -395,8 +394,7 @@
                             </div>
                             <div class="mophra-track-name track-marquee-wrapper">
                                 <div class="track-marquee-inner">
-                                    <span>BACK with/LACRABLACK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                    <span>BACK with/LACRABLACK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span>BACK with/LACRABLACK</span>
                                 </div>
                             </div>
                             <div class="mophra-progress-container">
