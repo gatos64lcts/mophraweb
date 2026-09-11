@@ -196,7 +196,7 @@
             text-align: left;
         }
 
-        /* --- 🎛️ NUEVOS ESTILOS PARA TRACK ITEMS Y REPRODUCTOR --- */
+        /* --- 🎛️ ESTILOS PARA TRACK ITEMS Y MARQUESINA AUTOMÁTICA --- */
         .mophra-track-item {
             font-family: 'RelicusMono', monospace !important;
             color: rgba(255, 255, 255, 0.85);
@@ -256,28 +256,31 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         .track-marquee-wrapper {
-    overflow: hidden;
-    white-space: nowrap;
-    width: 100%;
-    display: block;
-    position: relative;
-}
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            display: block;
+            position: relative;
+            box-sizing: border-box;
+        }
 
-.track-marquee-text {
-    display: inline-block;
-    animation: marquee-anim 8s linear infinite;
-    /* Si quieres que solo se mueva cuando sea muy largo, puedes quitar la animación por defecto y aplicarla con JS o hover */
-}
+        .track-marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: mophraMarqueeAuto 9s linear infinite;
+        }
 
-@keyframes marquee-anim {
-    0% {
-        transform: translateX(0%);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
+        @keyframes mophraMarqueeAuto {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
 
         .mophra-progress-container {
             width: 110px;
@@ -375,19 +378,19 @@
                     <div class="mophra-tracklist-col">
                         <div class="mophra-tracklist-heading">tracklist</div>
                         
-                        <!-- Pista 01 -->
+                        <!-- Pista 01 (Con marquesina automática integrada) -->
                         <div class="mophra-track-item" data-src="../../../audiotracks/mophra001.mp3">
-    <div class="mophra-track-left">
-        <button class="mophra-play-btn" aria-label="Play">▶</button>
-        <span class="mophra-track-num">01.</span>
-    </div>
-    <div class="mophra-track-name track-marquee-wrapper">
-        <span class="track-marquee-text">BACK with/LACRABLACK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BACK with/LACRABLACK</span>
-    </div>
-    <div class="mophra-progress-container">
-        <div class="mophra-progress-bar"></div>
-    </div>
-</div>
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">01.</span>
+                            </div>
+                            <div class="mophra-track-name track-marquee-wrapper">
+                                <span class="track-marquee-text">BACK with/LACRABLACK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BACK with/LACRABLACK</span>
+                            </div>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
 
                         <!-- Pista 02 -->
                         <div class="mophra-track-item" data-src="../../../audio/track2.mp3">
