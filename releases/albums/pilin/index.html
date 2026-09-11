@@ -257,30 +257,26 @@
             text-overflow: ellipsis;
         }
         .track-marquee-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  /* Máscara para difuminar sutilmente los bordes izquierdo y derecho */
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+    position: relative;
 }
 
 .track-marquee-text {
-  display: inline-block;
-  /* El tiempo (8s) define qué tan rápido se desliza; 'alternate' hace que rebote */
-  animation: bounce-marquee 8s ease-in-out infinite alternate;
-  padding-right: 20px;
+    display: inline-block;
+    animation: marquee-anim 8s linear infinite;
+    /* Si quieres que solo se mueva cuando sea muy largo, puedes quitar la animación por defecto y aplicarla con JS o hover */
 }
 
-@keyframes bounce-marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    /* Se desplaza el excedente negativo; ajusta según el largo del texto si es necesario */
-    transform: translateX(calc(-100% + 150px)); 
-  }
+@keyframes marquee-anim {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
         .mophra-progress-container {
