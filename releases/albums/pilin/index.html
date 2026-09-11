@@ -63,7 +63,7 @@
             z-index: 1;
             pointer-events: none;
             box-sizing: border-box;
-            contain: layout style paint; /* Mejora el rendimiento de renderizado */
+            contain: layout style paint;
         }
 
         .mophra-rotating-image-wrap {
@@ -75,7 +75,7 @@
             animation: mophraRotate360 10s linear infinite;
             backface-visibility: hidden;
             transform: translateZ(0);
-            will-change: transform; /* Fuerza aceleración por GPU */
+            will-change: transform;
         }
 
         .mophra-rotating-image-wrap img {
@@ -92,16 +92,12 @@
 
         @media (min-width: 840px) {
             .mophra-rotating-image-wrap { 
-                width: 740px; 
-                height: 740px; 
+                width: 720px; 
+                height: 720px; 
             }
             .mophra-fixed-disc-container {
-                transform: translateX(190px); /* Aumenta o reduce este número para moverlo más a la derecha */
+                transform: translateX(190px);
             }
-        }
-
-        @media (min-width: 840px) {
-            .mophra-rotating-image-wrap { width: 720px; height: 720px; }
         }
 
         /* --- 📜 CONTENEDOR PRINCIPAL DE CONTENIDO --- */
@@ -140,11 +136,21 @@
             line-height: 1;
         }
 
-        /* --- 🎵 SECCIÓN DE TRACKLIST Y BOTÓN --- */
+        /* --- 🎵 SECCIÓN DE DETALLES (DOS COLUMNAS: TRACKLIST + IMAGEN) --- */
         .mophra-details-section {
             width: 100%;
             display: flex;
             justify-content: flex-start;
+        }
+
+        .mophra-release-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 50px;
+            width: 100%;
+            max-width: 1200px;
         }
 
         .mophra-details-grid {
@@ -152,8 +158,26 @@
             flex-direction: column;
             gap: 25px;
             width: 100%;
-            max-width: 700px;
+            max-width: 600px;
             align-items: flex-start;
+            flex: 1;
+        }
+
+        /* --- 🖼️ CONTENEDOR DE LA NUEVA IMAGEN LATERAL --- */
+        .mophra-side-image-col {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 400px;
+        }
+
+        .mophra-side-image-col img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            object-fit: contain;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .mophra-tracklist-col {
@@ -224,6 +248,20 @@
             transform: scale(1.03);
         }
 
+        @media (max-width: 992px) {
+            .mophra-release-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .mophra-side-image-col {
+                max-width: 100%;
+                width: 100%;
+            }
+            .mophra-side-image-col img {
+                max-width: 350px;
+            }
+        }
+
         @media (max-width: 900px) {
             .mophra-content-flow { padding: 0 20px 50px 20px; }
         }
@@ -252,24 +290,32 @@
             <div class="mophra-bottom-title">My Last Sound LP</div>
         </div>
 
-        <!-- Tracklist, Detalles y Botón -->
+        <!-- Tracklist, Detalles y Imagen Lateral -->
         <div class="mophra-details-section" id="detailsSection">
-            <div class="mophra-details-grid">
+            <div class="mophra-release-content">
                 
-                <div class="mophra-tracklist-col">
-                    <div class="mophra-tracklist-heading">tracklist</div>
-                    <div class="mophra-track-item">01. BACK with/LACRABLACK)</div>
-                    <div class="mophra-track-item">02. Can't stop</div>
-                    <div class="mophra-track-item">03. Hussle</div>
-                    <div class="mophra-track-item">04. Never Die</div>
-                    <div class="mophra-track-item">05. Keep It Going</div>
-                    <div class="mophra-track-item">06. CHOKE with/Sphicy</div>
-                    <div class="mophra-track-item">07. Bounce</div>
-                    <div class="mophra-track-item">08. MORDHA with/George Lycats</div>
+                <!-- Columna Izquierda: Tracklist y Botón -->
+                <div class="mophra-details-grid">
+                    <div class="mophra-tracklist-col">
+                        <div class="mophra-tracklist-heading">tracklist</div>
+                        <div class="mophra-track-item">01. BACK with/LACRABLACK)</div>
+                        <div class="mophra-track-item">02. Can't stop</div>
+                        <div class="mophra-track-item">03. Hussle</div>
+                        <div class="mophra-track-item">04. Never Die</div>
+                        <div class="mophra-track-item">05. Keep It Going</div>
+                        <div class="mophra-track-item">06. CHOKE with/Sphicy</div>
+                        <div class="mophra-track-item">07. Bounce</div>
+                        <div class="mophra-track-item">08. MORDHA with/George Lycats</div>
+                    </div>
+
+                    <div class="mophra-media-col">
+                        <a href="https://too.fm/baddy-my-last-sound" class="mophra-stream-btn" target="_blank">stream / dl</a>
+                    </div>
                 </div>
 
-                <div class="mophra-media-col">
-                    <a href="https://too.fm/baddy-my-last-sound" class="mophra-stream-btn" target="_blank">stream / dl</a>
+                <!-- Columna Derecha: Imagen Adicional -->
+                <div class="mophra-side-image-col">
+                    <img src="../../../resources/baddy.webp" alt="Release Details Visual">
                 </div>
 
             </div>
