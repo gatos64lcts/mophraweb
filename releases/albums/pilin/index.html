@@ -196,7 +196,7 @@
             text-align: left;
         }
 
-        /* --- 🎛️ ESTILOS PARA TRACK ITEMS Y MARQUESINA AUTOMÁTICA CORREGIDOS --- */
+        /* --- 🎛️ ESTILOS PARA TRACK ITEMS (SIN EFECTO DE DESPLAZAMIENTO EN HOVER) --- */
         .mophra-track-item {
             font-family: 'RelicusMono', monospace !important;
             color: rgba(255, 255, 255, 0.85);
@@ -205,18 +205,17 @@
             text-transform: none !important;
             padding: 8px 0;
             width: 100%;
-            max-width: 550px; /* Ancho máximo controlado para evitar estiramientos excesivos en PC */
+            max-width: 550px;
             display: flex !important;
             align-items: center !important;
             justify-content: space-between !important;
             gap: 15px !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            transition: color 0.2s ease, transform 0.2s ease;
+            transition: color 0.2s ease;
         }
 
         .mophra-track-item:hover {
             color: #ffffff;
-            transform: translateX(6px);
         }
 
         .mophra-track-left {
