@@ -114,19 +114,22 @@
         /* --- 📝 TÍTULO PRINCIPAL QUE APARECE Y LUEGO SUBE UNIFICADO --- */
         .mophra-bottom-title-container {
             position: absolute;
-            top: 75vh; /* Posición inicial oculta o parcialmente detrás/debajo del centro */
+            top: 75vh;
             left: 50px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            z-index: 0; /* Detrás de la imagen central (z-index: 1) para que nazca desde atrás */
+            z-index: 0;
             pointer-events: none;
-            /* Eliminamos la opacidad y dejamos que el scroll controle el movimiento exacto */
+            opacity: 0; /* Oculto al cargar */
+            visibility: hidden;
             transform: translateY(40px);
-            transition: transform 0.1s ease-out; /* Movimiento ultra fluido vinculado al scroll */
+            transition: transform 0.1s ease-out, opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .mophra-bottom-title-container.visible {
+            opacity: 1;
+            visibility: visible;
             pointer-events: auto;
         }
 
@@ -146,22 +149,26 @@
 
         /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (UNIFICADA) --- */
         .mophra-details-section {
-            position: absolute;
-            top: 95vh; /* Sincronizado para emerger justo después del título */
-            left: 0;
-            width: 100%;
-            box-sizing: border-box;
-            padding: 60px 50px;
-            z-index: 0; /* Detrás del CD principal para dar efecto de profundidad al salir */
-            transform: translateY(80px); /* Empieza más abajo para simular que sale de la profundidad */
-            pointer-events: none;
-            transition: transform 0.1s ease-out;
-        }
+    position: absolute;
+    top: 95vh;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 60px 50px;
+    z-index: 0;
+    opacity: 0; /* Oculto al cargar */
+    visibility: hidden;
+    transform: translateY(80px);
+    pointer-events: none;
+    transition: transform 0.1s ease-out, opacity 0.3s ease, visibility 0.3s ease;
+}
 
-        .mophra-details-section.visible {
-            pointer-events: auto;
-            z-index: 3; /* Una vez fuera, pasa al frente para poder hacer click en los botones/links */
-        }
+.mophra-details-section.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 3;
+}
 
         .mophra-details-grid {
             display: grid;
