@@ -114,28 +114,26 @@
         /* --- 📝 TÍTULO PRINCIPAL QUE APARECE Y LUEGO SUBE UNIFICADO --- */
         .mophra-bottom-title-container {
             position: absolute;
-            top: 85vh; /* Se sitúa justo al finalizar o rozar la primera pantalla */
+            top: 75vh; /* Posición inicial oculta o parcialmente detrás/debajo del centro */
             left: 50px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            z-index: 3;
+            z-index: 0; /* Detrás de la imagen central (z-index: 1) para que nazca desde atrás */
             pointer-events: none;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            /* Eliminamos la opacidad y dejamos que el scroll controle el movimiento exacto */
+            transform: translateY(40px);
+            transition: transform 0.1s ease-out; /* Movimiento ultra fluido vinculado al scroll */
         }
 
         .mophra-bottom-title-container.visible {
-            opacity: 1;
-            transform: translateY(0);
             pointer-events: auto;
         }
 
         .mophra-bottom-title {
             font-family: 'RelicusMono', monospace !important;
             color: #ffffff;
-            font-size: clamp(50px, 8vw, 90px);
+            font-size: clamp(70px, 10vw, 99px);
             font-weight: 900;
             text-transform: none !important;
             letter-spacing: -2px;
@@ -149,22 +147,20 @@
         /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST (UNIFICADA) --- */
         .mophra-details-section {
             position: absolute;
-            top: 105vh; /* Empieza justo debajo del título para mantener la estructura unificada */
+            top: 95vh; /* Sincronizado para emerger justo después del título */
             left: 0;
             width: 100%;
             box-sizing: border-box;
             padding: 60px 50px;
-            z-index: 3;
-            opacity: 0;
-            transform: translateY(50px);
+            z-index: 0; /* Detrás del CD principal para dar efecto de profundidad al salir */
+            transform: translateY(80px); /* Empieza más abajo para simular que sale de la profundidad */
             pointer-events: none;
-            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.1s ease-out;
         }
 
         .mophra-details-section.visible {
-            opacity: 1;
-            transform: translateY(0);
             pointer-events: auto;
+            z-index: 3; /* Una vez fuera, pasa al frente para poder hacer click en los botones/links */
         }
 
         .mophra-details-grid {
@@ -460,30 +456,34 @@
 
     <script>
     (function() {
-        // Script para controlar la aparición y desplazamiento unificado del título y los detalles
+        // Control de desplazamiento físico por scroll
         window.addEventListener('scroll', () => {
             const bottomTitle = document.getElementById('bottomTitle');
             const detailsSection = document.getElementById('detailsSection');
             const scrollY = window.scrollY;
             
             if (bottomTitle) {
-                if (scrollY > 20) {
+                if (scrollY > 10) {
                     bottomTitle.classList.add('visible');
+                    // El desplazamiento se calcula en función de cuánto bajas, haciendo que "salga" hacia arriba
+                    let titleOffset = Math.max(0, 40 - (scrollY * 0.4));
+                    bottomTitle.style.transform = `translateY(${titleOffset}px)`;
                 } else {
                     bottomTitle.classList.remove('visible');
                 }
             }
 
             if (detailsSection) {
-                // Al scrolear más de 300 píxeles aparece la sección de tracklist e imagen de detalles
-                if (scrollY > 300) {
+                if (scrollY > 50) {
                     detailsSection.classList.add('visible');
+                    // Sube de forma sincronizada simulando que emerge por debajo de la esfera
+                    let detailsOffset = Math.max(0, 100 - (scrollY * 0.35));
+                    detailsSection.style.transform = `translateY(${detailsOffset}px)`;
                 } else {
                     detailsSection.classList.remove('visible');
                 }
             }
         });
-
         if (!document.getElementById('mophra-global-selection-style')) {
             const selectionStyle = document.createElement('style');
             selectionStyle.id = 'mophra-global-selection-style';
