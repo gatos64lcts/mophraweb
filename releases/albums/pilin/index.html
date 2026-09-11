@@ -27,7 +27,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOPHRA | EPs</title>
+    <title>MOPHRA | My Last Sound</title>
     
     <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -47,6 +47,7 @@
             padding: 0;
             box-sizing: border-box;
             overflow-x: hidden;
+            height: 200vh; /* Altura extendida para permitir scroll visual si lo deseas */
         }
 
         /* --- 💿 CONTENEDOR Y ANIMACIÓN DE GIRO 360 EN LOOP PARA LA IMAGEN --- */
@@ -56,7 +57,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            position: absolute;
+            position: fixed; /* Cambiado a fixed para que la imagen jamás se mueva al hacer scroll */
             top: 0;
             left: 0;
             z-index: 1;
@@ -66,7 +67,7 @@
             overflow: visible;
         }
 
-        /* TAMAÑO MÓVIL (Modifica aquí si quieres más grande en celular) */
+        /* TAMAÑO MÓVIL */
         .mophra-rotating-image-wrap {
             width: 450px;
             height: 450px;
@@ -94,7 +95,7 @@
             }
         }
 
-        /* TAMAÑO TABLET (Modifica aquí para pantallas medianas) */
+        /* TAMAÑO TABLET */
         @media (min-width: 480px) {
             .mophra-rotating-image-wrap {
                 width: 550px;
@@ -102,23 +103,61 @@
             }
         }
 
-        /* TAMAÑO PC (Modifica aquí para computadoras - ej: 700px, 800px, etc.) */
-        @media (min-width: 769px) {
+        /* TAMAÑO PC */
+        @media (min-width: 840px) {
             .mophra-rotating-image-wrap {
-                width: 700px;
-                height: 700px;
+                width: 720px;
+                height: 720px;
             }
+        }
+
+        /* --- 📝 TEXTO FLOTANTE INFERIOR QUE APARECE DESDE ABAJO --- */
+        .mophra-bottom-title-container {
+            position: fixed;
+            bottom: -100px; /* Inicialmente oculto abajo */
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            pointer-events: none;
+            transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Clase que activa la aparición del texto al hacer scroll */
+        .mophra-bottom-title-container.visible {
+            bottom: 40px; /* Posición final cuando scroleas */
+        }
+
+        .mophra-bottom-title {
+            font-family: 'RelicusMono', monospace !important;
+            color: #ffffff;
+            font-size: clamp(24px, 4vw, 48px);
+            font-weight: 900;
+            text-transform: none !important; /* Mantiene exactamente tal cual escribas el texto (minúsculas y mayúsculas) */
+            letter-spacing: -1px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
 
-    <!-- Imagen grande girando 360 grados en el centro -->
+    <!-- Imagen fija girando 360 grados en el centro -->
     <div class="mophra-center-container">
         <div class="mophra-rotating-image-wrap">
-            <!-- Reemplaza el enlace de abajo con la URL de tu imagen de CD -->
             <img src="../../../cds/cd-the-last-sund-over.webp" alt="MOPHRA Release Art">
         </div>
+    </div>
+
+    <!-- Texto inferior que emerge al scrollear -->
+    <div class="mophra-bottom-title-container" id="bottomTitle">
+        <div class="mophra-bottom-title">My Last Sound LP</div>
     </div>
 
     <div class="mophra-global-container" id="mophraGlobalMenu">
@@ -281,6 +320,19 @@
 
     <script>
     (function() {
+        // Script para activar la aparición del texto inferior al hacer scroll
+        window.addEventListener('scroll', () => {
+            const bottomTitle = document.getElementById('bottomTitle');
+            if (!bottomTitle) return;
+            
+            // Si el usuario hace scroll más de 20 píxeles hacia abajo, aparece el texto
+            if (window.scrollY > 20) {
+                bottomTitle.classList.add('visible');
+            } else {
+                bottomTitle.classList.remove('visible');
+            }
+        });
+
         if (!document.getElementById('mophra-global-selection-style')) {
             const selectionStyle = document.createElement('style');
             selectionStyle.id = 'mophra-global-selection-style';
@@ -362,12 +414,12 @@
     })();
     </script>
 </body>
-    <!-- PRECARGA OPTIMIZADA DE LA CORTINA (Evita descargas repetidas) -->
-    <link rel="preload" href="../../resources/cortina.webp" as="image">
+    <!-- PRECARGA OPTIMIZADA DE LA CORTINA -->
+    <link rel="preload" href="../../../resources/cortina.webp" as="image">
 
     <!-- CORTINA METÁLICA DE TRANSICIÓN -->
     <div id="cortina-transicion" class="cortina-contenedor">
-        <img src="../../resources/cortina.webp" alt="Cargando..." class="cortina-imagen">
+        <img src="../../../resources/cortina.webp" alt="Cargando..." class="cortina-imagen">
     </div>
 
     <style>
@@ -416,12 +468,10 @@
                 }
             }
 
-            // 1. Abrir la cortina al entrar a la página (usa caché del navegador)
             window.addEventListener('load', () => {
                 setTimeout(abrirCortina, 100);
             });
 
-            // 2. Soporte para el botón de retroceso (BFCache)
             window.addEventListener('pageshow', (event) => {
                 if (event.persisted && cortina) {
                     cortina.classList.remove('cerrar');
@@ -429,7 +479,6 @@
                 }
             });
 
-            // 3. Interceptar clics para cerrar la cortina antes de cambiar de página
             document.addEventListener('click', (e) => {
                 const link = e.target.closest('a');
                 if (!link) return;
