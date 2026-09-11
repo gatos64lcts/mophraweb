@@ -50,7 +50,7 @@
             overflow-x: hidden;
         }
 
-        /* --- 💿 DISCO FIJO AL CENTRO (De fondo) --- */
+        /* --- 💿 DISCO FIJO AL CENTRO (Optimizado para móviles) --- */
         .mophra-fixed-disc-container {
             position: fixed;
             top: 0;
@@ -60,9 +60,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1; /* Detrás del contenido */
-            pointer-events: none; /* Permite hacer scroll a través del disco */
+            z-index: 1;
+            pointer-events: none;
             box-sizing: border-box;
+            contain: layout style paint; /* Mejora el rendimiento de renderizado */
         }
 
         .mophra-rotating-image-wrap {
@@ -74,6 +75,7 @@
             animation: mophraRotate360 10s linear infinite;
             backface-visibility: hidden;
             transform: translateZ(0);
+            will-change: transform; /* Fuerza aceleración por GPU */
         }
 
         .mophra-rotating-image-wrap img {
@@ -96,15 +98,15 @@
             .mophra-rotating-image-wrap { width: 720px; height: 720px; }
         }
 
-        /* --- 📜 CONTENEDOR PRINCIPAL DE CONTENIDO (Scroll natural de abajo a arriba) --- */
+        /* --- 📜 CONTENEDOR PRINCIPAL DE CONTENIDO --- */
         .mophra-content-flow {
             position: relative;
-            z-index: 3; /* Por encima del disco fijo */
+            z-index: 3;
             width: 100%;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Empuja el contenido inicial hacia la parte baja de la pantalla */
+            justify-content: flex-end;
             box-sizing: border-box;
             padding: 0 50px 80px 50px;
         }
@@ -115,13 +117,13 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            margin-bottom: 20px; /* Espacio mínimo y controlado hacia el tracklist */
+            margin-bottom: 20px;
         }
 
         .mophra-bottom-title {
             font-family: 'RelicusMono', monospace !important;
             color: #ffffff;
-            font-size: clamp(120px, 14vw, 120px);
+            font-size: clamp(65px, 14vw, 120px);
             font-weight: 900;
             text-transform: none !important;
             letter-spacing: -1px;
@@ -132,7 +134,7 @@
             line-height: 1;
         }
 
-        /* --- 🎵 SECCIÓN DE TRACKLIST Y BOTÓN (Alineados estrictamente a la izquierda) --- */
+        /* --- 🎵 SECCIÓN DE TRACKLIST Y BOTÓN --- */
         .mophra-details-section {
             width: 100%;
             display: flex;
@@ -145,7 +147,7 @@
             gap: 25px;
             width: 100%;
             max-width: 700px;
-            align-items: flex-start; /* Todo alineado a la izquierda */
+            align-items: flex-start;
         }
 
         .mophra-tracklist-col {
@@ -185,7 +187,7 @@
             transform: translateX(8px);
         }
 
-        /* --- 🔘 BOTÓN STREAM / DL (Justo abajo del tracklist, alineado a la izquierda) --- */
+        /* --- 🔘 BOTÓN STREAM / DL --- */
         .mophra-media-col {
             display: flex;
             flex-direction: column;
@@ -219,6 +221,12 @@
         @media (max-width: 900px) {
             .mophra-content-flow { padding: 0 20px 50px 20px; }
         }
+
+        @media (max-width: 768px) {
+            .mophra-bottom-title {
+                font-size: clamp(50px, 12vw, 85px) !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -230,7 +238,7 @@
         </div>
     </div>
 
-    <!-- Flujo Normal de Contenido (Aparece abajo de la pantalla y hace scroll hacia arriba de forma natural) -->
+    <!-- Flujo Normal de Contenido -->
     <div class="mophra-content-flow">
         
         <!-- Título Principal -->
@@ -238,7 +246,7 @@
             <div class="mophra-bottom-title">My Last Sound LP</div>
         </div>
 
-        <!-- Tracklist, Detalles y Botón (Izquierda, sin espacios excesivos) -->
+        <!-- Tracklist, Detalles y Botón -->
         <div class="mophra-details-section" id="detailsSection">
             <div class="mophra-details-grid">
                 
