@@ -42,25 +42,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: none !important; /* Vital para que el scroll traspase el título */
-    z-index: 5; /* Se mantiene dentro del sólido azul sin bloquear eventos globales */
+    pointer-events: none !important; /* Vital para que el scroll pase libremente */
+    z-index: 5;
     padding: 0 5vw;
     box-sizing: border-box;
 }
 
-    .dolphian-main-title {
-        font-family: 'RelicusMono', monospace !important;
-        font-size: clamp(3rem, 7.5vw, 9rem);
-        font-weight: 900;
-        color: #ffffff;
-        text-transform: uppercase;
-        text-align: center;
-        line-height: 0.9;
-        letter-spacing: -3px;
-        margin: 0;
-        text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
-        user-select: none;
-    }
+.dolphian-main-title {
+    font-family: 'RelicusMono', monospace !important;
+    font-size: clamp(3rem, 7.5vw, 9rem);
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 0.9;
+    letter-spacing: -3px;
+    margin: 0;
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+    user-select: none;
+    /* Propiedad para animar la revelación conforme avanza el scroll */
+    will-change: transform, opacity;
+}
     /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
     body {
         background-color: #F5260A !important;
@@ -390,37 +392,48 @@
 <!-- Script de Animación del Sólido Azul -->
 <script>
 (function() {
-    const blueSolid = document.getElementById('mophraBlueSolid');
-    if (!blueSolid) return;
+        const blueSolid = document.getElementById('mophraBlueSolid');
+        const dolphianTitle = document.querySelector('.dolphian-main-title');
+        if (!blueSolid) return;
 
-    const isMobile = window.matchMedia("(max-width: 768px)");
+        const isMobile = window.matchMedia("(max-width: 768px)");
 
-    function updateScroll() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        
-        if (maxScroll <= 0) {
-            blueSolid.style.transform = 'translate(0px, 0px)';
-            return;
+        function updateScroll() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            
+            if (maxScroll <= 0) {
+                blueSolid.style.transform = 'translate(0px, 0px)';
+                if (dolphianTitle) dolphianTitle.style.transform = 'translate(0px, 0px)';
+                return;
+            }
+
+            let progress = scrollTop / maxScroll;
+            if (progress > 1) progress = 1;
+
+            if (isMobile.matches) {
+                blueSolid.style.transform = `translateY(-${progress * 100}%)`;
+                if (dolphianTitle) {
+                    // Efecto de arrastre inverso suave para que el texto respire al hacer scroll vertical
+                    dolphianTitle.style.transform = `translateY(${progress * 40}px)`;
+                }
+            } else {
+                blueSolid.style.transform = `translateX(${progress * 50}%)`;
+                if (dolphianTitle) {
+                    // El título acompaña el desplazamiento horizontal del sólido azul al 50%
+                    // Se desplaza en sentido contrabalanceado para mantenerse óptimamente en el centro visual de la cortina azul
+                    dolphianTitle.style.transform = `translateX(-${progress * 25}vw)`;
+                }
+            }
         }
 
-        let progress = scrollTop / maxScroll;
-        if (progress > 1) progress = 1;
+        window.addEventListener('scroll', () => {
+            requestAnimationFrame(updateScroll);
+        }, { passive: true });
 
-        if (isMobile.matches) {
-            blueSolid.style.transform = `translateY(-${progress * 100}%)`;
-        } else {
-            blueSolid.style.transform = `translateX(${progress * 50}%)`;
-        }
-    }
-
-    window.addEventListener('scroll', () => {
-        requestAnimationFrame(updateScroll);
-    }, { passive: true });
-
-    window.addEventListener('resize', updateScroll);
-    updateScroll();
-})();
+        window.addEventListener('resize', updateScroll);
+        updateScroll();
+    })();
 </script>
 
 <!-- PRECARGA OPTIMIZADA DE LA CORTINA -->
