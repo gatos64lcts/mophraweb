@@ -38,7 +38,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            overflow-x: hidden; /* Evita barras de desplazamiento horizontal por el desplazamiento del sólido */
+            overflow-x: hidden; /* Evita barras de desplazamiento horizontal */
         }
 
         /* --- 📦 CARGA DE FUENTE PERSONALIZADA DESDE CLOUDINARY --- */
@@ -49,12 +49,12 @@
             font-style: normal;
         }
 
-        /* --- 🟦 SÓLIDO AZUL CON ANIMACIÓN DE SCROLL --- */
+        /* --- 🟦 SÓLIDO AZUL (Cubre el 100% al inicio) --- */
         .mophra-blue-solid {
             position: fixed;
             top: 0;
             left: 0;
-            width: 50vw; /* Ocupa la mitad izquierda de la pantalla inicialmente */
+            width: 100vw; /* Ocupa toda la pantalla inicialmente */
             height: 100vh;
             background-color: #0000FF; /* Color azul sólido */
             z-index: 10;
@@ -319,7 +319,7 @@
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 
-                // Si la página no tiene scroll, evitamos división por cero
+                // Si la página no tiene scroll, se queda cubriendo el 100%
                 if (maxScroll <= 0) {
                     blueSolid.style.transform = 'translateX(0px)';
                     return;
@@ -329,9 +329,8 @@
                 let progress = scrollTop / maxScroll;
                 if (progress > 1) progress = 1;
 
-                // Queremos que se desplace exactamente un 50% de su ancho hacia la derecha (ocultándose a la mitad)
-                // Como su ancho es 50vw, un desplazamiento del 50% de su ancho equivale a moverlo max 25vw (o translateX(50%)).
-                // Usando translateX(50%) se desplaza exactamente la mitad de su propio ancho.
+                // Como el sólido mide 100vw, para revelar exactamente el 50% izquierdo,
+                // debemos desplazarlo un 50% de su ancho hacia la derecha (`translateX(50%)`).
                 blueSolid.style.transform = `translateX(${progress * 50}%)`;
             }
 
@@ -339,7 +338,7 @@
                 requestAnimationFrame(updateScroll);
             }, { passive: true });
 
-            // Ejecutar una vez al cargar por si la página inicia con scroll
+            // Ejecutar una vez al cargar
             updateScroll();
         })();
     </script>
