@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script>
+      setInterval(async () => {
+        try {
+          const response = await fetch('./version.json?_=' + Date.now());
+          const data = await response.json();
+          const currentVersion = localStorage.getItem('mophra_version');
+          
+          if (!currentVersion) {
+            localStorage.setItem('mophra_version', data.version);
+          } else if (currentVersion !== data.version) {
+            localStorage.setItem('mophra_version', data.version);
+            window.location.reload();
+          }
+        } catch (err) {
+          // Silenciar errores de conexión temporal
+        }
+      }, 60000);
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BADDy - My Last Sound</title>
+    
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <style>
+      @font-face {
+        font-family: 'RelicusMono';
+        src: url('../../../resources/relicus-mono.ttf') format('woff2'),
+             url('../../../resources/relicus-mono.ttf') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+        /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
+        body {
+            background-color: #0d0d0d !important;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        /* --- 💿 DISCO FIJO AL CENTRO (Optimizado para móviles) --- */
+        .mophra-fixed-disc-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            pointer-events: none;
+            box-sizing: border-box;
+            contain: layout style paint;
+        }
+
+        .mophra-rotating-image-wrap {
+            width: 450px;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Quitamos 'infinite' y 'paused' por defecto para que inicie estático */
+            animation: mophraRotate360 10s linear infinite;
+            animation-play-state: paused; 
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        /* Clase que activaremos con JS cuando empiece a sonar la música */
+        .mophra-rotating-image-wrap.is-spinning {
+            animation-play-state: running;
+        }
+
+        .mophra-rotating-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        @keyframes mophraRotate360 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (min-width: 840px) {
+            .mophra-rotating-image-wrap { 
+                width: 720px; 
+                height: 720px; 
+            }
+            .mophra-fixed-disc-container {
+                transform: translateX(190px);
+            }
+        }
+
+        /* --- 📜 CONTENEDOR PRINCIPAL DE CONTENIDO --- */
+        .mophra-content-flow {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            box-sizing: border-box;
+            padding: 0 50px 80px 50px;
+        }
+
+        /* --- 📝 TÍTULO PRINCIPAL --- */
+        .mophra-bottom-title-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .mophra-bottom-title {
+            font-family: 'RelicusMono', monospace !important;
+            color: #ffffff;
+            font-size: clamp(65px, 15vw, 180px);
+            font-weight: 900;
+            text-transform: none !important;
+            letter-spacing: -1px;
+            background: none !important;
+            padding: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+            line-height: 1;
+        }
+
+        /* --- 🖼️ CONTENEDOR DE LA IMAGEN INTERMEDIA --- */
+        .mophra-middle-image-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .mophra-middle-image-container img {
+            width: 100%;
+            max-width: 396px;
+            height: auto;
+            border-radius: 2px;
+            object-fit: contain;
+            box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+        }
+
+        /* --- 🎵 SECCIÓN DE DETALLES (TRACKLIST) --- */
+        .mophra-details-section {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .mophra-release-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .mophra-details-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+            align-items: flex-start;
+        }
+
+        .mophra-tracklist-col {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            align-items: flex-start;
+        }
+
+       .mophra-tracklist-header-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 550px;
+            margin-bottom: 15px;
+        }
+
+        .mophra-tracklist-heading {
+            font-family: 'RelicusMono', monospace !important;
+            color: #ffffff;
+            font-size: clamp(24px, 3.4vw, 46px);
+            font-weight: 900;
+            text-transform: none !important;
+            margin-bottom: 0 !important;
+            letter-spacing: -1px;
+            text-align: left;
+        }
+
+        .mophra-album-controls {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .mophra-album-btn {
+            font-family: 'RelicusMono', monospace !important;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            height: 30px;
+            padding: 0 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 900;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .mophra-album-btn:hover {
+            background: #ffffff;
+            color: #0d0d0d;
+            border-color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* --- 🎛️ ESTILOS PARA TRACK ITEMS (SIN EFECTO DE DESPLAZAMIENTO EN HOVER) --- */
+        .mophra-track-item {
+            font-family: 'RelicusMono', monospace !important;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: clamp(14px, 1.5vw, 19px);
+            font-weight: 700;
+            text-transform: none !important;
+            padding: 8px 0;
+            width: 100%;
+            max-width: 550px;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 15px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: color 0.2s ease;
+        }
+
+        .mophra-track-item:hover {
+            color: #ffffff;
+        }
+
+        .mophra-track-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .mophra-play-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            transition: all 0.2s ease;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .mophra-play-btn:hover {
+            background: #ffffff;
+            color: #0d0d0d;
+            border-color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .mophra-track-name {
+            flex-grow: 1;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
+        }
+
+        .track-marquee-wrapper {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            display: block;
+            position: relative;
+            box-sizing: border-box;
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .track-marquee-inner {
+            display: inline-block;
+            white-space: nowrap;
+            width: max-content;
+        }
+
+        /* Usamos 'alternate' para el rebote continuo */
+        .track-marquee-wrapper.is-overflowing .track-marquee-inner {
+            animation: mophraBounceMarquee ease-in-out infinite alternate;
+        }
+
+        @keyframes mophraBounceMarquee {
+            0%, 15% {
+                transform: translateX(0);
+            }
+            85%, 100% {
+                transform: translateX(var(--bounce-distance, 0px));
+            }
+        }
+        
+        .mophra-progress-container {
+            width: 110px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .mophra-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #ffffff;
+            transition: width 0.1s linear;
+        }
+
+        /* --- 🔘 BOTÓN STREAM / DL --- */
+        .mophra-media-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .mophra-stream-btn {
+            font-family: 'RelicusMono', monospace !important;
+            background-color: #ffffff;
+            color: #F5260A;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 900;
+            text-decoration: none;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            transition: background 0.3s, transform 0.3s;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .mophra-stream-btn:hover {
+            background-color: #f22307;
+            color: #0f0f0f;
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 900px) {
+            .mophra-content-flow { padding: 0 20px 50px 20px; }
+            .mophra-middle-image-container img {
+                max-width: 320px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mophra-bottom-title {
+                font-size: clamp(60px, 12vw, 200px) !important;
+            }
+            .mophra-progress-container {
+                width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Disco Fijo al Centro -->
+    <div class="mophra-fixed-disc-container">
+        <div class="mophra-rotating-image-wrap">
+            <img src="../../../cds/cd-the-last-sund-over.webp" alt="MOPHRA Release Art">
+        </div>
+    </div>
+
+    <!-- Flujo Normal de Contenido -->
+    <div class="mophra-content-flow">
+        
+        <!-- Título Principal -->
+        <div class="mophra-bottom-title-container" id="bottomTitle">
+            <div class="mophra-bottom-title">My Last Sound CD</div>
+        </div>
+
+        <!-- Imagen Intermedia -->
+        <div class="mophra-middle-image-container">
+            <img src="../../../resources/baddy.webp" alt="Release Details Visual">
+        </div>
+
+        <!-- Tracklist y Detalles -->
+        <div class="mophra-details-section" id="detailsSection">
+            <div class="mophra-release-content">
+                
+                <div class="mophra-details-grid">
+                    <div class="mophra-tracklist-col">
+                        <div class="mophra-tracklist-header-wrapper">
+        <div class="mophra-tracklist-heading">tracklist</div>
+        <div class="mophra-album-controls">
+            <button class="mophra-album-btn mophra-allplay-btn" aria-label="Play All" title="Play All">▶ ALL</button>
+            <button class="mophra-album-btn mophra-stop-btn" aria-label="Stop" title="Stop">⬛</button>
+        </div>
+    </div>
+                        
+                        <!-- Pista 01 (Con marquesina automática integrada y corregida) -->
+                       <div class="mophra-track-item" data-src="../../../audiotracks/mophra012.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">01.</span>
+                            </div>
+                            <div class="mophra-track-name track-marquee-wrapper">
+                                <div class="track-marquee-inner">
+                                    <span>BACK with/LACRABLACK</span>
+                                </div>
+                            </div>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 02 -->
+                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra013.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">02.</span>
+                            </div>
+                            <div class="mophra-track-name track-marquee-wrapper">
+                                <div class="track-marquee-inner">
+                                    <span>Can't stop</span>
+                                </div>
+                            </div>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 03 -->
+                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra014.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">03.</span>
+                            </div>
+                            <div class="mophra-track-name track-marquee-wrapper">
+                                <div class="track-marquee-inner">
+                                    <span>Hussle</span>
+                                </div>
+                            </div>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 04 -->
+                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra015.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">04.</span>
+                            </div>
+                            <div class="mophra-track-name track-marquee-wrapper">
+                                <div class="track-marquee-inner">
+                                    <span>Never Die</span>
+                                </div>
+                            </div>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 05 -->
+                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra016.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">05.</span>
+                            </div>
+                            <div class="mophra-track-name track-marquee-wrapper">
+                                <div class="track-marquee-inner">
+                                    <span>Keep It Going</span>
+                                </div>
+                            </div>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 06 -->
+                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra017.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">06.</span>
+                            </div>
+                            <div class="mophra-track-name track-marquee-wrapper">
+                                <div class="track-marquee-inner">
+                                    <span>CHOKE with/Sphicy</span>
+                                </div>
+                            </div>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 07 -->
+                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra018.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">07.</span>
+                            </div>
+                            <div class="mophra-track-name track-marquee-wrapper">
+                                <div class="track-marquee-inner">
+                                    <span>Bounce</span>
+                                </div>
+                            </div>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pista 08 -->
+                       <div class="mophra-track-item" data-src="../../../audiotracks/mophra019.mp3">
+                            <div class="mophra-track-left">
+                                <button class="mophra-play-btn" aria-label="Play">▶</button>
+                                <span class="mophra-track-num">08.</span>
+                            </div>
+                            <div class="mophra-track-name track-marquee-wrapper">
+                                <div class="track-marquee-inner">
+                                    <span>MORDHA with/George Lycats</span>
+                                </div>
+                            </div>
+                            <div class="mophra-progress-container">
+                                <div class="mophra-progress-bar"></div>
+                            </div>
+                        </div>
+
+                    <div class="mophra-media-col">
+                        <a href="https://too.fm/baddy-my-last-sound" class="mophra-stream-btn" target="_blank">stream / dl</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Menú Global -->
+    <div class="mophra-global-container" id="mophraGlobalMenu">
+        <div class="mophra-global-overlay"></div>
+
+        <button class="mophra-global-btn" id="mophraVectorBtn" title="Ver menú">
+          <svg id="mophraSvgLogo" viewBox="0 0 1000 1000" class="mophra-svg-element">
+            <path id="mophraVectorPath" fill="#ffffff" d="M486.86,74.1l43.7.72c315.79,23.24,500.51,374.15,332.93,647.91-158.69,259.22-531.3,272.98-709.23,26.4C-45.68,472.05,147.58,85.24,486.86,74.1ZM901.07,465.81c-8.75-115.9-71.16-224.09-164.68-291.82-181.81-131.66-436.09-88.78-565.13,93.5-40.96,57.86-66.79,127.33-72.19,198.31h239.5l90,89.98,54.06-53.99-123.49-126.35,137.92-138.24,3.93-.93,140.01,139.17-123.49,126.35,53.92,52.94,89.14-88.93h240.5ZM499.7,267.88l-107.56,108.29,108.29,107.56,107.56-108.29-108.29-107.56ZM240.07,489.81H98.07c-2.86,10.5.77,21.33,0,32h110.5l31.5-32ZM297.07,489.81h-23.5l-31.5,32h23.5l31.5-32ZM757.07,521.81l-31.5-32h-23.5l32.5,32h22.5ZM902.07,489.81h-143l31.5,32h111.5c-.77-10.67,2.86-21.5,0-32ZM187.07,577.81h85.5l71.03-71.02c.78-1.08.51-1.86,0-2.96-.39-.84-12.26-12.79-13.17-12.95l-54.38,53.41-57.28.72c-2.03.6-27.76,26.59-30.21,29.79-.77,1.01-1.93,1.26-1.49,3.01ZM813.07,577.81l-32.7-32.8-56.28-.72-55.38-53.41c-.91.16-12.78,12.11-13.17,12.95-.51,1.1-.78,1.88,0,2.96l71.03,71.02h86.5ZM710.9,843.65l-.36-115.82-210.12-209.95-210.16,209.63.3,116.29c102.67,64.08,233.16,76.11,347.01,35.03,25.59-9.24,49.76-21.75,73.32-35.18ZM131.07,632.81h144.5l98.48-98.5-12.48-12.48-78.52,78.46-119.46.54-32.52,31.98ZM868.07,632.81l-32.52-31.98-119.46-.54-78.52-78.46c-2.2,3.31-12.84,10.05-11.03,13.96l97.03,97.02h144.5ZM185.07,544.81h-85l4.88,32.42,47.41.37,32.7-32.8ZM900.07,544.81h-86l32.7,32.8,48.41-.37,4.88-32.42ZM871.07,656.81h-156.5l-106-105.98-20.43,21.34,145.93,146.14v109.5c60.22-42.95,108.18-102.77,137-171ZM266.07,827.81v-109.5l145.98-146-21.48-20.54-106,105.04h-155.5c28.8,68.24,76.78,128.03,137,171ZM129.07,600.81h-19l4.01,15,14.99-15ZM890.07,600.81h-20l15.99,16,4.01-16Z"/>
+          </svg>
+        </button>
+
+        <nav class="mophra-signs-nav">
+          <a href="/" class="mophra-sign-item">HOME</a>
+          <a href="/artists/" class="mophra-sign-item">ARTISTS</a>
+
+          <div class="mophra-sign-item mophra-dropdown-wrapper">
+            <div class="mophra-sign-header">
+              <button type="button" class="mophra-submenu-toggle" id="mophraReleasesToggle" aria-label="Toggle Releases Submenu">
+                <span class="mophra-frolov-icon">
+                  <span class="line-top"></span>
+                  <span class="line-mid"></span>
+                  <span class="line-bot"></span>
+                </span>
+              </button>
+              <a href="/releases/" class="mophra-sign-link">RELEASES</a>
+            </div>
+            <div class="mophra-submenu" id="mophraReleasesSubmenu">
+              <a href="/releases/eps/" class="mophra-sub-item">EPs</a>
+              <a href="/releases/albums/" class="mophra-sub-item">Albums</a>
+              <a href="/releases/compilations/" class="mophra-sub-item">Compilations</a>
+            </div>
+          </div>
+
+          <a href="/demos/" class="mophra-sign-item">DEMOS</a>
+          <a href="/radio/" class="mophra-sign-item">RADIO</a>
+        </nav>
+    </div>
+
+    <style>
+        .mophra-global-container {
+            position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+            width: 100% !important; height: 100vh !important;
+            background-color: transparent !important;
+            overflow: hidden !important;
+            overflow-x: hidden !important;
+            font-family: 'RelicusMono', monospace !important; user-select: none !important; z-index: 999999 !important; pointer-events: none !important;
+        }
+
+        @keyframes entradaBoton { 0% { transform: translateY(-100px); opacity: 0; } 70% { transform: translateY(8px); opacity: 1; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes salidaBoton { 0% { transform: translateY(0); opacity: 1; } 30% { transform: translateY(8px); opacity: 1; } 100% { transform: translateY(-100px); opacity: 0; } }
+
+        .mophra-global-btn {
+            position: fixed !important; top: 30px !important; right: 30px !important; z-index: 1000000 !important;
+            background: rgba(255, 255, 255, 0.1) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 50% !important; width: 70px !important; height: 70px !important; cursor: pointer !important;
+            display: flex !important; align-items: center !important; justify-content: center !important;
+            backdrop-filter: blur(5px) !important; pointer-events: auto !important; padding: 0 !important; opacity: 0 !important;
+            transition: background 0.3s, transform 0.3s !important;
+        }
+
+        .mophra-global-btn.animar-entrada { opacity: 1 !important; animation: entradaBoton 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important; }
+        .mophra-global-btn.animar-salida { opacity: 1 !important; animation: salidaBoton 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important; }
+        .mophra-global-btn:hover { background: rgba(255, 255, 255, 0.25) !important; transform: scale(1.05) !important; }
+
+        .mophra-svg-element { width: 62px !important; height: 62px !important; display: block !important; transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); pointer-events: none; }
+        #mophraVectorPath { transition: opacity 0.2s ease, d 0.2s ease; }
+        .mophra-global-container.menu-open .mophra-svg-element { transform: rotate(180deg); }
+        .mophra-global-container.menu-open { pointer-events: auto !important; }
+
+        .mophra-global-overlay {
+            position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important;
+            background-color: #000000 !important;
+            transform: translateX(100%) !important;
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1) !important;
+            pointer-events: none !important;
+        }
+        .mophra-global-container.menu-open .mophra-global-overlay { transform: translateX(0) !important; pointer-events: auto !important; }
+
+        .mophra-signs-nav {
+            position: absolute !important; right: 0 !important; top: 0 !important; height: 100% !important; max-height: 100vh !important;
+            display: flex !important; flex-direction: column !important; align-items: flex-end !important;
+            padding-right: 40px !important; padding-top: 130px !important; padding-bottom: 30px !important; box-sizing: border-box !important;
+            z-index: 100000 !important; pointer-events: none !important;
+            overflow-y: auto !important; overflow-x: hidden !important;
+        }
+        .mophra-global-container.menu-open .mophra-signs-nav { pointer-events: auto !important; }
+
+        .mophra-sign-item {
+            display: block !important; color: #ffffff !important; text-decoration: none !important; text-transform: uppercase !important;
+            font-weight: 900 !important; font-size: clamp(40px, 5.5vw, 80px) !important; line-height: 0.92 !important; letter-spacing: -2px !important;
+            transform: translateX(100vw) !important; transform-origin: right center !important; width: max-content !important;
+            pointer-events: none !important; visibility: hidden !important;
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), color 0.1s ease 0s, visibility 0s linear 0.4s !important;
+        }
+        .mophra-global-container.menu-open .mophra-sign-item { transform: translateX(0) !important; pointer-events: auto !important; visibility: visible !important; }
+        .mophra-global-container.menu-open .mophra-sign-item:nth-child(1) { transition-delay: 0.15s, 0s, 0.15s !important; }
+        .mophra-global-container.menu-open .mophra-sign-item:nth-child(2) { transition-delay: 0.22s, 0s, 0.22s !important; }
+        .mophra-global-container.menu-open .mophra-sign-item:nth-child(3) { transition-delay: 0.29s, 0s, 0.29s !important; }
+        .mophra-global-container.menu-open .mophra-sign-item:nth-child(4) { transition-delay: 0.36s, 0s, 0.36s !important; }
+        .mophra-global-container.menu-open .mophra-sign-item:nth-child(5) { transition-delay: 0.43s, 0s, 0.43s !important; }
+
+        a.mophra-sign-item:hover, .mophra-sign-link:hover { color: #969696 !important; }
+
+        .mophra-dropdown-wrapper { display: flex !important; flex-direction: column !important; align-items: flex-end !important; }
+        .mophra-sign-header { display: flex !important; align-items: center !important; justify-content: flex-end !important; gap: 18px !important; width: 100% !important; }
+        .mophra-sign-link { color: inherit !important; text-decoration: none !important; }
+        .mophra-submenu-toggle { background: none !important; border: none !important; cursor: pointer !important; padding: 0 !important; display: flex !important; align-items: center !important; }
+
+        .mophra-frolov-icon {
+            width: clamp(28px, 3.8vw, 44px) !important; height: clamp(20px, 3vw, 30px) !important;
+            display: flex !important; flex-direction: column !important; justify-content: space-between !important; position: relative !important;
+        }
+        .mophra-frolov-icon span {
+            display: block !important; height: clamp(3px, 0.4vw, 5px) !important; background-color: #ffffff !important; border-radius: 10px !important;
+            transition: transform 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.25s ease, width 0.3s ease, margin 0.3s ease !important;
+            transform-origin: center !important;
+        }
+        .mophra-frolov-icon .line-top { width: 40% !important; margin-right: auto !important; margin-left: 0 !important; }
+        .mophra-frolov-icon .line-mid { width: 100% !important; margin-left: auto !important; }
+        .mophra-frolov-icon .line-bot { width: 60% !important; margin-left: auto !important; }
+
+        .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-top {
+            width: 100% !important; margin-left: 0 !important;
+            transform: translateY(calc(clamp(20px, 3vw, 30px) / 2 - clamp(3px, 0.4vw, 5px) / 2)) rotate(45deg) !important;
+        }
+        .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-mid { opacity: 0 !important; transform: scaleX(0) !important; }
+        .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-bot {
+            width: 100% !important; margin-left: 0 !important;
+            transform: translateY(calc(-1 * (clamp(20px, 3vw, 30px) / 2 - clamp(3px, 0.4vw, 5px) / 2))) rotate(-45deg) !important;
+        }
+
+        .mophra-submenu {
+            display: flex !important; flex-direction: column !important; align-items: flex-end !important;
+            max-height: 0 !important; overflow: hidden !important; opacity: 0 !important;
+            transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease !important; margin-top: 0px !important;
+            padding-left: 20px !important;
+        }
+        .mophra-dropdown-wrapper.submenu-open .mophra-submenu { max-height: 300px !important; opacity: 1 !important; margin-top: 10px !important; }
+
+        .mophra-sub-item {
+            color: #a0a0a0 !important; text-decoration: none !important; text-transform: lowercase !important;
+            font-size: clamp(20px, 3vw, 36px) !important; padding: 4px 0 !important;
+            transition: color 0.2s ease, transform 0.2s ease !important; display: block !important;
+        }
+        .mophra-sub-item:hover { color: #ffffff !important; transform: translateX(-5px) !important; }
+
+        @media (max-width: 768px) {
+            .mophra-global-btn { top: 12px !important; right: 12px !important; width: 54px !important; height: 54px !important; }
+            .mophra-svg-element { width: 36px !important; height: 36px !important; }
+            .mophra-sign-item { font-size: clamp(48px, 10vw, 58px) !important; }
+            .mophra-sub-item { font-size: clamp(28px, 7vw, 34px) !important; }
+            .mophra-signs-nav { padding-right: 15px !important; padding-top: 85px !important; }
+
+            .mophra-frolov-icon { width: 26px !important; height: 20px !important; }
+            .mophra-frolov-icon span { height: 3px !important; }
+            .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-top { transform: translateY(8.5px) rotate(45deg) !important; }
+            .mophra-dropdown-wrapper.submenu-open .mophra-frolov-icon .line-bot { transform: translateY(-8.5px) rotate(-45deg) !important; }
+        }
+    </style>
+
+    <script>
+    (function() {
+        if (!document.getElementById('mophra-global-selection-style')) {
+            const selectionStyle = document.createElement('style');
+            selectionStyle.id = 'mophra-global-selection-style';
+            selectionStyle.innerHTML = `
+                *::selection, ::selection {
+                    background-color: #fae100 !important;
+                    color: #030303 !important;
+                }
+            `;
+            document.head.appendChild(selectionStyle);
+        }
+
+        const PATH_LOGO = "M486.86,74.1l43.7.72c315.79,23.24,500.51,374.15,332.93,647.91-158.69,259.22-531.3,272.98-709.23,26.4C-45.68,472.05,147.58,85.24,486.86,74.1ZM901.07,465.81c-8.75-115.9-71.16-224.09-164.68-291.82-181.81-131.66-436.09-88.78-565.13,93.5-40.96,57.86-66.79,127.33-72.19,198.31h239.5l90,89.98,54.06-53.99-123.49-126.35,137.92-138.24,3.93-.93,140.01,139.17-123.49,126.35,53.92,52.94,89.14-88.93h240.5ZM499.7,267.88l-107.56,108.29,108.29,107.56,107.56-108.29-108.29-107.56ZM240.07,489.81H98.07c-2.86,10.5.77,21.33,0,32h110.5l31.5-32ZM297.07,489.81h-23.5l-31.5,32h23.5l31.5-32ZM757.07,521.81l-31.5-32h-23.5l32.5,32h22.5ZM902.07,489.81h-143l31.5,32h111.5c-.77-10.67,2.86-21.5,0-32ZM187.07,577.81h85.5l71.03-71.02c.78-1.08.51-1.86,0-2.96-.39-.84-12.26-12.79-13.17-12.95l-54.38,53.41-57.28.72c-2.03.6-27.76,26.59-30.21,29.79-.77,1.01-1.93,1.26-1.49,3.01ZM813.07,577.81l-32.7-32.8-56.28-.72-55.38-53.41c-.91.16-12.78,12.11-13.17,12.95-.51,1.1-.78,1.88,0,2.96l71.03,71.02h86.5ZM710.9,843.65l-.36-115.82-210.12-209.95-210.16,209.63.3,116.29c102.67,64.08,233.16,76.11,347.01,35.03,25.59-9.24,49.76-21.75,73.32-35.18ZM131.07,632.81h144.5l98.48-98.5-12.48-12.48-78.52,78.46-119.46.54-32.52,31.98ZM868.07,632.81l-32.52-31.98-119.46-.54-78.52-78.46c-2.2,3.31-12.84,10.05-11.03,13.96l97.03,97.02h144.5ZM185.07,544.81h-85l4.88,32.42,47.41.37,32.7-32.8ZM900.07,544.81h-86l32.7,32.8,48.41-.37,4.88-32.42ZM871.07,656.81h-156.5l-106-105.98-20.43,21.34,145.93,146.14v109.5c60.22-42.95,108.18-102.77,137-171ZM266.07,827.81v-109.5l145.98-146-21.48-20.54-106,105.04h-155.5c28.8,68.24,76.78,128.03,137,171ZM129.07,600.81h-19l4.01,15,14.99-15ZM890.07,600.81h-20l15.99,16,4.01-16Z";
+        const PATH_X = "M500,50 C251.5,50 50,251.5 50,500 C50,748.5 251.5,950 500,950 C748.5,950 950,748.5 950,500 C950,251.5 748.5,50 500,50 Z M500,120 C709.9,120 880,290.1 880,500 C880,709.9 709.9,880 500,880 C290.1,880 120,709.9 120,500 C120,290.1 290.1,120 500,120 Z M330,260 L260,330 L430,500 L260,670 L330,740 L500,570 L670,740 L740,670 L570,500 L740,330 L670,260 L500,430 Z";
+
+        function initMenu() {
+            const menu = document.getElementById('mophraGlobalMenu');
+            if (!menu) return;
+            if (document.body && menu.parentElement !== document.body) document.body.appendChild(menu);
+
+            const toggleBtn = menu.querySelector('.mophra-global-btn');
+            const vectorPath = document.getElementById('mophraVectorPath');
+            const overlay = menu.querySelector('.mophra-global-overlay');
+            const navLinks = menu.querySelectorAll('.mophra-sign-link, a.mophra-sign-item, .mophra-sub-item');
+            const relToggle = document.getElementById('mophraReleasesToggle');
+            const relWrap = relToggle ? relToggle.closest('.mophra-dropdown-wrapper') : null;
+
+            if (!toggleBtn || !vectorPath) return;
+
+            function abrirMenu() {
+                menu.classList.add('menu-open');
+                setTimeout(() => vectorPath.setAttribute('d', PATH_X), 200);
+            }
+
+            function cerrarMenu() {
+                if (!menu.classList.contains('menu-open')) return;
+                menu.classList.remove('menu-open');
+                if (relWrap) relWrap.classList.remove('submenu-open');
+                setTimeout(() => vectorPath.setAttribute('d', PATH_LOGO), 200);
+            }
+
+            if (relToggle && relWrap) {
+                relToggle.onclick = (e) => {
+                    e.preventDefault(); e.stopPropagation();
+                    relWrap.classList.toggle('submenu-open');
+                };
+            }
+
+            toggleBtn.onclick = (e) => {
+                e.preventDefault(); e.stopPropagation();
+                menu.classList.contains('menu-open') ? cerrarMenu() : abrirMenu();
+            };
+
+            if (overlay) overlay.onclick = (e) => { e.stopPropagation(); cerrarMenu(); };
+            navLinks.forEach(l => l.onclick = () => cerrarMenu());
+
+            let timer;
+            function animar() {
+                cerrarMenu(); clearTimeout(timer);
+                if (toggleBtn.classList.contains('animar-entrada')) {
+                    toggleBtn.classList.remove('animar-entrada');
+                    toggleBtn.classList.add('animar-salida');
+                    timer = setTimeout(() => {
+                        toggleBtn.classList.remove('animar-salida');
+                        void toggleBtn.offsetWidth;
+                        toggleBtn.classList.add('animar-entrada');
+                    }, 450);
+                } else {
+                    timer = setTimeout(() => { void toggleBtn.offsetWidth; toggleBtn.classList.add('animar-entrada'); }, 400);
+                }
+            }
+
+            window.addEventListener('popstate', animar);
+            animar();
+        }
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMenu);
+        else initMenu();
+    })();
+    </script>
+</body>
+    <link rel="preload" href="../../../resources/cortina.webp" as="image">
+
+    <div id="cortina-transicion" class="cortina-contenedor">
+        <img src="../../../resources/cortina.webp" alt="Cargando..." class="cortina-imagen">
+    </div>
+
+    <style>
+        .cortina-contenedor {
+            position: fixed;
+            top: -15vh;
+            left: 0;
+            width: 100vw;
+            height: 115vh;
+            background-color: #1a1a1a;
+            z-index: 9999999 !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            pointer-events: none;
+            transform: translateY(0%);
+        }
+
+        .cortina-contenedor.cerrar {
+            pointer-events: auto;
+            transform: translateY(0%);
+            transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.05) !important;
+        }
+
+        .cortina-contenedor.abrir {
+            transform: translateY(-100%);
+            transition: transform 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045) !important;
+        }
+
+        .cortina-imagen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
+    <script>
+        (function() {
+            const cortina = document.getElementById('cortina-transicion');
+
+            function abrirCortina() {
+                if (cortina) {
+                    cortina.classList.remove('cerrar');
+                    cortina.classList.add('abrir');
+                }
+            }
+
+            window.addEventListener('load', () => {
+                setTimeout(abrirCortina, 100);
+            });
+
+            window.addEventListener('pageshow', (event) => {
+                if (event.persisted && cortina) {
+                    cortina.classList.remove('cerrar');
+                    cortina.classList.add('abrir');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (!link) return;
+
+                const href = link.getAttribute('href');
+                if (href && (href.startsWith('/') || href.startsWith('.')) && !link.getAttribute('target') && !link.hasAttribute('download')) {
+                    e.preventDefault();
+                    
+                    if (cortina) {
+                        cortina.classList.remove('abrir');
+                        cortina.classList.add('cerrar');
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 500);
+                }
+            });
+        })();
+
+       /* --- 🎵 SCRIPT DE REPRODUCTOR DE AUDIO GLOBAL (REGLA DE UNA SOLA PISTA) --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const trackItems = document.querySelectorAll('.mophra-track-item');
+            const discWrap = document.querySelector('.mophra-rotating-image-wrap'); // Referencia al contenedor del disco
+            let currentAudio = null;
+            let currentPlayBtn = null;
+            let currentProgressBar = null;
+            let progressInterval = null;
+
+            trackItems.forEach(item => {
+                const audioSrc = item.getAttribute('data-src');
+                const playBtn = item.querySelector('.mophra-play-btn');
+                const progressBar = item.querySelector('.mophra-progress-bar');
+                const progressContainer = item.querySelector('.mophra-progress-container');
+
+                if (!audioSrc) return;
+
+                const audio = new Audio(audioSrc);
+
+                playBtn.addEventListener('click', () => {
+                    // Si hay otro audio sonando, se pausa y se resetea por completo
+                    if (currentAudio && currentAudio !== audio) {
+                        currentAudio.pause();
+                        currentAudio.currentTime = 0;
+                        if (currentPlayBtn) currentPlayBtn.textContent = '▶';
+                        if (currentProgressBar) currentProgressBar.style.width = '0%';
+                        clearInterval(progressInterval);
+                    }
+
+                    if (audio.paused) {
+                        audio.play().then(() => {
+                            playBtn.textContent = '❚❚';
+                            currentAudio = audio;
+                            currentPlayBtn = playBtn;
+                            currentProgressBar = progressBar;
+
+                            // Hacemos que el disco empiece a girar
+                            if (discWrap) discWrap.classList.add('is-spinning');
+
+                            clearInterval(progressInterval);
+                            progressInterval = setInterval(() => {
+                                if (audio.duration) {
+                                    const percentage = (audio.currentTime / audio.duration) * 100;
+                                    progressBar.style.width = percentage + '%';
+                                }
+                            }, 100);
+                        }).catch(err => console.log("Error al reproducir audio:", err));
+                    } else {
+                        audio.pause();
+                        playBtn.textContent = '▶';
+                        
+                        // Pausamos el giro del disco manteniendo su posición actual
+                        if (discWrap) discWrap.classList.remove('is-spinning');
+
+                        clearInterval(progressInterval);
+                    }
+                });
+
+                audio.addEventListener('ended', () => {
+                    playBtn.textContent = '▶';
+                    progressBar.style.width = '0%';
+                    
+                    // Detenemos el disco al terminar la pista
+                    if (discWrap) discWrap.classList.remove('is-spinning');
+
+                    clearInterval(progressInterval);
+                });
+
+                // Control manual de la barra de progreso al hacer clic
+                progressContainer.addEventListener('click', (e) => {
+                    if (!audio.duration) return;
+                    const rect = progressContainer.getBoundingClientRect();
+                    const clickPosition = (e.clientX - rect.left) / rect.width;
+                    audio.currentTime = clickPosition * audio.duration;
+                    progressBar.style.width = (clickPosition * 100) + '%';
+                });
+            });
+        });
+       document.addEventListener('DOMContentLoaded', () => {
+        const wrappers = document.querySelectorAll('.track-marquee-wrapper');
+        
+        wrappers.forEach(wrapper => {
+            const inner = wrapper.querySelector('.track-marquee-inner');
+            if (!inner) return;
+            
+            const textWidth = inner.scrollWidth;
+            const containerWidth = wrapper.clientWidth;
+            
+            if (textWidth > containerWidth) {
+                wrapper.classList.add('is-overflowing');
+                const distance = containerWidth - textWidth;
+                inner.style.setProperty('--bounce-distance', distance + 'px');
+                
+                // Tiempo que tarda el texto en desplazarse de un lado a otro (ej. 3 segundos de viaje)
+                const travelTime = Math.max(2.5, Math.abs(distance) * 0.025);
+                
+                // Si el 15% del tiempo total representa la pausa, calculamos el total sumando los 2 segundos exactos de pausa
+                // Fórmula: Duración del viaje + 2 segundos de pausa en cada extremo
+                const totalDuration = travelTime + 2.0; 
+                
+                inner.style.animationDuration = totalDuration + 's';
+            } else {
+                wrapper.classList.remove('is-overflowing');
+                inner.style.removeProperty('--bounce-distance');
+                inner.style.removeProperty('animation-duration');
+            }
+        });
+    });
+    </script>
+</html>
