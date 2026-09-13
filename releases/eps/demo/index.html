@@ -312,45 +312,56 @@
     </script>
 
     <!-- Script de Animación del Sólido Azul al hacer Scroll -->
-    <script>
-        (function() {
-            const blueSolid = document.getElementById('mophraBlueSolid');
-            if (!blueSolid) return;
+    <!-- Script de Animación del Sólido Azul adaptable (Horizontal en Desktop, Vertical en Móvil) -->
+<script>
+    (function() {
+        const blueSolid = document.getElementById('mophraBlueSolid');
+        if (!blueSolid) return;
 
-            function updateScroll() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                
-                // Si la página no tiene scroll, se queda cubriendo el 100%
-                if (maxScroll <= 0) {
-                    blueSolid.style.transform = 'translateX(0px)';
-                    return;
-                }
+        // Detectar si es dispositivo móvil (ancho menor o igual a 768px)
+        const isMobile = window.matchMedia("(max-width: 768px)");
 
-                // Progreso del scroll de 0 a 1
-                let progress = scrollTop / maxScroll;
-                if (progress > 1) progress = 1;
-
-                // Como el sólido mide 100vw, para revelar exactamente el 50% izquierdo,
-                // debemos desplazarlo un 50% de su ancho hacia la derecha (`translateX(50%)`).
-                blueSolid.style.transform = `translateX(${progress * 50}%)`;
+        function updateScroll() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            
+            // Si la página no tiene scroll, se queda cubriendo el 100%
+            if (maxScroll <= 0) {
+                blueSolid.style.transform = 'translate(0px, 0px)';
+                return;
             }
 
-            window.addEventListener('scroll', () => {
-                requestAnimationFrame(updateScroll);
-            }, { passive: true });
+            // Progreso del scroll de 0 a 1
+            let progress = scrollTop / maxScroll;
+            if (progress > 1) progress = 1;
 
-            // Ejecutar una vez al cargar
-            updateScroll();
-        })();
-    </script>
+            if (isMobile.matches) {
+                // En móviles: Se desplaza hacia abajo un 50% de su alto, revelando el fondo arriba
+                blueSolid.style.transform = `translateY(${progress * 50}%)`;
+            } else {
+                // En desktop: Se desplaza hacia la derecha un 50% de su ancho, revelando el fondo a la izquierda
+                blueSolid.style.transform = `translateX(${progress * 50}%)`;
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            requestAnimationFrame(updateScroll);
+        }, { passive: true });
+
+        // Actualizar también si cambia de tamaño la pantalla
+        window.addEventListener('resize', updateScroll);
+
+        // Ejecutar una vez al cargar
+        updateScroll();
+    })();
+</script>
 </body>
     <!-- PRECARGA OPTIMIZADA DE LA CORTINA (Evita descargas repetidas) -->
 <link rel="preload" href="https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp" as="image">
 
 <!-- CORTINA METÁLICA DE TRANSICIÓN -->
 <div id="cortina-transicion" class="cortina-contenedor">
-    <img src="https://i.ibb.co/svc7DsmQ/CORTINA-METALICA.webp" alt="Cargando..." class="cortina-imagen">
+    <img src="../../../resources/cortina.webp" alt="Cargando..." class="cortina-imagen">
 </div>
 
 <style>
