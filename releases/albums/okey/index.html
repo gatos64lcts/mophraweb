@@ -69,17 +69,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Quitamos 'infinite' y 'paused' por defecto para que inicie estático */
             animation: mophraRotate360 10s linear infinite;
-            animation-play-state: paused; 
             backface-visibility: hidden;
             transform: translateZ(0);
             will-change: transform;
-        }
-
-        /* Clase que activaremos con JS cuando empiece a sonar la música */
-        .mophra-rotating-image-wrap.is-spinning {
-            animation-play-state: running;
         }
 
         .mophra-rotating-image-wrap img {
@@ -189,55 +182,15 @@
             align-items: flex-start;
         }
 
-       .mophra-tracklist-header-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 550px;
-            margin-bottom: 15px;
-        }
-
         .mophra-tracklist-heading {
             font-family: 'RelicusMono', monospace !important;
             color: #ffffff;
             font-size: clamp(24px, 3.4vw, 46px);
             font-weight: 900;
             text-transform: none !important;
-            margin-bottom: 0 !important;
+            margin-bottom: 5px;
             letter-spacing: -1px;
             text-align: left;
-        }
-
-        .mophra-album-controls {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .mophra-album-btn {
-            font-family: 'RelicusMono', monospace !important;
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: #ffffff;
-            height: 30px;
-            padding: 0 10px;
-            border-radius: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 900;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .mophra-album-btn:hover {
-            background: #ffffff;
-            color: #0d0d0d;
-            border-color: #ffffff;
-            transform: scale(1.05);
         }
 
         /* --- 🎛️ ESTILOS PARA TRACK ITEMS (SIN EFECTO DE DESPLAZAMIENTO EN HOVER) --- */
@@ -427,13 +380,7 @@
                 
                 <div class="mophra-details-grid">
                     <div class="mophra-tracklist-col">
-                        <div class="mophra-tracklist-header-wrapper">
-        <div class="mophra-tracklist-heading">tracklist</div>
-        <div class="mophra-album-controls">
-            <button class="mophra-album-btn mophra-allplay-btn" aria-label="Play All" title="Play All">▶ ALL</button>
-            <button class="mophra-album-btn mophra-stop-btn" aria-label="Stop" title="Stop">⬛</button>
-        </div>
-    </div>
+                        <div class="mophra-tracklist-heading">tracklist</div>
                         
                         <!-- Pista 01 (Con marquesina automática integrada y corregida) -->
                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra012.mp3">
@@ -898,10 +845,9 @@
             });
         })();
 
-       /* --- 🎵 SCRIPT DE REPRODUCTOR DE AUDIO GLOBAL (REGLA DE UNA SOLA PISTA) --- */
+        /* --- 🎵 SCRIPT DE REPRODUCTOR DE AUDIO GLOBAL (REGLA DE UNA SOLA PISTA) --- */
         document.addEventListener('DOMContentLoaded', () => {
             const trackItems = document.querySelectorAll('.mophra-track-item');
-            const discWrap = document.querySelector('.mophra-rotating-image-wrap'); // Referencia al contenedor del disco
             let currentAudio = null;
             let currentPlayBtn = null;
             let currentProgressBar = null;
@@ -934,9 +880,6 @@
                             currentPlayBtn = playBtn;
                             currentProgressBar = progressBar;
 
-                            // Hacemos que el disco empiece a girar
-                            if (discWrap) discWrap.classList.add('is-spinning');
-
                             clearInterval(progressInterval);
                             progressInterval = setInterval(() => {
                                 if (audio.duration) {
@@ -948,10 +891,6 @@
                     } else {
                         audio.pause();
                         playBtn.textContent = '▶';
-                        
-                        // Pausamos el giro del disco manteniendo su posición actual
-                        if (discWrap) discWrap.classList.remove('is-spinning');
-
                         clearInterval(progressInterval);
                     }
                 });
@@ -959,10 +898,6 @@
                 audio.addEventListener('ended', () => {
                     playBtn.textContent = '▶';
                     progressBar.style.width = '0%';
-                    
-                    // Detenemos el disco al terminar la pista
-                    if (discWrap) discWrap.classList.remove('is-spinning');
-
                     clearInterval(progressInterval);
                 });
 
