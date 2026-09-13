@@ -827,7 +827,6 @@
             const cortina = document.getElementById('cortina-transicion');
 
             function abrirCortina() {
-                document.getElementById('mophraGlobalMenu').style.display = 'none';
                 if (cortina) {
                     cortina.classList.remove('cerrar');
                     cortina.classList.add('abrir');
@@ -852,6 +851,7 @@
                 const href = link.getAttribute('href');
                 if (href && (href.startsWith('/') || href.startsWith('.')) && !link.getAttribute('target') && !link.hasAttribute('download')) {
                     e.preventDefault();
+                    document.getElementById('mophraGlobalMenu').style.display = 'none';
                     
                     if (cortina) {
                         cortina.classList.remove('abrir');
