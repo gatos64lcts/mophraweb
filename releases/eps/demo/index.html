@@ -61,11 +61,47 @@
             pointer-events: none; /* Permite hacer clic a través de él si es necesario */
             will-change: transform;
         }
+        /* --- 🖼️ CAPA INTERMEDIA (IMAGEN IZQUIERDA) --- */
+.mophra-middle-image-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50vw; /* Ocupa exactamente la mitad izquierda que se descubre */
+    height: 100vh;
+    z-index: 5; /* Quedará entre el body (fondo rojo) y el sólido azul (z-index: 10) */
+    overflow: hidden;
+}
+
+.mophra-layer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen llene el espacio sin deformarse */
+}
+
+/* --- 🟦 SÓLIDO AZUL (Capa Superior) --- */
+.mophra-blue-solid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    background-color: #0000FF;
+    z-index: 10; /* Por encima de la imagen */
+    pointer-events: none;
+    will-change: transform;
+}
     </style>
 </head>
     <!-- BLOQUE DE PRUEBA TEMPORAL PARA FORZAR EL SCROLL -->
 <div style="height: 300vh; pointer-events: none;"></div>
 <body>
+    <!-- 2. CAPA INTERMEDIA: Imagen del lado izquierdo -->
+<div class="mophra-middle-image-layer">
+    <img src="../../../covers/016-voidstar.webp" alt="EP Art" class="mophra-layer-img">
+</div>
+
+<!-- 3. CAPA SUPERIOR: Sólido Azul interactivo de scroll -->
+<div class="mophra-blue-solid" id="mophraBlueSolid"></div>
 
     <!-- Sólido Azul -->
     <div class="mophra-blue-solid" id="mophraBlueSolid"></div>
