@@ -312,7 +312,7 @@
     </script>
 
     <!-- Script de Animación del Sólido Azul al hacer Scroll -->
-    <!-- Script de Animación del Sólido Azul adaptable (Horizontal en Desktop, Vertical en Móvil) -->
+   <!-- Script de Animación del Sólido Azul (Horizontal en Desktop, Se oculta 100% hacia arriba en Móvil) -->
 <script>
     (function() {
         const blueSolid = document.getElementById('mophraBlueSolid');
@@ -336,8 +336,8 @@
             if (progress > 1) progress = 1;
 
             if (isMobile.matches) {
-                // En móviles: Se desplaza hacia abajo un 50% de su alto, revelando el fondo arriba
-                blueSolid.style.transform = `translateY(${progress * 50}%)`;
+                // En móviles: Sube hacia arriba el 100% (-100%) para ocultarse por completo
+                blueSolid.style.transform = `translateY(-${progress * 100}%)`;
             } else {
                 // En desktop: Se desplaza hacia la derecha un 50% de su ancho, revelando el fondo a la izquierda
                 blueSolid.style.transform = `translateX(${progress * 50}%)`;
