@@ -45,6 +45,7 @@
     box-sizing: border-box;
     z-index: 15; /* Por encima del sólido azul (z-index: 10) */
 }
+
 .dolphian-main-title {
     font-family: 'RelicusMono', monospace !important;
     font-size: clamp(3rem, 5.5vw, 8rem5);
@@ -59,8 +60,13 @@
     user-select: none;
     will-change: transform;
 }
-/* En dispositivos móviles se queda estático al centro */
+
 @media (max-width: 768px) {
+    .dolphian-title-container {
+        position: absolute !important;
+        top: 0;
+        height: 100vh;
+    }
     .dolphian-main-title {
         transform: translateX(0) !important;
         font-size: clamp(2.5rem, 8vw, 6rem);
@@ -394,6 +400,7 @@
 <script>
 (function() {
     const blueSolid = document.getElementById('mophraBlueSolid');
+    const titleContainer = document.querySelector('.dolphian-title-container');
     const dolphianTitle = document.querySelector('.dolphian-main-title');
     if (!blueSolid) return;
 
@@ -405,9 +412,8 @@
         
         if (maxScroll <= 0) {
             blueSolid.style.transform = 'translate(0px, 0px)';
-            if (dolphianTitle) {
-                dolphianTitle.style.transform = isMobile.matches ? 'translateY(0px)' : 'translateX(0px)';
-            }
+            if (titleContainer) titleContainer.style.transform = 'translate(0px, 0px)';
+            if (dolphianTitle && !isMobile.matches) dolphianTitle.style.transform = 'translateX(0px)';
             return;
         }
 
@@ -415,16 +421,17 @@
         if (progress > 1) progress = 1;
 
         if (isMobile.matches) {
-            // 1. El sólido azul sube por completo en pantallas verticales
+            // 1. El sólido azul sube verticalmente con el scroll
             blueSolid.style.transform = `translateY(-${progress * 100}%)`;
             
-            // 2. El título sube exactamente a la par de la cortina azul
-            if (dolphianTitle) {
-                dolphianTitle.style.transform = `translateY(-${progress * 100}vh)`;
+            // 2. Mmovemos el contenedor entero del título para que viaje a la par de la cortina azul
+            if (titleContainer) {
+                titleContainer.style.transform = `translateY(-${progress * maxScroll}px)`;
             }
         } else {
-            // Escritorio (se mantiene intacto como lo tienes)
+            // Escritorio (mantiene intacto su movimiento lateral)
             blueSolid.style.transform = `translateX(${progress * 50}vw)`;
+            if (titleContainer) titleContainer.style.transform = 'translate(0px, 0px)';
             if (dolphianTitle) {
                 const shiftValue = progress * 25;
                 dolphianTitle.style.transform = `translateX(${shiftValue}vw)`;
