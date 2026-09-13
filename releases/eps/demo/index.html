@@ -33,11 +33,12 @@
 
 <style>
     /* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
+/* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
 .dolphian-title-container {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100vw; /* Ocupa toda la ventana de inicio */
+    right: 0; /* Anclado a la derecha para que mida exactamente el 50% al deslizarse */
+    width: 100vw; /* Inicia abarcando toda la pantalla */
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -45,11 +46,12 @@
     pointer-events: none !important;
     box-sizing: border-box;
     padding: 0 4vw;
+    transition: width 0.05s linear; /* Para una transición suave en el ancho */
 }
 
 .dolphian-main-title {
     font-family: 'RelicusMono', monospace !important;
-    font-size: clamp(3rem, 5.5vw, 8rem5); /* Ajustado para que respire mejor en el 50% */
+    font-size: clamp(3rem, 5.5vw, 8rem5);
     font-weight: 900;
     color: #ffffff;
     text-transform: uppercase;
@@ -59,13 +61,14 @@
     margin: 0;
     text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
     user-select: none;
-    /* Ancla matemáticamente el centro del texto al centro del bloque azul visible (50% derecho) */
-    transform: translateX(25vw); 
     transition: transform 0.05s linear;
 }
 
-/* En dispositivos móviles se anula el desplazamiento horizontal extra porque el sólido sube verticalmente */
+/* En dispositivos móviles se mantiene centrado en pantalla completa */
 @media (max-width: 768px) {
+    .dolphian-title-container {
+        width: 100vw !important;
+    }
     .dolphian-main-title {
         transform: translateX(0) !important;
         font-size: clamp(2.5rem, 8vw, 6rem);
@@ -398,7 +401,7 @@
 <script>
 (function() {
     const blueSolid = document.getElementById('mophraBlueSolid');
-    const dolphianTitle = document.querySelector('.dolphian-main-title');
+    const titleContainer = document.querySelector('.dolphian-title-container');
     if (!blueSolid) return;
 
     const isMobile = window.matchMedia("(max-width: 768px)");
@@ -409,7 +412,7 @@
         
         if (maxScroll <= 0) {
             blueSolid.style.transform = 'translate(0px, 0px)';
-            if (dolphianTitle && !isMobile.matches) dolphianTitle.style.transform = 'translateX(25vw)';
+            if (titleContainer && !isMobile.matches) titleContainer.style.width = '100vw';
             return;
         }
 
@@ -418,14 +421,16 @@
 
         if (isMobile.matches) {
             blueSolid.style.transform = `translateY(-${progress * 100}%)`;
-            if (dolphianTitle) dolphianTitle.style.transform = 'translateX(0px)';
+            if (titleContainer) titleContainer.style.width = '100vw';
         } else {
-            // El sólido se mueve un 50% a la derecha
+            // El sólido se desplaza un 50% a la derecha
             blueSolid.style.transform = `translateX(${progress * 50}%)`;
-            // El título ajusta su posición proporcionalmente para permanecer anclado al centro visual exacto del panel azul restante
-            if (dolphianTitle) {
-                const shiftValue = 25 - (progress * 25);
-                dolphianTitle.style.transform = `translateX(${shiftValue}vw)`;
+            
+            // El contenedor del título reduce su ancho de 100vw a 50vw progresivamente
+            // obligando a que el texto quede siempre en el centro exacto de la franja azul derecha.
+            if (titleContainer) {
+                const currentWidth = 100 - (progress * 50);
+                titleContainer.style.width = `${currentWidth}vw`;
             }
         }
     }
