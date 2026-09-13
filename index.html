@@ -2,22 +2,16 @@
 <html lang="en">
 <head>
   <meta name="description" content="Label/Collective. Making sounds, making moments." />
-  <!-- 1. Etiquetas para mitigar la caché del navegador -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-
-  <!-- Script de model-viewer requerido -->
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-
-  <!-- 2. Script de auto-recarga global -->
   <script>
     setInterval(async () => {
       try {
         const response = await fetch('./version.json?_=' + Date.now());
         const data = await response.json();
         const currentVersion = localStorage.getItem('mophra_version');
-        
         if (!currentVersion) {
           localStorage.setItem('mophra_version', data.version);
         } else if (currentVersion !== data.version) {
@@ -25,7 +19,6 @@
           window.location.reload();
         }
       } catch (err) {
-        // Silenciar errores de conexión temporal
       }
     }, 60000);
   </script>
@@ -40,12 +33,10 @@
       font-weight: normal;
       font-style: normal;
     }
-
-   /* 🛑 BLOQUEAR SCROLLBAR HORIZONTAL GLOBAL */
    html, body, #wrapper, #main, .container {
       margin: 0;
       padding: 0;
-      background-color: #F5260A; /* Fondo rojo característico */
+      background-color: #F5260A; /* background red */
       font-family: 'RelicusMono', monospace;
       min-height: 100vh;
       overflow-x: hidden !important;
