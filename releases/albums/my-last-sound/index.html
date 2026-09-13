@@ -209,37 +209,6 @@
             text-align: left;
         }
 
-        .mophra-album-controls {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .mophra-album-btn {
-            font-family: 'RelicusMono', monospace !important;
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: #ffffff;
-            height: 30px;
-            padding: 0 10px;
-            border-radius: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 900;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .mophra-album-btn:hover {
-            background: #ffffff;
-            color: #0d0d0d;
-            border-color: #ffffff;
-            transform: scale(1.05);
-        }
-
         /* --- 🎛️ ESTILOS PARA TRACK ITEMS (SIN EFECTO DE DESPLAZAMIENTO EN HOVER) --- */
         .mophra-track-item {
             font-family: 'RelicusMono', monospace !important;
@@ -428,14 +397,10 @@
                 <div class="mophra-details-grid">
                     <div class="mophra-tracklist-col">
                         <div class="mophra-tracklist-header-wrapper">
-        <div class="mophra-tracklist-heading">tracklist</div>
-        <div class="mophra-album-controls">
-            <button class="mophra-album-btn mophra-allplay-btn" aria-label="Play All" title="Play All">▶ ALL</button>
-            <button class="mophra-album-btn mophra-stop-btn" aria-label="Stop" title="Stop">⬛</button>
-        </div>
-    </div>
+                            <div class="mophra-tracklist-heading">tracklist</div>
+                        </div>
                         
-                        <!-- Pista 01 (Con marquesina automática integrada y corregida) -->
+                        <!-- Pista 01 -->
                        <div class="mophra-track-item" data-src="../../../audiotracks/mophra012.mp3">
                             <div class="mophra-track-left">
                                 <button class="mophra-play-btn" aria-label="Play">▶</button>
