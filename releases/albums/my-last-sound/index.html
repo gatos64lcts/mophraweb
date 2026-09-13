@@ -69,10 +69,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            /* Quitamos 'infinite' y 'paused' por defecto para que inicie estático */
             animation: mophraRotate360 10s linear infinite;
+            animation-play-state: paused; 
             backface-visibility: hidden;
             transform: translateZ(0);
             will-change: transform;
+        }
+
+        /* Clase que activaremos con JS cuando empiece a sonar la música */
+        .mophra-rotating-image-wrap.is-spinning {
+            animation-play-state: running;
         }
 
         .mophra-rotating-image-wrap img {
@@ -845,9 +852,10 @@
             });
         })();
 
-        /* --- 🎵 SCRIPT DE REPRODUCTOR DE AUDIO GLOBAL (REGLA DE UNA SOLA PISTA) --- */
+       /* --- 🎵 SCRIPT DE REPRODUCTOR DE AUDIO GLOBAL (REGLA DE UNA SOLA PISTA) --- */
         document.addEventListener('DOMContentLoaded', () => {
             const trackItems = document.querySelectorAll('.mophra-track-item');
+            const discWrap = document.querySelector('.mophra-rotating-image-wrap'); // Referencia al contenedor del disco
             let currentAudio = null;
             let currentPlayBtn = null;
             let currentProgressBar = null;
@@ -880,6 +888,9 @@
                             currentPlayBtn = playBtn;
                             currentProgressBar = progressBar;
 
+                            // Hacemos que el disco empiece a girar
+                            if (discWrap) discWrap.classList.add('is-spinning');
+
                             clearInterval(progressInterval);
                             progressInterval = setInterval(() => {
                                 if (audio.duration) {
@@ -891,6 +902,10 @@
                     } else {
                         audio.pause();
                         playBtn.textContent = '▶';
+                        
+                        // Pausamos el giro del disco manteniendo su posición actual
+                        if (discWrap) discWrap.classList.remove('is-spinning');
+
                         clearInterval(progressInterval);
                     }
                 });
@@ -898,6 +913,10 @@
                 audio.addEventListener('ended', () => {
                     playBtn.textContent = '▶';
                     progressBar.style.width = '0%';
+                    
+                    // Detenemos el disco al terminar la pista
+                    if (discWrap) discWrap.classList.remove('is-spinning');
+
                     clearInterval(progressInterval);
                 });
 
