@@ -34,18 +34,19 @@
 <style>
     /* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
     .dolphian-title-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        pointer-events: none;
-        padding: 0 5vw;
-        box-sizing: border-box;
-    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none !important; /* Vital para que el scroll traspase el título */
+    z-index: 5; /* Se mantiene dentro del sólido azul sin bloquear eventos globales */
+    padding: 0 5vw;
+    box-sizing: border-box;
+}
 
     .dolphian-main-title {
         font-family: 'RelicusMono', monospace !important;
