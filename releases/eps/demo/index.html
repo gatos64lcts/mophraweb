@@ -33,11 +33,12 @@
 
 <style>
     /* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
+/* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
 .dolphian-title-container {
     position: absolute;
     top: 0;
-    left: 50vw; /* Empieza exactamente en la mitad derecha */
-    width: 50vw; /* Ocupa siempre la mitad derecha */
+    left: 50vw; /* Vive dentro de la mitad derecha del sólido */
+    width: 50vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -59,12 +60,12 @@
     margin: 0;
     text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
     user-select: none;
-    /* Al inicio arranca desplazado a la izquierda para verse centrado en toda la pantalla (100vw) */
-    transform: translateX(-25vw);
+    /* Al 0% de scroll, se desplaza hacia la izquierda para quedar exactamente al centro de los 100vw de la pantalla */
+    transform: translateX(-50vw);
     transition: transform 0.05s linear;
 }
 
-/* En dispositivos móviles se adapta a pantalla completa */
+/* En dispositivos móviles se queda estático al centro */
 @media (max-width: 768px) {
     .dolphian-title-container {
         left: 0 !important;
@@ -413,7 +414,7 @@
         
         if (maxScroll <= 0) {
             blueSolid.style.transform = 'translate(0px, 0px)';
-            if (dolphianTitle && !isMobile.matches) dolphianTitle.style.transform = 'translateX(-25vw)';
+            if (dolphianTitle && !isMobile.matches) dolphianTitle.style.transform = 'translateX(-50vw)';
             return;
         }
 
@@ -424,12 +425,12 @@
             blueSolid.style.transform = `translateY(-${progress * 100}%)`;
             if (dolphianTitle) dolphianTitle.style.transform = 'translateX(0px)';
         } else {
-            // El sólido azul se desplaza a la derecha
+            // El sólido azul se desplaza un 50% hacia la derecha
             blueSolid.style.transform = `translateX(${progress * 50}%)`;
             
-            // El título se desplaza acompañando al sólido para quedarse fijo y centrado en la mitad derecha
+            // El título viaja desde -50vw (centro de la pantalla completa) hasta 0vw (centro de la mitad derecha)
             if (dolphianTitle) {
-                const shiftValue = -25 + (progress * 25);
+                const shiftValue = -50 + (progress * 50);
                 dolphianTitle.style.transform = `translateX(${shiftValue}vw)`;
             }
         }
