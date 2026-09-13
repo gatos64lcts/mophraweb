@@ -825,9 +825,9 @@
     <script>
         (function() {
             const cortina = document.getElementById('cortina-transicion');
-            document.getElementById('mophraGlobalMenu').style.display = 'none';
 
             function abrirCortina() {
+                document.getElementById('mophraGlobalMenu').style.display = 'none';
                 if (cortina) {
                     cortina.classList.remove('cerrar');
                     cortina.classList.add('abrir');
