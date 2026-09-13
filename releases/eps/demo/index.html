@@ -32,6 +32,34 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 
 <style>
+    /* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
+    .dolphian-title-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+        padding: 0 5vw;
+        box-sizing: border-box;
+    }
+
+    .dolphian-main-title {
+        font-family: 'RelicusMono', monospace !important;
+        font-size: clamp(3rem, 7.5vw, 9rem);
+        font-weight: 900;
+        color: #ffffff;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 0.9;
+        letter-spacing: -3px;
+        margin: 0;
+        text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+        user-select: none;
+    }
     /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
     body {
         background-color: #F5260A !important;
@@ -227,6 +255,13 @@
 
 <!-- 3. CAPA SUPERIOR: Sólido Azul interactivo de scroll -->
 <div class="mophra-blue-solid" id="mophraBlueSolid"></div>
+  
+    <!-- 3. CAPA SUPERIOR: Sólido Azul interactivo de scroll -->
+<div class="mophra-blue-solid" id="mophraBlueSolid">
+    <div class="dolphian-title-container">
+        <h1 class="dolphian-main-title">DOLPHIAN DEMOS</h1>
+    </div>
+</div>
 
 <!-- BLOQUE DE PRUEBA TEMPORAL PARA FORZAR EL SCROLL (Dentro del body) -->
 <div style="height: 300vh; pointer-events: none;"></div>
