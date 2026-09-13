@@ -33,30 +33,43 @@
 
 <style>
     /* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
-    .dolphian-title-container {
-    position: relative; /* Cambiado de absolute a relative para que viaje exactamente con el flujo del sólido */
-    width: 100%;
+.dolphian-title-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Ocupa toda la ventana de inicio */
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     pointer-events: none !important;
     box-sizing: border-box;
-    padding: 0 5vw;
+    padding: 0 4vw;
 }
 
 .dolphian-main-title {
     font-family: 'RelicusMono', monospace !important;
-    font-size: clamp(6rem, 7.5vw, 12rem);
+    font-size: clamp(3rem, 5.5vw, 8rem5); /* Ajustado para que respire mejor en el 50% */
     font-weight: 900;
     color: #ffffff;
     text-transform: uppercase;
     text-align: center;
     line-height: 0.9;
-    letter-spacing: -3px;
+    letter-spacing: -2px;
     margin: 0;
     text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
     user-select: none;
+    /* Ancla matemáticamente el centro del texto al centro del bloque azul visible (50% derecho) */
+    transform: translateX(25vw); 
+    transition: transform 0.05s linear;
+}
+
+/* En dispositivos móviles se anula el desplazamiento horizontal extra porque el sólido sube verticalmente */
+@media (max-width: 768px) {
+    .dolphian-main-title {
+        transform: translateX(0) !important;
+        font-size: clamp(2.5rem, 8vw, 6rem);
+    }
 }
     /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
     body {
@@ -384,37 +397,46 @@
 <!-- Script de Animación del Sólido Azul -->
 <script>
 (function() {
-        const blueSolid = document.getElementById('mophraBlueSolid');
-        if (!blueSolid) return;
+    const blueSolid = document.getElementById('mophraBlueSolid');
+    const dolphianTitle = document.querySelector('.dolphian-main-title');
+    if (!blueSolid) return;
 
-        const isMobile = window.matchMedia("(max-width: 768px)");
+    const isMobile = window.matchMedia("(max-width: 768px)");
 
-        function updateScroll() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-            
-            if (maxScroll <= 0) {
-                blueSolid.style.transform = 'translate(0px, 0px)';
-                return;
-            }
-
-            let progress = scrollTop / maxScroll;
-            if (progress > 1) progress = 1;
-
-            if (isMobile.matches) {
-                blueSolid.style.transform = `translateY(-${progress * 100}%)`;
-            } else {
-                blueSolid.style.transform = `translateX(${progress * 50}%)`;
-            }
+    function updateScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        
+        if (maxScroll <= 0) {
+            blueSolid.style.transform = 'translate(0px, 0px)';
+            if (dolphianTitle && !isMobile.matches) dolphianTitle.style.transform = 'translateX(25vw)';
+            return;
         }
 
-        window.addEventListener('scroll', () => {
-            requestAnimationFrame(updateScroll);
-        }, { passive: true });
+        let progress = scrollTop / maxScroll;
+        if (progress > 1) progress = 1;
 
-        window.addEventListener('resize', updateScroll);
-        updateScroll();
-    })();
+        if (isMobile.matches) {
+            blueSolid.style.transform = `translateY(-${progress * 100}%)`;
+            if (dolphianTitle) dolphianTitle.style.transform = 'translateX(0px)';
+        } else {
+            // El sólido se mueve un 50% a la derecha
+            blueSolid.style.transform = `translateX(${progress * 50}%)`;
+            // El título ajusta su posición proporcionalmente para permanecer anclado al centro visual exacto del panel azul restante
+            if (dolphianTitle) {
+                const shiftValue = 25 - (progress * 25);
+                dolphianTitle.style.transform = `translateX(${shiftValue}vw)`;
+            }
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        requestAnimationFrame(updateScroll);
+    }, { passive: true });
+
+    window.addEventListener('resize', updateScroll);
+    updateScroll();
+})();
 </script>
 
 <!-- PRECARGA OPTIMIZADA DE LA CORTINA -->
