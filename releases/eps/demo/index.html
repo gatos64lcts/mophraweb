@@ -32,12 +32,11 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 
 <style>
-    /* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
-/* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
+   /* --- 💎 ESTILOS PARA EL TÍTULO "DOLPHIAN DEMOS" --- */
 .dolphian-title-container {
     position: absolute;
     top: 0;
-    left: 50vw; /* Vive dentro de la mitad derecha del sólido */
+    left: 50vw; /* Anclado en la mitad derecha de la ventana */
     width: 50vw;
     height: 100vh;
     display: flex;
@@ -60,12 +59,12 @@
     margin: 0;
     text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
     user-select: none;
-    /* Al 0% de scroll, se desplaza hacia la izquierda para quedar exactamente al centro de los 100vw de la pantalla */
+    /* Al 0% de scroll, movemos el texto exactamente un 50% de la pantalla hacia la izquierda para que luzca centrado en los 100vw */
     transform: translateX(-50vw);
-    transition: transform 0.05s linear;
+    will-change: transform;
 }
 
-/* En dispositivos móviles se queda estático al centro */
+/* En dispositivos móviles se queda estático al centro de la pantalla */
 @media (max-width: 768px) {
     .dolphian-title-container {
         left: 0 !important;
@@ -425,12 +424,13 @@
             blueSolid.style.transform = `translateY(-${progress * 100}%)`;
             if (dolphianTitle) dolphianTitle.style.transform = 'translateX(0px)';
         } else {
-            // El sólido azul se desplaza un 50% hacia la derecha
-            blueSolid.style.transform = `translateX(${progress * 50}%)`;
+            // El sólido azul se desplaza 50vw a la derecha
+            blueSolid.style.transform = `translateX(${progress * 50}vw)`;
             
-            // El título viaja desde -50vw (centro de la pantalla completa) hasta 0vw (centro de la mitad derecha)
+            // El texto viaja desde -50vw (para estar centrado al inicio en la pantalla completa) 
+            // hasta 0vw (para quedar perfectamente centrado en su mitad derecha cuando el sólido se desplaza).
             if (dolphianTitle) {
-                const shiftValue = -50 + (progress * 50);
+                const shiftValue = -50 * (1 - progress);
                 dolphianTitle.style.transform = `translateX(${shiftValue}vw)`;
             }
         }
