@@ -27,7 +27,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EPs | tittle</title>
+<title>George | tittle</title>
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
@@ -405,7 +405,9 @@
         
         if (maxScroll <= 0) {
             blueSolid.style.transform = 'translate(0px, 0px)';
-            if (dolphianTitle && !isMobile.matches) dolphianTitle.style.transform = 'translateX(0px)';
+            if (dolphianTitle) {
+                dolphianTitle.style.transform = isMobile.matches ? 'translateY(0px)' : 'translateX(0px)';
+            }
             return;
         }
 
@@ -413,14 +415,16 @@
         if (progress > 1) progress = 1;
 
         if (isMobile.matches) {
+            // 1. El sólido azul sube por completo en pantallas verticales
             blueSolid.style.transform = `translateY(-${progress * 100}%)`;
-            if (dolphianTitle) dolphianTitle.style.transform = 'translateX(0px)';
-        } else {
-            // 1. El sólido azul se desplaza a la derecha (hasta el 50% de la pantalla)
-            blueSolid.style.transform = `translateX(${progress * 50}vw)`;
             
-            // 2. El texto viaja exactamente a la mitad de esa velocidad (hasta 25vw) 
-            // para que al final quede perfectamente instalado y centrado en la franja azul derecha.
+            // 2. El título sube exactamente a la par de la cortina azul
+            if (dolphianTitle) {
+                dolphianTitle.style.transform = `translateY(-${progress * 100}vh)`;
+            }
+        } else {
+            // Escritorio (se mantiene intacto como lo tienes)
+            blueSolid.style.transform = `translateX(${progress * 50}vw)`;
             if (dolphianTitle) {
                 const shiftValue = progress * 25;
                 dolphianTitle.style.transform = `translateX(${shiftValue}vw)`;
