@@ -793,12 +793,12 @@
             width: 100vw;
             height: 115vh;
             background-color: #1a1a1a;
-            z-index: 10000000 !important; /* Asegura que esté por encima del menú global (999999) */
+            z-index: 2147483647 !important; /* El valor máximo absoluto del navegador */
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            pointer-events: none;
+            pointer-events: auto; /* Permite bloquear clics en la capa superior */
             transform: translateY(0%);
         }
 
