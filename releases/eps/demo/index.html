@@ -31,48 +31,49 @@
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
-  /* --- 💎 ESTILOS PARA EL TÍTULO --- */
-.dolphian-title-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none !important;
-    box-sizing: border-box;
-    z-index: 15;
-    transition: transform 0.1s ease-out;
-}
-
-.dolphian-main-title {
-    font-family: 'RelicusMono', monospace !important;
-    font-size: clamp(2.5rem, 4.5vw, 7rem);
-    font-weight: 900;
-    color: #ffffff;
-    text-transform: uppercase;
-    text-align: center;
-    line-height: 0.9;
-    letter-spacing: -2px;
-    margin: 0;
-    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
-    user-select: none;
-    will-change: transform;
-}
-
-@media (max-width: 768px) {
+  /* --- 💎 ESTILOS PARA EL TÍTULO (Ahora vive dentro del sólido) --- */
     .dolphian-title-container {
-        position: absolute !important;
+        position: absolute;
         top: 0;
+        left: 0;
+        width: 100vw; /* Inicia abarcando toda la pantalla en la Fase 1 */
         height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none !important;
+        box-sizing: border-box;
+        z-index: 15;
+        will-change: transform, width;
     }
+
     .dolphian-main-title {
-        transform: translateX(0) !important;
-        font-size: clamp(2.5rem, 8vw, 6rem);
+        font-family: 'RelicusMono', monospace !important;
+        font-size: clamp(2rem, 3.5vw, 5rem); /* Reducido ligeramente para que quepa perfecto en 50vw */
+        font-weight: 900;
+        color: #ffffff;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 0.9;
+        letter-spacing: -2px;
+        margin: 0;
+        text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+        user-select: none;
+        will-change: transform;
     }
-}
+
+    @media (max-width: 768px) {
+        .dolphian-title-container {
+            position: absolute !important;
+            top: 0;
+            height: 100vh;
+            width: 100vw !important;
+        }
+        .dolphian-main-title {
+            transform: translateX(0) !important;
+            font-size: clamp(2.2rem, 7vw, 5rem);
+        }
+    }
 
     /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
     body {
@@ -286,18 +287,19 @@
 <!-- SÓLIDO AZUL (Capa Superior) -->
 <div class="mophra-blue-solid" id="mophraBlueSolid">
     <div class="mophra-solid-content" id="mophraSolidContent">
+        
+        <!-- CONTENEDOR DEL TÍTULO (Ahora vive aquí dentro para respetar los límites) -->
+        <div class="dolphian-title-container" id="dolphianTitleContainer">
+            <h1 class="dolphian-main-title" id="dolphianTitle">HELEN IS AESTHETIC</h1>
+        </div>
+
         <div class="mophra-inner-text-space">
             <h2>CONTENIDO ADICIONAL VERTICAL</h2>
             <p>Este contenido se desplaza verticalmente dentro de la mitad derecha del sólido azul.</p>
         </div>
     </div>
 </div>
-
-<!-- CONTENEDOR DEL TÍTULO -->
-<div class="dolphian-title-container" id="dolphianTitleContainer">
-    <h1 class="dolphian-main-title" id="dolphianTitle">HELEN IS AESTHETIC</h1>
-</div>
-
+    
 <!-- BLOQUE GLOBAL DE SCROLL (250vh para ambas fases) -->
 <div style="height: 250vh; pointer-events: none;"></div>
 
@@ -405,7 +407,6 @@
     const blueSolid = document.getElementById('mophraBlueSolid');
     const solidContent = document.getElementById('mophraSolidContent');
     const titleContainer = document.getElementById('dolphianTitleContainer');
-    const dolphianTitle = document.getElementById('dolphianTitle');
     if (!blueSolid) return;
 
     const isMobile = window.matchMedia("(max-width: 768px)");
@@ -419,7 +420,7 @@
         const halfScroll = maxScroll / 2;
 
         if (scrollTop <= halfScroll) {
-            // === FASE 1: Transición horizontal del Sólido y del Título ===
+            // === FASE 1: Transición horizontal del Sólido ===
             let progress = scrollTop / halfScroll;
             if (progress > 1) progress = 1;
 
@@ -427,26 +428,19 @@
                 blueSolid.style.transform = `translateY(-${progress * 100}%)`;
                 blueSolid.style.width = '100vw';
                 if (solidContent) solidContent.style.width = '100vw';
-                if (titleContainer) titleContainer.style.transform = `translateY(-${scrollTop}px)`;
+                if (titleContainer) titleContainer.style.width = '100vw';
             } else {
-                // El sólido azul se desplaza a la derecha Y simultáneamente reduce su ancho de 100vw a 50vw
                 const currentTranslateX = progress * 50; // de 0vw a 50vw
                 const currentWidth = 100 - (progress * 50); // de 100vw a 50vw
                 
                 blueSolid.style.transform = `translateX(${currentTranslateX}vw)`;
                 blueSolid.style.width = `${currentWidth}vw`;
                 
-                // Hacemos que el contenedor interno coincida exactamente con los 50vw del sólido
+                // Tanto el contenido como el título heredan el ancho exacto del sólido
                 if (solidContent) solidContent.style.width = `${currentWidth}vw`;
-
-                if (titleContainer) titleContainer.style.transform = 'translate(0px, 0px)';
-                if (dolphianTitle) {
-                    const shiftValue = progress * 25; // Se ajusta a su campo derecho final
-                    dolphianTitle.style.transform = `translateX(${shiftValue}vw)`;
-                }
+                if (titleContainer) titleContainer.style.width = `${currentWidth}vw`;
             }
 
-            // Reiniciamos la posición vertical del contenido interno
             if (solidContent) solidContent.style.transform = `translateY(0px)`;
 
         } else {
@@ -455,22 +449,18 @@
                 blueSolid.style.transform = `translateY(-100%)`;
                 blueSolid.style.width = '100vw';
                 if (solidContent) solidContent.style.width = '100vw';
+                if (titleContainer) titleContainer.style.width = '100vw';
             } else {
                 blueSolid.style.transform = `translateX(50vw)`;
-                blueSolid.style.width = '50vw'; // Fijo exactamente al 50% derecho
-                if (solidContent) solidContent.style.width = '50vw'; // Contenido limitado a los 50vw
-                if (dolphianTitle) dolphianTitle.style.transform = `translateX(25vw)`;
+                blueSolid.style.width = '50vw';
+                if (solidContent) solidContent.style.width = '50vw';
+                if (titleContainer) titleContainer.style.width = '50vw';
             }
 
-            // Desplazamiento vertical interno dentro del sólido azul
             let verticalProgress = scrollTop - halfScroll; 
             
             if (solidContent) {
                 solidContent.style.transform = `translateY(-${verticalProgress}px)`;
-            }
-
-            if (titleContainer) {
-                titleContainer.style.transform = `translateY(-${verticalProgress}px)`;
             }
         }
     }
