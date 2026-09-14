@@ -27,7 +27,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>George L | tittle</title>
+<title>George Ly| tittle</title>
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
@@ -49,7 +49,7 @@
 
 .dolphian-main-title {
     font-family: 'RelicusMono', monospace !important;
-    font-size: clamp(3rem, 5.5vw, 8rem);
+    font-size: clamp(2.5rem, 4.5vw, 7rem);
     font-weight: 900;
     color: #ffffff;
     text-transform: uppercase;
@@ -113,28 +113,28 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw; 
+        width: 100vw; /* Inicia abarcando toda la pantalla */
         height: 100vh;
         background-color: #0000FF;
         z-index: 10;
-        will-change: transform;
-        overflow: hidden; /* Oculta el contenido vertical extra hasta que comience el scroll interno */
+        will-change: transform, width;
+        overflow: hidden; /* Oculta los desbordamientos internos */
     }
 
-    /* --- CONTENIDO INTERNO DEL SÓLIDO AZUL (Para el scroll vertical de la 2da fase) --- */
+    /* --- CONTENIDO INTERNO DEL SÓLIDO AZUL --- */
     .mophra-solid-content {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        /* Altura extra para permitir el desplazamiento vertical una vez anclado */
+        width: 100vw; /* Se ajustará dinámicamente vía JS a 50vw para que no se desborde */
         height: 200vh; 
         pointer-events: auto;
+        will-change: transform, width;
     }
 
     .mophra-inner-text-space {
         position: absolute;
-        top: 100vh; /* Se ubica justo debajo de la primera pantalla visible dentro del sólido */
+        top: 100vh; /* Ubicado en la segunda pantalla vertical dentro del sólido */
         left: 0;
         width: 100%;
         height: 100vh;
@@ -144,9 +144,9 @@
         align-items: center;
         color: white;
         font-family: 'RelicusMono', monospace;
-        font-size: 2rem;
+        font-size: 1.5rem;
         text-align: center;
-        padding: 20px;
+        padding: 40px;
         box-sizing: border-box;
     }
 
@@ -160,6 +160,9 @@
             width: 100vw !important;
             height: 100vh !important;
             object-fit: cover !important;
+        }
+        .mophra-solid-content {
+            width: 100vw !important;
         }
     }
 
@@ -280,13 +283,12 @@
     <img src="../../../covers/016-voidstar.webp" alt="EP Art" class="mophra-layer-img">
 </div>
 
-<!-- SÓLIDO AZUL (Capa Superior) con contenido interno para la segunda fase de scroll -->
+<!-- SÓLIDO AZUL (Capa Superior) -->
 <div class="mophra-blue-solid" id="mophraBlueSolid">
-    <div class="mophra-solid-content">
-        <!-- Aquí puedes meter todo el contenido vertical adicional que aparecerá al hacer scroll hacia arriba -->
+    <div class="mophra-solid-content" id="mophraSolidContent">
         <div class="mophra-inner-text-space">
             <h2>CONTENIDO ADICIONAL VERTICAL</h2>
-            <p>Este contenido se revela al continuar scroleando una vez que el sólido se desplaza al 50%.</p>
+            <p>Este contenido se desplaza verticalmente dentro de la mitad derecha del sólido azul.</p>
         </div>
     </div>
 </div>
@@ -296,7 +298,7 @@
     <h1 class="dolphian-main-title" id="dolphianTitle">HELEN IS AESTHETIC</h1>
 </div>
 
-<!-- BLOQUE GLOBAL QUE DEFINE LA ALTURA TOTAL DE SCROLL DE LA PÁGINA (Ej: 200vh para ambas fases) -->
+<!-- BLOQUE GLOBAL DE SCROLL (250vh para ambas fases) -->
 <div style="height: 250vh; pointer-events: none;"></div>
 
 <!-- Menú Global -->
@@ -397,10 +399,11 @@
 })();
 </script>
 
-<!-- Script de Dos Fases: 1ra Fase (Horizontal al 50%) y 2da Fase (Scroll Vertical Interno) -->
+<!-- Script de Dos Fases Corregido (Ancho dinámico del Sólido Azul y Contenido Interno) -->
 <script>
 (function() {
     const blueSolid = document.getElementById('mophraBlueSolid');
+    const solidContent = document.getElementById('mophraSolidContent');
     const titleContainer = document.getElementById('dolphianTitleContainer');
     const dolphianTitle = document.getElementById('dolphianTitle');
     if (!blueSolid) return;
@@ -413,51 +416,59 @@
         
         if (maxScroll <= 0) return;
 
-        // Dividimos el scroll total en dos mitades (Fase 1: 0% a 50% de la página, Fase 2: 50% a 100% de la página)
         const halfScroll = maxScroll / 2;
 
         if (scrollTop <= halfScroll) {
-            // === FASE 1: Desplazamiento horizontal del sólido al 50% y ajuste del título ===
-            let progress = scrollTop / halfScroll; // Va de 0 a 1 en la primera mitad del scroll
+            // === FASE 1: Transición horizontal del Sólido y del Título ===
+            let progress = scrollTop / halfScroll;
             if (progress > 1) progress = 1;
 
             if (isMobile.matches) {
                 blueSolid.style.transform = `translateY(-${progress * 100}%)`;
+                blueSolid.style.width = '100vw';
+                if (solidContent) solidContent.style.width = '100vw';
                 if (titleContainer) titleContainer.style.transform = `translateY(-${scrollTop}px)`;
             } else {
-                // Sólido azul se desplaza hacia la derecha un 50vw
-                blueSolid.style.transform = `translateX(${progress * 50}vw)`;
-                // El contenedor del título se queda fijo en pantalla pero las letras se desplazan proporcionalmente
+                // El sólido azul se desplaza a la derecha Y simultáneamente reduce su ancho de 100vw a 50vw
+                const currentTranslateX = progress * 50; // de 0vw a 50vw
+                const currentWidth = 100 - (progress * 50); // de 100vw a 50vw
+                
+                blueSolid.style.transform = `translateX(${currentTranslateX}vw)`;
+                blueSolid.style.width = `${currentWidth}vw`;
+                
+                // Hacemos que el contenedor interno coincida exactamente con los 50vw del sólido
+                if (solidContent) solidContent.style.width = `${currentWidth}vw`;
+
                 if (titleContainer) titleContainer.style.transform = 'translate(0px, 0px)';
                 if (dolphianTitle) {
-                    const shiftValue = progress * 25; // Se ajusta al campo derecho
+                    const shiftValue = progress * 25; // Se ajusta a su campo derecho final
                     dolphianTitle.style.transform = `translateX(${shiftValue}vw)`;
                 }
             }
 
-            // Aseguramos que el contenido interno vertical permanezca oculto o en su posición inicial
-            const solidContent = blueSolid.querySelector('.mophra-solid-content');
+            // Reiniciamos la posición vertical del contenido interno
             if (solidContent) solidContent.style.transform = `translateY(0px)`;
 
         } else {
-            // === FASE 2: El sólido se bloquea al 50% y su contenido interno hace scroll vertical ===
+            // === FASE 2: Sólido fijo en la mitad derecha (50vw) y scroll vertical interno ===
             if (isMobile.matches) {
                 blueSolid.style.transform = `translateY(-100%)`;
+                blueSolid.style.width = '100vw';
+                if (solidContent) solidContent.style.width = '100vw';
             } else {
-                blueSolid.style.transform = `translateX(50vw)`; // Fijo al 50%
-                if (dolphianTitle) dolphianTitle.style.transform = `translateX(25vw)`; // Título anclado en su lugar
+                blueSolid.style.transform = `translateX(50vw)`;
+                blueSolid.style.width = '50vw'; // Fijo exactamente al 50% derecho
+                if (solidContent) solidContent.style.width = '50vw'; // Contenido limitado a los 50vw
+                if (dolphianTitle) dolphianTitle.style.transform = `translateX(25vw)`;
             }
 
-            // Calculamos el desplazamiento vertical dentro del sólido azul
+            // Desplazamiento vertical interno dentro del sólido azul
             let verticalProgress = scrollTop - halfScroll; 
             
-            // Movemos hacia arriba el contenido interno del sólido azul (incluyendo el título si lo metes dentro, o simulando que suben)
-            const solidContent = blueSolid.querySelector('.mophra-solid-content');
             if (solidContent) {
                 solidContent.style.transform = `translateY(-${verticalProgress}px)`;
             }
 
-            // Opcional: Hacemos que el título principal original empiece a subir junto con el contenido vertical
             if (titleContainer) {
                 titleContainer.style.transform = `translateY(-${verticalProgress}px)`;
             }
