@@ -172,12 +172,42 @@
     }
 
     @media (max-width: 768px) {
-        .mophra-scroll-indicator {
-            top: 20px;
-            left: 20px;
-            font-size: 10px;
-        }
+    /* Indicador de scroll adaptado */
+    .mophra-scroll-indicator {
+        top: 20px;
+        left: 20px;
+        font-size: 10px;
     }
+
+    /* Solución para vistas en vertical (móviles): comportamiento fluido normal */
+    .mophra-blue-solid {
+        position: relative !important;
+        width: 100vw !important;
+        height: auto !important;
+        min-height: 100vh;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    .mophra-solid-content {
+        position: relative !important;
+        width: 100vw !important;
+        height: auto !important;
+        transform: none !important;
+    }
+
+    .dolphian-title-container {
+        position: relative !important;
+        height: 100vh;
+        width: 100vw !important;
+    }
+
+    .mophra-inner-text-space {
+        position: relative !important;
+        top: 0 !important;
+        min-height: auto !important;
+    }
+}
 
     /* --- 🟦 SÓLIDO AZUL (Capa Superior interactiva) --- */
     .mophra-blue-solid {
@@ -706,7 +736,7 @@
 </div>
     
 <!-- BLOQUE GLOBAL DE SCROLL -->
-<div style="height: 490vh; pointer-events: none;"></div>
+<div id="mobile-spacer" style="height: 490vh; pointer-events: none;"></div>
 
 <!-- Menú Global -->
 <div class="mophra-global-container" id="mophraGlobalMenu">
@@ -817,6 +847,8 @@
     const isMobile = window.matchMedia("(max-width: 768px)");
 
     function updateScroll() {
+        if (isMobile.matches) return; // <-- EVITA QUE INTERVENGA EN MÓVIL
+
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         
@@ -828,39 +860,23 @@
             let progress = scrollTop / halfScroll;
             if (progress > 1) progress = 1;
 
-            if (isMobile.matches) {
-                blueSolid.style.transform = `translateY(0px)`;
-                blueSolid.style.width = '100vw';
-                if (solidContent) solidContent.style.width = '100vw';
-                if (titleContainer) titleContainer.style.width = '100vw';
-            } else {
-                const currentTranslateX = progress * 50; 
-                const currentWidth = 100 - (progress * 50); 
-                
-                blueSolid.style.transform = `translateX(${currentTranslateX}vw)`;
-                blueSolid.style.width = `${currentWidth}vw`;
-                
-                if (solidContent) solidContent.style.width = `${currentWidth}vw`;
-                if (titleContainer) titleContainer.style.width = `${currentWidth}vw`;
-            }
-
+            const currentTranslateX = progress * 50; 
+            const currentWidth = 100 - (progress * 50); 
+            
+            blueSolid.style.transform = `translateX(${currentTranslateX}vw)`;
+            blueSolid.style.width = `${currentWidth}vw`;
+            
+            if (solidContent) solidContent.style.width = `${currentWidth}vw`;
+            if (titleContainer) titleContainer.style.width = `${currentWidth}vw`;
             if (solidContent) solidContent.style.transform = `translateY(0px)`;
 
         } else {
-            if (isMobile.matches) {
-                blueSolid.style.transform = `translateY(0px)`;
-                blueSolid.style.width = '100vw';
-                if (solidContent) solidContent.style.width = '100vw';
-                if (titleContainer) titleContainer.style.width = '100vw';
-            } else {
-                blueSolid.style.transform = `translateX(50vw)`;
-                blueSolid.style.width = '50vw';
-                if (solidContent) solidContent.style.width = '50vw';
-                if (titleContainer) titleContainer.style.width = '50vw';
-            }
+            blueSolid.style.transform = `translateX(50vw)`;
+            blueSolid.style.width = '50vw';
+            if (solidContent) solidContent.style.width = '50vw';
+            if (titleContainer) titleContainer.style.width = '50vw';
 
             let verticalProgress = scrollTop - halfScroll; 
-            
             if (solidContent) {
                 solidContent.style.transform = `translateY(-${verticalProgress}px)`;
             }
