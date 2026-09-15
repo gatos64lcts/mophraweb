@@ -27,7 +27,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>George Lycats | demo</title>
+<title>George Lycats | DOL</title>
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
@@ -74,7 +74,41 @@
             font-size: clamp(2.2rem, 7vw, 5rem);
         }
     }
+    /* --- 📜 ESTILOS PARA EL INDICADOR DE SCROLL --- */
+    .mophra-scroll-indicator {
+        position: absolute;
+        top: 30px;
+        left: 35px;
+        font-family: 'RelicusMono', monospace !important;
+        font-size: 11px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        z-index: 20;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        user-select: none;
+    }
+    .mophra-scroll-indicator::after {
+        content: '↓';
+        font-size: 14px;
+        animation: scrollBounce 1.5s infinite ease-in-out;
+    }
+    @keyframes scrollBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(4px); }
+    }
 
+    @media (max-width: 768px) {
+        .mophra-scroll-indicator {
+            top: 20px;
+            left: 20px;
+            font-size: 10px;
+        }
+    }
     /* --- 🖼️ ESTILOS PARA LA NUEVA IMAGEN DENTRO DEL SÓLIDO --- */
     .mophra-extra-img-container {
         position: absolute;
@@ -481,8 +515,12 @@
 
 <!-- SÓLIDO AZUL (Capa Superior) -->
 <div class="mophra-blue-solid" id="mophraBlueSolid">
+
+    <!-- 📜 Indicador de Scroll -->
+    <div class="mophra-scroll-indicator">SCROLL</div>
+    
     <div class="mophra-solid-content" id="mophraSolidContent">
-        
+     
         <!-- CONTENEDOR DEL TÍTULO -->
         <div class="dolphian-title-container" id="dolphianTitleContainer">
             <h1 class="dolphian-main-title" id="dolphianTitle">HELEN IS AESTHETIC - HELEN IS AESTHETIC</h1>
