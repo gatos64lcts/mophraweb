@@ -917,9 +917,19 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
     (function() {
         const cortina = document.getElementById('cortina-transicion');
-        function abrirCortina() { if (cortina) { cortina.classList.remove('cerrar'); cortina.classList.add('abrir'); } }
+        function abrirCortina() { 
+            if (cortina) { 
+                cortina.classList.remove('cerrar'); 
+                cortina.classList.add('abrir'); 
+            } 
+        }
         window.addEventListener('load', () => { setTimeout(abrirCortina, 100); });
-        window.addEventListener('pageshow', (event) => { if (event.persisted && cortina) { cortina.classList.remove('cerrar'); cortina.classList.1add ? cortina.classList.add('abrir') : cortina.classList.add('abrir'); } });
+        window.addEventListener('pageshow', (event) => { 
+            if (event.persisted && cortina) { 
+                cortina.classList.remove('cerrar'); 
+                cortina.classList.add('abrir'); 
+            } 
+        });
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
