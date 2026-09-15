@@ -27,13 +27,29 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>geminis gey | NAME EP</title>
+<title>George Lycats | NAME EP</title>
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
-    /* --- 🖼️ ESTILOS DE LA IMAGEN FLOTANTE IZQUIERDA (SOLO PC) --- */
+    /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
+    body {
+        background-color: #F5260A !important;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    @font-face {
+        font-family: 'RelicusMono';
+        src: url('../../../resources/relicus-mono.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    /* --- 🖼️ IMAGEN FLOTANTE IZQUIERDA (SOLO VISTA PC - FONDO ROJO) --- */
     .mophra-middle-image-layer {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 50vw;
@@ -41,7 +57,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 5;
+        z-index: 2; /* Detrás del sólido azul (z-index 10) pero sobre el fondo rojo */
         pointer-events: none;
         box-sizing: border-box;
         padding: 40px;
@@ -175,22 +191,6 @@
             left: 20px;
             font-size: 10px;
         }
-    }
-
-    /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
-    body {
-        background-color: #F5260A !important;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        overflow-x: hidden;
-    }
-
-    @font-face {
-        font-family: 'RelicusMono';
-        src: url('../../../resources/relicus-mono.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
     }
 
     /* --- 🟦 SÓLIDO AZUL (Capa Superior interactiva) --- */
@@ -525,10 +525,9 @@
 </head>
 <body>
 
-<!-- 🖼️ IMAGEN FLOTANTE IZQUIERDA (SÓLO VISTA PC) -->
+<!-- 🖼️ IMAGEN FLOTANTE IZQUIERDA (SÓLIDA EN EL FONDO ROJO - VISTA PC) -->
 <div class="mophra-middle-image-layer">
     <div class="mophra-middle-image-container">
-        <!-- Reemplaza con la ruta de tu imagen original para PC si es distinta -->
         <img src="../../../covers/016-voidstar.webp" alt="Cover Art" class="mophra-middle-image">
     </div>
 </div>
@@ -818,7 +817,6 @@
         const halfScroll = maxScroll / 2;
 
         if (scrollTop <= halfScroll) {
-            // === FASE 1: Transición horizontal del Sólido (PC) o fija en móvil ===
             let progress = scrollTop / halfScroll;
             if (progress > 1) progress = 1;
 
@@ -841,7 +839,6 @@
             if (solidContent) solidContent.style.transform = `translateY(0px)`;
 
         } else {
-            // === FASE 2: Scroll vertical interno dentro del sólido ===
             if (isMobile.matches) {
                 blueSolid.style.transform = `translateY(0px)`;
                 blueSolid.style.width = '100vw';
@@ -934,7 +931,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Control de marquesina para textos largos
     const wrappers = document.querySelectorAll('.track-marquee-wrapper');
     wrappers.forEach(wrapper => {
         const inner = wrapper.querySelector('.track-marquee-inner');
