@@ -27,7 +27,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>George Lycats | DOL</title>
+<title>NAME ARTISTS | DOL</title>
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
@@ -393,6 +393,58 @@
         }
         .mophra-progress-container {
             width: 70px;
+        }
+    }
+
+    /* --- 📱 ADAPTACIÓN RESPONSIVE MÓVIL (EXACTAMENTE COMO LO PEDISTE) --- */
+    @media (max-width: 768px) {
+        /* El sólido azul sube verticalmente con el scroll revelando la imagen de fondo */
+        .mophra-blue-solid {
+            position: absolute !important;
+            top: 100vh;
+            left: 0;
+            width: 100vw !important;
+            height: auto !important;
+            min-height: 100vh;
+            overflow: visible !important;
+            transform: none !important;
+        }
+
+        .mophra-solid-content {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            width: 100vw !important;
+            height: auto !important;
+            transform: none !important;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 1. Contenedor de la imagen extra (Backstage) primero */
+        .mophra-extra-img-container {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            width: 100% !important;
+            padding: 40px 20px 20px 20px !important;
+            order: 1;
+        }
+
+        /* 2 y 3. Tracklist y Reproductor después */
+        .mophra-inner-text-space {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            width: 100% !important;
+            min-height: auto !important;
+            padding: 20px 20px 80px 20px !important;
+            order: 2;
+        }
+
+        /* Ocultar elementos innecesarios en móvil como el indicador de scroll */
+        .mophra-scroll-indicator {
+            display: none !important;
         }
     }
 
@@ -790,6 +842,8 @@
     const isMobile = window.matchMedia("(max-width: 768px)");
 
     function updateScroll() {
+        if (isMobile.matches) return; // En móvil dejamos el scroll libre vertical por CSS
+
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         
@@ -798,41 +852,26 @@
         const halfScroll = maxScroll / 2;
 
         if (scrollTop <= halfScroll) {
-            // === FASE 1: Transición horizontal del Sólido ===
+            // === FASE 1: Transición horizontal del Sólido (Solo PC) ===
             let progress = scrollTop / halfScroll;
             if (progress > 1) progress = 1;
 
-            if (isMobile.matches) {
-                blueSolid.style.transform = `translateY(-${progress * 100}%)`;
-                blueSolid.style.width = '100vw';
-                if (solidContent) solidContent.style.width = '100vw';
-                if (titleContainer) titleContainer.style.width = '100vw';
-            } else {
-                const currentTranslateX = progress * 50; 
-                const currentWidth = 100 - (progress * 50); 
-                
-                blueSolid.style.transform = `translateX(${currentTranslateX}vw)`;
-                blueSolid.style.width = `${currentWidth}vw`;
-                
-                if (solidContent) solidContent.style.width = `${currentWidth}vw`;
-                if (titleContainer) titleContainer.style.width = `${currentWidth}vw`;
-            }
-
+            const currentTranslateX = progress * 50; 
+            const currentWidth = 100 - (progress * 50); 
+            
+            blueSolid.style.transform = `translateX(${currentTranslateX}vw)`;
+            blueSolid.style.width = `${currentWidth}vw`;
+            
+            if (solidContent) solidContent.style.width = `${currentWidth}vw`;
+            if (titleContainer) titleContainer.style.width = `${currentWidth}vw`;
             if (solidContent) solidContent.style.transform = `translateY(0px)`;
 
         } else {
-            // === FASE 2: Sólido fijo en la mitad derecha y scroll vertical interno ===
-            if (isMobile.matches) {
-                blueSolid.style.transform = `translateY(-100%)`;
-                blueSolid.style.width = '100vw';
-                if (solidContent) solidContent.style.width = '100vw';
-                if (titleContainer) titleContainer.style.width = '100vw';
-            } else {
-                blueSolid.style.transform = `translateX(50vw)`;
-                blueSolid.style.width = '50vw';
-                if (solidContent) solidContent.style.width = '50vw';
-                if (titleContainer) titleContainer.style.width = '50vw';
-            }
+            // === FASE 2: Sólido fijo en la mitad derecha y scroll vertical interno (Solo PC) ===
+            blueSolid.style.transform = `translateX(50vw)`;
+            blueSolid.style.width = '50vw';
+            if (solidContent) solidContent.style.width = '50vw';
+            if (titleContainer) titleContainer.style.width = '50vw';
 
             let verticalProgress = scrollTop - halfScroll; 
             
