@@ -27,7 +27,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>George Lycats | NAME EP</title>
+<title>demopage | NAME EP</title>
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
@@ -47,30 +47,16 @@
         font-style: normal;
     }
 
-    /* --- 🖼️ IMAGEN FLOTANTE IZQUIERDA (SOLO VISTA PC - FONDO ROJO) --- */
+    /* --- 🖼️ IMAGEN IZQUIERDA: CUBRIENDO TODO EL PANEL ROJO (SOLO VISTA PC) --- */
     .mophra-middle-image-layer {
         position: fixed;
         top: 0;
         left: 0;
         width: 50vw;
         height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2; /* Detrás del sólido azul (z-index 10) pero sobre el fondo rojo */
+        z-index: 2; /* Detrás del sólido azul pero cubriendo el fondo rojo */
         pointer-events: none;
-        box-sizing: border-box;
-        padding: 40px;
-    }
-
-    .mophra-middle-image-container {
-        width: 100%;
-        max-width: 380px;
-        aspect-ratio: 1 / 1;
-        position: relative;
         overflow: hidden;
-        border-radius: 4px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
 
     .mophra-middle-image {
@@ -120,7 +106,7 @@
         will-change: transform;
     }
 
-    /* Ocultar la imagen extra en PC dentro del sólido, mostrarla solo en móvil */
+    /* Imagen extra en móvil dentro del sólido */
     .mophra-extra-img-container {
         display: none;
     }
@@ -217,7 +203,7 @@
         will-change: transform, width;
     }
 
-    /* --- 🎵 SECCIÓN DE DETALLES (TRACKLIST) ADAPTADA AL SÓLIDO --- */
+    /* --- 🎵 SECCIÓN DE DETALLES Y BACKSTAGE --- */
     .mophra-inner-text-space {
         position: absolute;
         top: 120vh !important;
@@ -230,7 +216,7 @@
         align-items: center;
         color: white;
         font-family: 'RelicusMono', monospace;
-        padding: 20px 20px 60px 20px;
+        padding: 20px 20px 80px 20px;
         box-sizing: border-box;
     }
 
@@ -241,6 +227,7 @@
         align-items: flex-start;
         width: 100%;
         max-width: 550px;
+        gap: 40px;
     }
 
     .mophra-details-grid {
@@ -276,6 +263,23 @@
         margin-bottom: 0 !important;
         letter-spacing: -1px;
         text-align: left;
+    }
+
+    /* --- 📸 SECCIÓN BACKSTAGE --- */
+    .mophra-backstage-section {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .mophra-backstage-img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 6px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.25);
     }
 
     /* --- 🎛️ ESTILOS PARA TRACK ITEMS --- */
@@ -525,11 +529,9 @@
 </head>
 <body>
 
-<!-- 🖼️ IMAGEN FLOTANTE IZQUIERDA (SÓLIDA EN EL FONDO ROJO - VISTA PC) -->
+<!-- 🖼️ IMAGEN IZQUIERDA: CUBRIENDO TODO EL FONDO ROJO (VISTA PC) -->
 <div class="mophra-middle-image-layer">
-    <div class="mophra-middle-image-container">
-        <img src="../../../covers/016-voidstar.webp" alt="Cover Art" class="mophra-middle-image">
-    </div>
+    <img src="../../../covers/016-voidstar.webp" alt="Cover Art" class="mophra-middle-image">
 </div>
 
 <!-- SÓLIDO AZUL (Capa Superior) -->
@@ -539,19 +541,25 @@
         <!-- 📜 Indicador de Scroll -->
         <div class="mophra-scroll-indicator">SCROLL</div>
 
-        <!-- CONTENEDOR DEL TÍTULO Y LA IMAGEN DE LA ESPADA (MÓVIL) -->
+        <!-- CONTENEDOR DEL TÍTULO Y LA IMAGEN (MÓVIL) -->
         <div class="dolphian-title-container" id="dolphianTitleContainer">
             <h1 class="dolphian-main-title" id="dolphianTitle">HELEN IS AESTHETIC - HELEN IS AESTHETIC</h1>
             
-            <!-- 🖼️ IMAGEN DE LA ESPADA (SÓLO MÓVIL) -->
+            <!-- 🖼️ IMAGEN ADICIONAL EN MÓVIL -->
             <div class="mophra-extra-img-container">
                 <img src="../../../covers/016-voidstar.webp" alt="EP Art" class="mophra-extra-img">
             </div>
         </div>
 
-        <!-- TRACKLIST Y REPRODUCTOR INTEGRADO -->
+        <!-- TRACKLIST, BACKSTAGE Y REPRODUCTOR INTEGRADO -->
         <div class="mophra-inner-text-space">
             <div class="mophra-release-content">
+                
+                <!-- 📸 IMAGEN DE BACKSTAGE -->
+                <div class="mophra-backstage-section">
+                    <img src="../../../covers/001-backstage.webp" alt="Backstage" class="mophra-backstage-img">
+                </div>
+
                 <div class="mophra-details-grid">
                     <div class="mophra-tracklist-col">
                         <div class="mophra-tracklist-header-wrapper">
