@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 1. Etiquetas para mitigar la caché del navegador -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
+    <!-- 2. Script de auto-recarga global -->
 <script>
   setInterval(async () => {
     try {
@@ -18,15 +20,119 @@
         localStorage.setItem('mophra_version', data.version);
         window.location.reload();
       }
-    } catch (err) {}
+    } catch (err) {
+      // Silenciar errores de conexión temporal
+    }
   }, 60000);
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>George Lycats | DOL</title>
+<title>George Lycats | NAME EP</title>
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
+  /* --- 💎 ESTILOS PARA EL TÍTULO (Ahora vive dentro del sólido) --- */
+    .dolphian-title-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw; 
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none !important;
+        box-sizing: border-box;
+        z-index: 15;
+        will-change: transform, width;
+    }
+
+    .dolphian-main-title {
+        font-family: 'RelicusMono', monospace !important;
+        font-size: clamp(2rem, 3.5vw, 5rem);
+        font-weight: 900;
+        color: #ffffff;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 0.9;
+        letter-spacing: -2px;
+        margin: 0;
+        text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+        user-select: none;
+        will-change: transform;
+    }
+
+    @media (max-width: 768px) {
+        .dolphian-title-container {
+            position: absolute !important;
+            top: 0;
+            height: 100vh;
+            width: 100vw !important;
+        }
+        .dolphian-main-title {
+            transform: translateX(0) !important;
+            font-size: clamp(2.2rem, 7vw, 5rem);
+        }
+    }
+    /* --- 📜 ESTILOS PARA EL INDICADOR DE SCROLL --- */
+    .mophra-scroll-indicator {
+        position: absolute;
+        top: 30px;
+        left: 35px;
+        font-family: 'RelicusMono', monospace !important;
+        font-size: 11px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        z-index: 20;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        user-select: none;
+    }
+    .mophra-scroll-indicator::after {
+        content: '↓';
+        font-size: 14px;
+        animation: scrollBounce 1.5s infinite ease-in-out;
+    }
+    @keyframes scrollBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(4px); }
+    }
+
+    @media (max-width: 768px) {
+        .mophra-scroll-indicator {
+            top: 20px;
+            left: 20px;
+            font-size: 10px;
+        }
+    }
+    /* --- 🖼️ ESTILOS PARA LA NUEVA IMAGEN DENTRO DEL SÓLIDO --- */
+    .mophra-extra-img-container {
+        position: absolute;
+        top: 98vh; /* Ajustado para que suba un poco antes */
+        left: 0;
+        width: 100%;
+        height: auto; /* Ya no fuerza pantalla completa, se adapta a la imagen */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 30px; /* Reducido el padding vertical */
+        box-sizing: border-box;
+    }
+
+    .mophra-extra-img {
+        width: 100%;
+        max-width: 400px; /* Un poco más estilizada */
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* --- 🎨 ESTILOS GENERALES Y FONDO --- */
     body {
         background-color: #F5260A !important;
         margin: 0;
@@ -42,7 +148,7 @@
         font-style: normal;
     }
 
-    /* --- 🖼️ CAPA FONDO (IMAGEN IZQUIERDA EN PC / FONDO GENERAL EN MÓVIL) --- */
+    /* --- 🖼️ CAPA INTERMEDIA (IMAGEN IZQUIERDA) --- */
     .mophra-middle-image-layer {
         position: fixed;
         top: 0;
@@ -79,94 +185,15 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 300vh;
+        height: 300vh; /* Ampliado para dar espacio al tracklist verticalmente */
         pointer-events: auto;
-        will-change: transform;
+        will-change: transform, width;
     }
 
-    /* --- 💎 TÍTULO PRINCIPAL --- */
-    .dolphian-title-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%; 
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        pointer-events: none !important;
-        box-sizing: border-box;
-        z-index: 15;
-    }
-
-    .dolphian-main-title {
-        font-family: 'RelicusMono', monospace !important;
-        font-size: clamp(2rem, 3.5vw, 5rem);
-        font-weight: 900;
-        color: #ffffff;
-        text-transform: uppercase;
-        text-align: center;
-        line-height: 0.9;
-        letter-spacing: -2px;
-        margin: 0;
-        text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
-        user-select: none;
-    }
-
-    /* --- 📜 INDICADOR DE SCROLL --- */
-    .mophra-scroll-indicator {
-        position: absolute;
-        top: 30px;
-        left: 35px;
-        font-family: 'RelicusMono', monospace !important;
-        font-size: 11px;
-        font-weight: 700;
-        color: rgba(255, 255, 255, 0.7);
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        z-index: 20;
-        pointer-events: none;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        user-select: none;
-    }
-    .mophra-scroll-indicator::after {
-        content: '↓';
-        font-size: 14px;
-        animation: scrollBounce 1.5s infinite ease-in-out;
-    }
-    @keyframes scrollBounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(4px); }
-    }
-
-    /* --- 🖼️ IMAGEN EXTRA DENTRO DEL SÓLIDO --- */
-    .mophra-extra-img-container {
-        position: absolute;
-        top: 100vh; /* Aparece justo al empezar a scrollear dentro del sólido */
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 30px 20px;
-        box-sizing: border-box;
-    }
-
-    .mophra-extra-img {
-        width: 100%;
-        max-width: 400px;
-        height: auto;
-        object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    /* --- 🎵 SECCIÓN DE DETALLES Y TRACKLIST --- */
+    /* --- 🎵 SECCIÓN DE DETALLES (TRACKLIST) ADAPTADA AL SÓLIDO --- */
     .mophra-inner-text-space {
         position: absolute;
-        top: 170vh; 
+        top: 175vh !important; /* Más cerca de la imagen anterior */
         left: 0;
         width: 100%;
         min-height: 100vh;
@@ -176,7 +203,7 @@
         align-items: center;
         color: white;
         font-family: 'RelicusMono', monospace;
-        padding: 20px 20px 80px 20px;
+        padding: 20px 20px 60px 20px; /* Padding superior más corto */
         box-sizing: border-box;
     }
 
@@ -224,6 +251,7 @@
         text-align: left;
     }
 
+    /* --- 🎛️ ESTILOS PARA TRACK ITEMS --- */
     .mophra-track-item {
         font-family: 'RelicusMono', monospace !important;
         color: rgba(255, 255, 255, 0.85);
@@ -349,66 +377,26 @@
         transform: scale(1.03);
     }
 
-    /* --- 📱 ADAPTACIÓN RESPONSIVE MÓVIL EXACTA --- */
     @media (max-width: 768px) {
         .mophra-middle-image-layer {
             width: 100vw !important;
             height: 100vh !important;
+            left: 0 !important;
         }
-
-        /* En móvil el sólido azul ocupa toda la pantalla al inicio y sube con el scroll */
-        .mophra-blue-solid {
-            position: absolute !important;
-            top: 0;
-            left: 0;
+        .mophra-layer-img {
             width: 100vw !important;
-            height: auto !important;
-            min-height: 100vh;
-            overflow: visible !important;
-            transform: none !important;
-        }
-
-        .mophra-solid-content {
-            position: relative !important;
-            top: auto !important;
-            left: auto !important;
-            width: 100vw !important;
-            height: auto !important;
-            transform: none !important;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .dolphian-title-container {
-            position: relative !important;
             height: 100vh !important;
+            object-fit: cover !important;
+        }
+        .mophra-solid-content {
             width: 100vw !important;
         }
-
-        .dolphian-main-title {
-            font-size: clamp(2.2rem, 7vw, 5rem);
-        }
-
-        .mophra-extra-img-container {
-            position: relative !important;
-            top: auto !important;
-            padding: 40px 20px 20px 20px !important;
-        }
-
-        .mophra-inner-text-space {
-            position: relative !important;
-            top: auto !important;
-            width: 100% !important;
-            min-height: auto !important;
-            padding: 20px 20px 80px 20px !important;
-        }
-
         .mophra-progress-container {
             width: 70px;
         }
     }
 
-    /* Estilos del menú global (intactos) */
+    /* Estilos del menú global (se mantienen intactos) */
     .mophra-global-container {
         position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
         width: 100% !important; height: 100vh !important;
@@ -520,7 +508,7 @@
 </head>
 <body>
 
-<!-- CAPA FONDO (Imagen izquierda) -->
+<!-- CAPA INTERMEDIA: Imagen del lado izquierdo -->
 <div class="mophra-middle-image-layer">
     <img src="../../../covers/016-voidstar.webp" alt="EP Art" class="mophra-layer-img">
 </div>
@@ -529,20 +517,20 @@
 <div class="mophra-blue-solid" id="mophraBlueSolid">
     <div class="mophra-solid-content" id="mophraSolidContent">
         
-        <!-- Indicador de Scroll -->
+        <!-- 📜 Indicador de Scroll -->
         <div class="mophra-scroll-indicator">SCROLL</div>
 
-        <!-- TÍTULO PRINCIPAL -->
+        <!-- CONTENEDOR DEL TÍTULO -->
         <div class="dolphian-title-container" id="dolphianTitleContainer">
             <h1 class="dolphian-main-title" id="dolphianTitle">HELEN IS AESTHETIC - HELEN IS AESTHETIC</h1>
         </div>
 
-        <!-- IMAGEN EXTRA DENTRO DEL SÓLIDO -->
+        <!-- 🖼️ NUEVA IMAGEN ANTES DEL CONTENIDO -->
         <div class="mophra-extra-img-container">
             <img src="../../../covers/001-backstage.webp" alt="Imagen Adicional" class="mophra-extra-img">
         </div>
 
-        <!-- TRACKLIST Y REPRODUCTOR -->
+        <!-- TRACKLIST Y REPRODUCTOR INTEGRADO -->
         <div class="mophra-inner-text-space">
             <div class="mophra-release-content">
                 <div class="mophra-details-grid">
@@ -690,8 +678,8 @@
     </div>
 </div>
     
-<!-- BLOQUE DE SCROLL GLOBAL -->
-<div style="height: 400vh; pointer-events: none;"></div>
+<!-- BLOQUE GLOBAL DE SCROLL (Ampliado para acomodar las secciones adicionales) -->
+<div style="height: 440vh; pointer-events: none;"></div>
 
 <!-- Menú Global -->
 <div class="mophra-global-container" id="mophraGlobalMenu">
@@ -726,7 +714,7 @@
     </nav>
 </div>
 
-<!-- Script de Selección -->
+<!-- Script de Selección de Texto -->
 <script>
 (function() {
     if (!document.getElementById('mophra-global-selection-style')) {
@@ -791,7 +779,7 @@
 })();
 </script>
 
-<!-- Script de Scroll y Audio -->
+<!-- Script de Dos Fases y Control de Audio del Tracklist -->
 <script>
 (function() {
     const blueSolid = document.getElementById('mophraBlueSolid');
@@ -802,8 +790,6 @@
     const isMobile = window.matchMedia("(max-width: 768px)");
 
     function updateScroll() {
-        if (isMobile.matches) return; // En móvil el scroll es nativo vertical
-
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         
@@ -812,26 +798,44 @@
         const halfScroll = maxScroll / 2;
 
         if (scrollTop <= halfScroll) {
+            // === FASE 1: Transición horizontal del Sólido ===
             let progress = scrollTop / halfScroll;
             if (progress > 1) progress = 1;
 
-            const currentTranslateX = progress * 50; 
-            const currentWidth = 100 - (progress * 50); 
-            
-            blueSolid.style.transform = `translateX(${currentTranslateX}vw)`;
-            blueSolid.style.width = `${currentWidth}vw`;
-            
-            if (solidContent) solidContent.style.width = `${currentWidth}vw`;
-            if (titleContainer) titleContainer.style.width = `${currentWidth}vw`;
+            if (isMobile.matches) {
+                blueSolid.style.transform = `translateY(-${progress * 100}%)`;
+                blueSolid.style.width = '100vw';
+                if (solidContent) solidContent.style.width = '100vw';
+                if (titleContainer) titleContainer.style.width = '100vw';
+            } else {
+                const currentTranslateX = progress * 50; 
+                const currentWidth = 100 - (progress * 50); 
+                
+                blueSolid.style.transform = `translateX(${currentTranslateX}vw)`;
+                blueSolid.style.width = `${currentWidth}vw`;
+                
+                if (solidContent) solidContent.style.width = `${currentWidth}vw`;
+                if (titleContainer) titleContainer.style.width = `${currentWidth}vw`;
+            }
+
             if (solidContent) solidContent.style.transform = `translateY(0px)`;
 
         } else {
-            blueSolid.style.transform = `translateX(50vw)`;
-            blueSolid.style.width = '50vw';
-            if (solidContent) solidContent.style.width = '50vw';
-            if (titleContainer) titleContainer.style.width = '50vw';
+            // === FASE 2: Sólido fijo en la mitad derecha y scroll vertical interno ===
+            if (isMobile.matches) {
+                blueSolid.style.transform = `translateY(-100%)`;
+                blueSolid.style.width = '100vw';
+                if (solidContent) solidContent.style.width = '100vw';
+                if (titleContainer) titleContainer.style.width = '100vw';
+            } else {
+                blueSolid.style.transform = `translateX(50vw)`;
+                blueSolid.style.width = '50vw';
+                if (solidContent) solidContent.style.width = '50vw';
+                if (titleContainer) titleContainer.style.width = '50vw';
+            }
 
             let verticalProgress = scrollTop - halfScroll; 
+            
             if (solidContent) {
                 solidContent.style.transform = `translateY(-${verticalProgress}px)`;
             }
@@ -846,6 +850,7 @@
     updateScroll();
 })();
 
+/* --- 🎵 SCRIPT DE REPRODUCTOR DE AUDIO GLOBAL --- */
 document.addEventListener('DOMContentLoaded', () => {
     const trackItems = document.querySelectorAll('.mophra-track-item');
     let currentAudio = null;
@@ -886,7 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             progressBar.style.width = percentage + '%';
                         }
                     }, 100);
-                }).catch(err => {});
+                }).catch(err => console.log("Error al reproducir audio:", err));
             } else {
                 audio.pause();
                 playBtn.textContent = '▶';
@@ -909,6 +914,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Control de marquesina para textos largos
     const wrappers = document.querySelectorAll('.track-marquee-wrapper');
     wrappers.forEach(wrapper => {
         const inner = wrapper.querySelector('.track-marquee-inner');
@@ -930,7 +936,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<!-- Cortina Metálica -->
+<!-- CORTINA METÁLICA DE TRANSICIÓN -->
 <link rel="preload" href="../../../resources/cortina.webp" as="image">
 <div id="cortina-transicion" class="cortina-contenedor">
     <img src="../../../resources/cortina.webp" alt="Cargando..." class="cortina-imagen">
