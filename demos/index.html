@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 1. Etiquetas para mitigar la caché del navegador -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-
-<!-- 2. Script de auto-recarga global -->
 <script>
   setInterval(async () => {
     try {
@@ -21,7 +18,6 @@
         window.location.reload();
       }
     } catch (err) {
-      // Silenciar errores de conexión temporal
     }
   }, 60000);
 </script>
@@ -57,10 +53,7 @@
       margin: 0 auto;
       padding: 40px 20px 80px 20px;
     }
-
-    /* ---------------------------------- */
     /* 1. TÍTULO ENTRADA                  */
-    /* ---------------------------------- */
     .title-entrance-container {
       display: flex;
       justify-content: center;
@@ -530,7 +523,7 @@
       submitBtn.innerText = 'Sending...';
 
       try {
-        const response = await fetch("https://formspree.io/f/xjgdkepb", {
+        const response = await fetch("https://formspree.io/f/meaojrez", {
           method: 'POST',
           body: new FormData(form),
           headers: { 'Accept': 'application/json' }
